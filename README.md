@@ -3,7 +3,8 @@ Praca inżynierska
 
 Frontend : 
 
-Vue
+React
+...
 
 
 Backend : 
