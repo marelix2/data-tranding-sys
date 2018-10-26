@@ -10,9 +10,11 @@ React
 Backend : 
 
 node.js with express,
-mongoose
+sequalize
+
+
 
 
 BD : 
 
-mongoDB
+sqlite 3
