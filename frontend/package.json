@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.10.2",
+    "babel-plugin-react-css-modules-transform": "^1.5.5",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-scripts": "2.0.5"
@@ -22,5 +23,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "styled-components": "^4.0.2"
+  }
 }
