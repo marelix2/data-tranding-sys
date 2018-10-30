@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Menu, Icon, Button } from 'antd';
+import logo from './../../assets/logo.png';
+
 import './HeaderMenu.styles.css';
 
 const SubMenu = Menu.SubMenu;
@@ -26,15 +28,16 @@ class HeaderMenu extends Component {
                     justify='space-between'
                     align='middle'>
                     <Col span={20}>
-                        <Row>
+                        <Row type='flex'
+                            justify='start'
+                            align='middle'>
                             <Col span={1}>
                                 <Button ghost={true} onClick={() => this.state.toggleCollapsed()} style={{ marginBottom: 16 }}>
                                     <Icon type={this.state.collapsed ? 'menu-fold' : 'menu-unfold'} />
                                 </Button>
                             </Col>
-                            <Col span={10}>
-                                <div className='header-logo'>
-                                </div>
+                            <Col span={2}>
+                                <img class="header-logo" src={logo} alt="logo of trading system"/>
                             </Col>
                         </Row>
                     </Col>
