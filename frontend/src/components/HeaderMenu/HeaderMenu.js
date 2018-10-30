@@ -15,7 +15,7 @@ class AppLayout extends Component {
                         <Row>
                             <Col span={2}>
                                 <Button type="dark" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-                                    <Icon type={'menu-fold'} />
+                                    <Icon type={'menu-unfold'} />
                                 </Button>
                             </Col>
                             <Col span={10}>
