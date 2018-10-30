@@ -4,18 +4,32 @@ import './HeaderMenu.styles.css';
 
 const SubMenu = Menu.SubMenu;
 
-class AppLayout extends Component {
+class HeaderMenu extends Component {
+    constructor(props) {
+        super(props);   
+        this.state = {
+            toggleCollapsed: props.onChangeCollapse,
+            collapsed: props.sideMenuCollapsed
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.sideMenuCollapsed !== this.state.collapsed) {
+            this.setState({ collapsed: nextProps.sideMenuCollapsed });
+        }
+    }
+
     render() {
         return (
             <div>
                 <Row type='flex'
                     justify='space-between'
                     align='middle'>
-                    <Col span={18}>
+                    <Col span={20}>
                         <Row>
-                            <Col span={2}>
-                                <Button type="dark" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-                                    <Icon type={'menu-unfold'} />
+                            <Col span={1}>
+                                <Button ghost={true} onClick={() => this.state.toggleCollapsed()} style={{ marginBottom: 16 }}>
+                                    <Icon type={this.state.collapsed ? 'menu-fold' : 'menu-unfold'} />
                                 </Button>
                             </Col>
                             <Col span={10}>
@@ -24,7 +38,7 @@ class AppLayout extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={6}>
+                    <Col span={4}>
                         <Menu
                             mode='horizontal'
                             theme='dark'
@@ -42,4 +56,4 @@ class AppLayout extends Component {
     }
 }
 
-export default AppLayout;
+export default HeaderMenu;

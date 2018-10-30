@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Button } from 'antd';
+import { Menu, Icon} from 'antd';
 
 const SubMenu = Menu.SubMenu;
 
 class SideBarMenu extends Component {
-    constructor(props){
-        super(props);
-        
-            this.state = {
-                collapsed: true,
-            }
-    }
+
     render() {
+    
         return (
             <div>
                 <Menu
@@ -19,7 +14,6 @@ class SideBarMenu extends Component {
                     defaultOpenKeys={['sub1','sub2']}
                     mode="inline"
                     theme="dark"
-                    inlineCollapsed={this.state.collapsed}
                 >
                     <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
                         <Menu.Item key="5">Option 5</Menu.Item>
