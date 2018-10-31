@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Menu, Icon, Button } from 'antd';
 import logo from './../../assets/logo.png';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import  HomeView from './../../view/HomeView/HomeView';
 
 import './HeaderMenu.styles.css';
 
@@ -8,7 +10,7 @@ const SubMenu = Menu.SubMenu;
 
 class HeaderMenu extends Component {
     constructor(props) {
-        super(props);   
+        super(props);
         this.state = {
             toggleCollapsed: props.onChangeCollapse,
             collapsed: props.sideMenuCollapsed
@@ -23,6 +25,7 @@ class HeaderMenu extends Component {
 
     render() {
         return (
+           
             <div>
                 <Row type='flex'
                     justify='space-between'
@@ -37,7 +40,9 @@ class HeaderMenu extends Component {
                                 </Button>
                             </Col>
                             <Col span={2}>
-                                <img class="header-logo" src={logo} alt="logo of trading system"/>
+                                    
+                                    <img class="header-logo" src={logo} alt="logo of trading system" />
+                                
                             </Col>
                         </Row>
                     </Col>
@@ -55,6 +60,8 @@ class HeaderMenu extends Component {
                     </Col>
                 </Row>
             </div>
+           
+           
         );
     }
 }

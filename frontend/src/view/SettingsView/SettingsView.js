@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class HomeView extends Component {
+class SettingsView extends Component {
     constructor(props) {
         super(props);
         this.state = {}
@@ -9,10 +9,10 @@ class HomeView extends Component {
     render() {
         return(
             <div>
-                home view
+                settings view
             </div>
         );
     }
 }
 
-export default HomeView;
+export default SettingsView;
