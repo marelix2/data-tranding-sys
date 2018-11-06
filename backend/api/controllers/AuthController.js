@@ -1,4 +1,4 @@
-const { connect } = require('./google.servie');
+const { connect } = require('./../services/google.servie');
 
 const defaultScope = [
     'https://www.googleapis.com/auth/plus.me',
@@ -16,6 +16,7 @@ const AuthController = () => {
 
     const urlGoogle = () => {
         const auth = connect();
+        console.log(JSON.stringify(auth,null,1));
         const url = getConnectionUrl(auth);
         return url;
     }

@@ -1,4 +1,4 @@
 const publicRoutes = {
-    'GET /login/google': 'NodeController.getAllNodes', 
+    'GET /login/google': 'AuthController.urlGoogle', 
 };
 module.exports = publicRoutes;
