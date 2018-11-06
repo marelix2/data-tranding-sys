@@ -46,6 +46,17 @@ server.listen(config.port, () => {
 });
 
 
+require('./api/models/Category');
+require('./api/models/Tag');
+require('./api/models/Role');
+require('./api/models/User');
+require('./api/models/Wallet');
+require('./api/models/BoughtData');
+require('./api/models/SoldData');
+require('./api/models/Email');
+require('./api/models/Company');
+require('./api/models/RowSatus');
+
 
 module.exports = app;
 
