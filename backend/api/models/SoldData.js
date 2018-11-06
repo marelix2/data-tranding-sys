@@ -17,8 +17,8 @@ const SoldData = sequelize.define('SoldData', {
     }
 }, { hooks, tableName });
 
-SoldData.hasMany(Company, { as: 'Company', foreignKey: 'fk_company_id' });
-SoldData.hasMany(Email, { as: 'Email', foreignKey: 'fk_email_id' });
+SoldData.hasMany(Company, { as: 'Company', foreignKey: 'fk_st_company_id' });
+SoldData.hasMany(Email, { as: 'Email', foreignKey: 'fk_st_email_id' });
 
 
 // eslint-disable-next-line

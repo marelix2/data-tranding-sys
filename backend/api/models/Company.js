@@ -18,6 +18,7 @@ const Company = sequelize.define('Company', {
 
 Company.hasMany(RowStatus, { as: 'RowStatus', foreignKey: 'fk_data_id' });
 
+
 // eslint-disable-next-line
 Company.prototype.toJSON = function () {
     const values = Object.assign({}, this.get());

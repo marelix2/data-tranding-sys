@@ -6,7 +6,7 @@ const hooks = {
 
 };
 
-const tableName = 'Categories';
+const tableName = 'Category';
 
 const Category = sequelize.define('Category', {
     name: {
