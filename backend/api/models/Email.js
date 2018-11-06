@@ -16,7 +16,7 @@ const Email = sequelize.define('Email', {
     }
 }, { hooks, tableName });
 
-Email.hasMany(RowStatus, { as: 'RowStatus', foreignKey: 'fk_row_status_id' });
+Email.hasMany(RowStatus, { as: 'RowStatus', foreignKey: 'fk_data_id' });
 
 
 // eslint-disable-next-line

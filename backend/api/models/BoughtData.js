@@ -16,7 +16,7 @@ const BoughtData = sequelize.define('BoughtData', {
     }
 }, { hooks, tableName });
 
-BoughtData.hasMany(RowStatus, { as: 'RowStatus', foreignKey: 'fk_row_status_id' });
+BoughtData.hasMany(RowStatus, { as: 'RowStatus', foreignKey: 'fk_bdb_id' });
 
 // eslint-disable-next-line
 BoughtData.prototype.toJSON = function () {
