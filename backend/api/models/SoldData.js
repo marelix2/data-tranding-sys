@@ -20,7 +20,6 @@ const SoldData = sequelize.define('SoldData', {
 SoldData.hasMany(Company, { as: 'Company', foreignKey: 'fk_st_company_id' });
 SoldData.hasMany(Email, { as: 'Email', foreignKey: 'fk_st_email_id' });
 
-
 // eslint-disable-next-line
 SoldData.prototype.toJSON = function () {
     const values = Object.assign({}, this.get());
