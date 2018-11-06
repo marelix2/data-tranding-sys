@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Menu, Icon, Button } from 'antd';
 import logo from './../../assets/logo.png';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-
-import  './HeaderMenu.styles.css';
+import { Link } from 'react-router-dom';
+import './HeaderMenu.styles.css';
 
 const SubMenu = Menu.SubMenu;
 
@@ -14,10 +13,10 @@ class HeaderMenu extends Component {
             toggleCollapsed: props.onChangeCollapse,
             collapsed: props.sideMenuCollapsed
         }
-    
+
     }
 
-   
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.sideMenuCollapsed !== this.state.collapsed) {
@@ -38,7 +37,7 @@ class HeaderMenu extends Component {
                             align='middle'>
                             <Col span={1}>
                                 <Button ghost={true} onClick={() => this.state.toggleCollapsed()} style={{ marginBottom: 16 }}>
-                                    <Icon type={this.state.collapsed ? 'menu-fold' : 'menu-unfold'} />
+                                    <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                                 </Button>
                             </Col>
                             <Col span={2}>
@@ -55,8 +54,10 @@ class HeaderMenu extends Component {
                         >
                             <Menu.Item key="a"> user </Menu.Item>
                             <SubMenu title={<span className="submenu-title-wrapper"><Icon type="setting" />Opcje</span>}>
-                                <Menu.Item key="setting:1">Ustawienia</Menu.Item>
-                                <Menu.Item key="setting:2">Wyloguj</Menu.Item>
+                               
+                                    <Menu.Item key="setting:1"> <Link to='/settings'>Ustawienia </Link></Menu.Item>
+                                    <Menu.Item key="setting:2"><Link to='/'>Wyloguj</Link></Menu.Item>
+                            
                             </SubMenu>
                         </Menu>
                     </Col>
