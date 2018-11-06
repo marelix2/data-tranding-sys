@@ -1,5 +1,4 @@
-const privateRoutes = {
-  //  'PUT /node': 'NodeController.getAllNodes',   
+const privateRoutes = {  
 };
 
 module.exports = privateRoutes;
