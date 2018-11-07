@@ -15,11 +15,10 @@ const dbService = require('./api/services/db.service');
 
 const environment = 'development';
 
-console.log(`\n\n Server is running on port: localhost:${config.port} \n\n`);
+console.log(`\n\n Server is running on: localhost:${config.port} \n\n`);
 
 const app = express();
 const server = http.Server(app);
-console.log(config);
 const mappedOpenRoutes = mapRoutes(config.publicRoutes, 'api/controllers/');
 const mappedAuthRoutes = mapRoutes(config.privateRoutes, 'api/controllers/');
 const DB = dbService(environment, config.migrate).start();

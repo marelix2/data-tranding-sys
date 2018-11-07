@@ -1,4 +1,5 @@
 const { connect } = require('./../services/google.servie');
+const { OK, BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 
 const defaultScope = [
     'https://www.googleapis.com/auth/plus.me',
@@ -14,11 +15,17 @@ const AuthController = () => {
         });
     }
 
-    const urlGoogle = () => {
-        const auth = connect();
-        console.log(JSON.stringify(auth,null,1));
-        const url = getConnectionUrl(auth);
-        return url;
+    const urlGoogle = (req, res) => {
+
+        try {
+            const auth = connect();
+            const url = getConnectionUrl(auth);
+
+            return res.status(OK).json({ url });
+        } catch (error) {
+            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something goes wrong: ${error}`));
+        }
+
     }
 
     return {
