@@ -13,7 +13,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-          <Route exact path="/" render={() => (
+          <Route path="/" render={() => (
             IsUserLoggedIn() ? (
               <Dashboard />
             ) : (

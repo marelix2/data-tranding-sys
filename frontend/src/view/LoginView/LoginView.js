@@ -3,6 +3,7 @@ import { Row, Col } from 'antd';
 import LoginBox from './innerComponents/LoginBox';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
+import { BrowserRouter as Router, Route, Link ,Redirect} from 'react-router-dom';
 
 class LoginView extends Component {
     constructor(props) {
@@ -23,6 +24,9 @@ class LoginView extends Component {
                     justify='center'
                     align='center'>
                     <Col span={12}> <LoginBox url={this.state.url}/> </Col>
+                    <Route path='/login/:callback' render={(match) => {
+                            console.log([match])
+                    }}/>
                 </Row>
             </div>
         );

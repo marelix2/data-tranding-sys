@@ -1,5 +1,5 @@
 const IsUserLoggedIn = () => {
-    return true;
+    return false;
 }
 
 module.exports = {
