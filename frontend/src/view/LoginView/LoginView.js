@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'antd';
 
 class LoginView extends Component {
     constructor(props) {
@@ -7,9 +8,13 @@ class LoginView extends Component {
     }
 
     render() {
-        return(
+        return (
             <div>
-               LoginView
+                <Row type='flex'
+                    justify='center'
+                    align='center'>
+                    <Col span={12}> co tam </Col>
+                </Row>
             </div>
         );
     }
