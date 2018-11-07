@@ -16,7 +16,6 @@ const AuthController = () => {
     }
 
     const urlGoogle = (req, res) => {
-
         try {
             const auth = connect();
             const url = getConnectionUrl(auth);

@@ -11,7 +11,7 @@ class LoginView extends Component {
     }
     componentDidMount() {
         axios.get(Api.GET_GOOGLE_URL).then( (response) => {
-            console.log(JSON.stringify(response));
+            this.setState({url : response.data.url});
         })
 
     }
@@ -22,7 +22,7 @@ class LoginView extends Component {
                 <Row type='flex'
                     justify='center'
                     align='center'>
-                    <Col span={12}> <LoginBox/> </Col>
+                    <Col span={12}> <LoginBox url={this.state.url}/> </Col>
                 </Row>
             </div>
         );
