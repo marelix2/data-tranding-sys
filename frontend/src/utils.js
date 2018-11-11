@@ -1,5 +1,5 @@
 const IsUserLoggedIn = () => {
-    return false;
+    return localStorage.getItem('code') ? true : false;
 }
 
 module.exports = {

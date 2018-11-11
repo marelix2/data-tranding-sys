@@ -15,11 +15,18 @@ class HeaderMenu extends Component {
         }
     }
 
+    logoutHandle = () => {
+        localStorage.removeItem('code');
+        localStorage.removeItem('avatar');
+        localStorage.removeItem('username');
+        localStorage.removeItem('email');
+    };
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.sideMenuCollapsed !== this.state.collapsed) {
             this.setState({ collapsed: nextProps.sideMenuCollapsed });
         }
-    }
+    };
 
     render() {
         return (
@@ -53,7 +60,7 @@ class HeaderMenu extends Component {
                             <SubMenu title={<span className="submenu-title-wrapper"><Icon type="setting" />Opcje</span>}>
 
                                 <Menu.Item key="setting:1"> <Link to='/settings'>Ustawienia </Link></Menu.Item>
-                                <Menu.Item key="setting:2"><Link to='/'>Wyloguj</Link></Menu.Item>
+                                <Menu.Item key="setting:2" onClick={() => this.logoutHandle()}><Link to='/'>Wyloguj</Link></Menu.Item>
 
                             </SubMenu>
                         </Menu>

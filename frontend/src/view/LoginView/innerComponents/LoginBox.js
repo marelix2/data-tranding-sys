@@ -7,7 +7,6 @@ class LoginBox extends Component {
         this.state = {
             url: props.url,
         }
-        console.log(props.url, 'state url')
     }
 
     componentWillReceiveProps(nextProps) {
