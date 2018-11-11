@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import './../App.css';
 import 'antd/dist/antd.css';
 import Dashboard from './../view/DasboardView/DasboardView';
-import { BrowserRouter as Router, Route, Link ,Redirect} from 'react-router-dom';
+import MainPageView from './../view/MainPageView/MainPageView';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { IsUserLoggedIn } from './../utils';
 import "./../styles/global.css";
-import LoginView from '../view/LoginView/LoginView';
+
 
 class App extends Component {
   render() {
@@ -13,14 +14,14 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-          <Route path="/" render={() => (
-            IsUserLoggedIn() ? (
-              <Dashboard />
-            ) : (
-              <Redirect to={{pathname: "/login"}}/>
-              ))} />
-              <Route path='/login' component={LoginView}/>
-              </div>
+            <Route path="/" render={() => (
+              IsUserLoggedIn() ? (
+                <Redirect to={{ pathname: "/dashboard" }} />
+              ) : (
+                  <MainPageView />
+                ))} />
+            <Route path='/dashboard' component={Dashboard} />
+          </div>
         </Router>
       </div>
     );

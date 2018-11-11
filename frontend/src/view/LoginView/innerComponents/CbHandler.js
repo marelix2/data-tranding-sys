@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from './../../../axiosAPI';
 import API from './../../../endpoints';
+import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 
 class CbHandler extends Component {
     constructor(props) {
         super(props);
         this.state = { 
             searchParams: new URLSearchParams(props.location.search),
+            toDashboard: false,
         }
         
     }
@@ -18,8 +20,12 @@ class CbHandler extends Component {
     onPostHandler = () => {
         axios.post(API.POST_GOOGLE_CODE, { code: this.extractParams()})
         .then((response) => {
-            // to do redirect + utils
-            console.log('response',[response])
+            const {email,avatar,username,code} = response.data.user;
+            localStorage.setItem('email',email);
+            localStorage.setItem('avatar', avatar);
+            localStorage.setItem('username', username);
+            localStorage.setItem('code', code);
+            this.setState({toDashboard: true});
         });
     };
 
@@ -28,6 +34,10 @@ class CbHandler extends Component {
     }
 
     render() {
+
+        if (this.state.toDashboard === true) {
+            return <Redirect to='/' />
+        }
         return (
             <div>
             </div>
