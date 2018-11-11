@@ -13,10 +13,7 @@ class HeaderMenu extends Component {
             toggleCollapsed: props.onChangeCollapse,
             collapsed: props.sideMenuCollapsed
         }
-
     }
-
-
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.sideMenuCollapsed !== this.state.collapsed) {
@@ -54,10 +51,10 @@ class HeaderMenu extends Component {
                         >
                             <Menu.Item key="a"> user </Menu.Item>
                             <SubMenu title={<span className="submenu-title-wrapper"><Icon type="setting" />Opcje</span>}>
-                               
-                                    <Menu.Item key="setting:1"> <Link to='/settings'>Ustawienia </Link></Menu.Item>
-                                    <Menu.Item key="setting:2"><Link to='/'>Wyloguj</Link></Menu.Item>
-                            
+
+                                <Menu.Item key="setting:1"> <Link to='/settings'>Ustawienia </Link></Menu.Item>
+                                <Menu.Item key="setting:2"><Link to='/'>Wyloguj</Link></Menu.Item>
+
                             </SubMenu>
                         </Menu>
                     </Col>

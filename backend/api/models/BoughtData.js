@@ -1,5 +1,5 @@
 const { STRING } = require('sequelize');
-const RowStatus = require('./RowSatus');
+const RowStatus = require('./RowStatus');
 
 const sequelize = require('../../config/database');
 
