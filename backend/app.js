@@ -7,9 +7,6 @@ const http = require('http');
 const mapRoutes = require('express-routes-mapper');
 const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 const config = require('./config/');
 const dbService = require('./api/services/db.service');
 
@@ -30,16 +27,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
     res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
     next();
 });
-
 
 // fill routes for express appliction
 app.use(`${config.apiPath}/public`, mappedOpenRoutes);
@@ -56,7 +49,6 @@ server.listen(config.port, () => {
     return DB;
 });
 
-
 require('./api/models/Category');
 require('./api/models/Tag');
 require('./api/models/Role');
@@ -66,7 +58,7 @@ require('./api/models/BoughtData');
 require('./api/models/SoldData');
 require('./api/models/Email');
 require('./api/models/Company');
-require('./api/models/RowSatus');
+require('./api/models/RowStatus');
 
 
 module.exports = app;
