@@ -19,6 +19,7 @@ class CbHandler extends Component {
         axios.post(API.POST_GOOGLE_CODE, { code: this.extractParams()})
         .then((response) => {
             // to do redirect + utils
+            console.log('response',[response])
         });
     };
 

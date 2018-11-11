@@ -16,17 +16,20 @@ const User = sequelize.define('User', {
     type: STRING,
     unique: true,
   },
-  name: {
+  googleId: {
     type: STRING,
+    unique: true,
   },
-  surname: {
+  email: {
     type: STRING,
+    unique: true,
   },
-  register_date: {
-    type: DATE
+  avatar: {
+    type: STRING,
+    unique: true,
   },
-  last_login_date: {
-    type: DATE
+  code: {
+    type: STRING
   }
 }, { hooks, tableName });
 
