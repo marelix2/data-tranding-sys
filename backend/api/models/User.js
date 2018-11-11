@@ -26,10 +26,6 @@ const User = sequelize.define('User', {
   },
   avatar: {
     type: STRING,
-    unique: true,
-  },
-  code: {
-    type: STRING
   }
 }, { hooks, tableName });
 

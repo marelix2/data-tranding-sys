@@ -5,36 +5,41 @@ const { getGoogleAccountFromCode } = require('./google.service')
 
 const User = require('./../models/User');
 
-const isUserRegistered = async (code) => {
+const isUserRegistered = async (auth,code) => {
 
     try {
-        const user = await User.findOne({ where: { code: code } });
-        if (user) return true;
+        const userInfo = await getGoogleAccountFromCode(auth, code);
+        if (userInfo.error) {
+            throw user.error;
+        }else {
+            const user = await User.findOne({ where: { username: userInfo.username} });
+            if (user) return true;
+        }
+      
     } catch (err) {
-        throw new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
+        return new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
     }
 
     return false;
 }
 
 const registerUser = async (auth, code) => {
-
+    console.log("co tam");
     try {
         const userInfo = await getGoogleAccountFromCode(auth, code);
         if (userInfo.error) {
-            throw user.error;
+            return user.error;
         } else {
             return await User.create({
                 username: userInfo.name,
                 googleId: userInfo.googleId,
                 email: userInfo.email,
-                avatar: userInfo.avatar,
-                code: code
+                avatar: userInfo.avatar
             })
         }
 
     } catch (err) {
-        throw new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
+        return new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
     }
 }
 
@@ -42,7 +47,7 @@ const getUser = async (code) => {
     try {
         return await User.findOne({ where: { code: code } });
     } catch (err) {
-        throw new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
+        return new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
     }
 }
 

@@ -20,10 +20,9 @@ const getGooglePlusApi = async (auth)  => {
 
 const getGoogleAccountFromCode = async (previousAuth,code) =>  {
 
-
     try {
-        const data = await previousAuth.getToken(code);
-        const tokens = data.tokens;
+    const data = await previousAuth.getToken(code);
+    const tokens = data.tokens;
 
     const auth = connect();
     auth.setCredentials(tokens);
@@ -36,7 +35,6 @@ const getGoogleAccountFromCode = async (previousAuth,code) =>  {
     const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
     const userGoogleName = me.data.displayName;
     const userGoogleAvatar = me.data.image.url;
-    console.log(JSON.stringify(me.data,null,1))
     return {
         error: null,
         id: userGoogleId,

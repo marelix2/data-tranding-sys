@@ -34,8 +34,12 @@ const AuthController = () => {
         const {code} = req.body;
         try {
             let user;
-            const userRegistered = await isUserRegistered(code);
+            const userRegistered = await isUserRegistered(auth,code);
+
+            console.log(userRegistered);
+
             if (!userRegistered){
+                console.log()
                 user = await registerUser(auth,code);
             }else {
                 user = await getUser(code);
