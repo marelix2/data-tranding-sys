@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import axios from './../../../axiosAPI';
-import API from './../../../endpoints';
+import axios from '../../../axiosAPI';
+import API from '../../../endpoints';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
+import {Spin} from 'antd';
 
 class CbHandler extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class CbHandler extends Component {
     }
 
     onPostHandler = () => {
+
         axios.post(API.POST_GOOGLE_CODE, { code: this.extractParams()})
         .then((response) => {
             const {email,avatar,username,code} = response.data.user;
@@ -25,7 +27,8 @@ class CbHandler extends Component {
             localStorage.setItem('avatar', avatar);
             localStorage.setItem('username', username);
             localStorage.setItem('code', code);
-            this.setState({toDashboard: true});
+            console.log('jestem');
+            this.setState({ toDashboard: true });
         });
     };
 
@@ -38,6 +41,7 @@ class CbHandler extends Component {
         if (this.state.toDashboard === true) {
             return <Redirect to='/' />
         }
+    
         return (
             <div>
             </div>

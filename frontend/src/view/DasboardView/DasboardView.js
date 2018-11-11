@@ -5,13 +5,13 @@ import SideBarMenu from './../../components/SiteBarMenu/SideBarMenu';
 import { Route } from 'react-router-dom';
 import HomeView from './../HomeView/HomeView';
 import SettingsView from './../SettingsView/SettingsView';
+import TsFooter from './../../components/TsFooter/TsFooter';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             sideMenuCollapsed: false,
         }
@@ -42,14 +42,12 @@ class Dashboard extends Component {
                     </Sider>
                     <Content style={{ minHeight: '86.4vh' }}>
                         <div>
-                            <Route exact path="/" component={HomeView} />
-                            <Route path="/settings" component={SettingsView} />
+                            <Route exact path={`${this.props.match.path}/home`} component={HomeView} />
+                            <Route path={`${this.props.match.path}/settings`} component={SettingsView} />
                         </div>
                     </Content>
                 </Layout >
-                <Footer style={{ background: '#001529', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Data-trading system © 2018
-                 </Footer>
+                <TsFooter />
             </Layout>
         );
     }

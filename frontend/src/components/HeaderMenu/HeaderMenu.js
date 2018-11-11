@@ -45,7 +45,7 @@ class HeaderMenu extends Component {
                                 </Button>
                             </Col>
                             <Col span={2}>
-                                <Link to='/'>
+                                <Link to='/dashboard/home'>
                                     <img class='headerLogo' src={logo} alt="logo of trading system" />
                                 </Link>
                             </Col>
@@ -59,7 +59,7 @@ class HeaderMenu extends Component {
                             <Menu.Item key="a"> user </Menu.Item>
                             <SubMenu title={<span className="submenu-title-wrapper"><Icon type="setting" />Opcje</span>}>
 
-                                <Menu.Item key="setting:1"> <Link to='/settings'>Ustawienia </Link></Menu.Item>
+                                <Menu.Item key="setting:1"> <Link to='/dashboard/settings'>Ustawienia </Link></Menu.Item>
                                 <Menu.Item key="setting:2" onClick={() => this.logoutHandle()}><Link to='/'>Wyloguj</Link></Menu.Item>
 
                             </SubMenu>

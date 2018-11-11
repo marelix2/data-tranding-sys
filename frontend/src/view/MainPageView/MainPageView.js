@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
-import axios from './../../axiosAPI';
-import Api from './../../endpoints';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import {  Route} from 'react-router-dom';
 import LoginView from '../LoginView/LoginView';
+import {Layout} from 'antd';
+import MainPageHeader from './innerComonents/HeaderMenu/MainPageHeader';
+import TsFooter from '../../components/TsFooter/TsFooter';
 
+const { Header, Content } = Layout;
 class MainPageView extends Component {
     constructor(props) {
         super(props);
@@ -14,8 +16,16 @@ class MainPageView extends Component {
     render() {
         return (
             <div>
-                <p>main page</p>
-                <LoginView/>
+                <Layout>
+                    <Header>
+                        <MainPageHeader/>
+                    </Header>
+                    <Layout>
+                        <Content style={{ minHeight: '86.4vh' }}>
+                        </Content>
+                    </Layout >
+                    <TsFooter/>
+                </Layout>
             </div>
         );
     }

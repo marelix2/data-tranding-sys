@@ -39,12 +39,11 @@ const AuthController = () => {
             console.log(userRegistered);
 
             if (!userRegistered){
-                console.log()
                 user = await registerUser(auth,code);
             }else {
                 user = await getUser(code);
             }
-
+            
             return res.status(OK).json({user});
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something goes wrong: ${error}`));
