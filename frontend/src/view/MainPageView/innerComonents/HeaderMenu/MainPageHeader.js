@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Menu, Icon} from 'antd';
 import logo from './../../../../assets/logo.png';
 import { Link,Route } from 'react-router-dom';
-import './HeaderMenu.styles.css';
+import './MainPageHeader.css';
 import LoginView from '../../../LoginView/LoginView';
 import CbHandler from '../CbHandler';
 
@@ -41,7 +41,7 @@ class MainPageHeader extends Component {
                         <Menu
                             mode='horizontal'
                             theme='dark'>
-                            <SubMenu title={<span className="submenu-title-wrapper"><Icon type="setting" />Zaloguj</span>}>
+                            <SubMenu title={<span className="submenu-title-wrapper">Zaloguj<Icon type="down" /></span>}>
                                 <Menu.Item key="setting:1"><LoginView/></Menu.Item>
                             </SubMenu>
                         </Menu>

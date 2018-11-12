@@ -14,6 +14,8 @@ class MainPageView extends Component {
     }
 
     render() {
+
+
         return (
             <div>
                 <Layout>
@@ -21,7 +23,7 @@ class MainPageView extends Component {
                         <MainPageHeader/>
                     </Header>
                     <Layout>
-                        <Content style={{ minHeight: '86.4vh' }}>
+                        <Content>
                         </Content>
                     </Layout >
                     <TsFooter/>
