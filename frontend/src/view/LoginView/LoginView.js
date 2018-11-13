@@ -22,7 +22,7 @@ class LoginView extends Component {
                 <Row type='flex'
                     justify='center'
                     align='center'>
-                    <Col span={12}> <LoginBox url={this.state.url}/> </Col>
+                    <Col span={24}> <LoginBox url={this.state.url}/> </Col>
                 </Row>
             </div>
         );

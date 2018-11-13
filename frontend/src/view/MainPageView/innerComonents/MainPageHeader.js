@@ -18,7 +18,6 @@ class MainPageHeader extends Component {
 
      menu = (
         <Menu
-        mode='horizontal'
         theme='dark'>
         <Menu.Item key="setting:1"><LoginView/></Menu.Item>
         </Menu>

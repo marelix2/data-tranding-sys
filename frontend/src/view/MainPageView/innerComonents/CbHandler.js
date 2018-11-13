@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../../axiosAPI';
 import API from '../../../endpoints';
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
-import {Spin} from 'antd';
+import {Redirect } from 'react-router-dom';
 
 class CbHandler extends Component {
     constructor(props) {

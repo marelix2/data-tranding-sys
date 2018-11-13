@@ -7,7 +7,7 @@ import HomeView from './../HomeView/HomeView';
 import SettingsView from './../SettingsView/SettingsView';
 import TsFooter from './../../components/TsFooter/TsFooter';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 class Dashboard extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class Dashboard extends Component {
     render() {
         return (
             <Layout>
-                <Header>
+                <Header style={{ height: '6vh' }}>
                     <HeaderMenu sideMenuCollapsed={this.state.sideMenuCollapsed} onChangeCollapse={this.handleChangeCollapse} />
                 </Header>
                 <Layout>
@@ -40,7 +40,7 @@ class Dashboard extends Component {
                             <SideBarMenu />
                         </div>
                     </Sider>
-                    <Content style={{ minHeight: '86.4vh' }}>
+                    <Content style={{ minHeight: '94vh' }}>
                         <div>
                             <Route exact path={`${this.props.match.path}/home`} component={HomeView} />
                             <Route path={`${this.props.match.path}/settings`} component={SettingsView} />
