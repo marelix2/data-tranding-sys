@@ -6,6 +6,7 @@ import TsSlider from '../../components/TsSlider/TsSlider';
 import slider1 from './../../assets/slider/slider1.jpg';
 import slider2 from './../../assets/slider/slider2.png';
 import slider3 from './../../assets/slider/slider3.jpg';
+import CommentSection from './innerComonents/CommentSection';
 
 const { Header, Content } = Layout;
 class MainPageView extends Component {
@@ -25,6 +26,11 @@ class MainPageView extends Component {
                 src:slider3,
                 altText:'slider 3'
                  }
+                ],
+                commentsData: [
+                    {},
+                    {},
+                    {},
                 ]
         }
     }
@@ -41,6 +47,7 @@ class MainPageView extends Component {
                     <Layout>
                         <Content style={{ minHeight: '94vh' }}>
                             <TsSlider displayableContent={this.state.sliderData} autopaly='true'></TsSlider>
+                            <CommentSection></CommentSection>
                         </Content>
                     </Layout >
                     <TsFooter/>
