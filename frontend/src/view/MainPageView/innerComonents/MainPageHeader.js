@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Row, Col, Menu, Icon} from 'antd';
-import logo from './../../../../assets/logo.png';
+import { Row, Col, Menu, Icon,Dropdown,Button} from 'antd';
+import logo from './../../../assets/logo.png';
 import { Link,Route } from 'react-router-dom';
 import './MainPageHeader.css';
-import LoginView from '../../../LoginView/LoginView';
-import CbHandler from '../CbHandler';
-
-const SubMenu = Menu.SubMenu;
+import LoginView from '../../LoginView/LoginView';
+import CbHandler from './CbHandler';
 
 class MainPageHeader extends Component {
     constructor(props) {
@@ -17,7 +15,18 @@ class MainPageHeader extends Component {
         }
     }
 
+
+     menu = (
+        <Menu
+        mode='horizontal'
+        theme='dark'>
+        <Menu.Item key="setting:1"><LoginView/></Menu.Item>
+        </Menu>
+     );
+
     render() {
+        
+
         return (
 
             <div>
@@ -38,13 +47,9 @@ class MainPageHeader extends Component {
                         </Row>
                     </Col>
                     <Col span={4}>
-                        <Menu
-                            mode='horizontal'
-                            theme='dark'>
-                            <SubMenu title={<span className="submenu-title-wrapper">Zaloguj<Icon type="down" /></span>}>
-                                <Menu.Item key="setting:1"><LoginView/></Menu.Item>
-                            </SubMenu>
-                        </Menu>
+                    <Dropdown overlay={this.menu} placement="bottomCenter">
+                    <Button type='primary'>Zaloguj  <Icon type="down" /></Button>
+                    </Dropdown>
                     </Col>
                 </Row>
 

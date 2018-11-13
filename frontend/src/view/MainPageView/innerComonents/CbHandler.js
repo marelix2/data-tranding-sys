@@ -27,7 +27,6 @@ class CbHandler extends Component {
             localStorage.setItem('avatar', avatar);
             localStorage.setItem('username', username);
             localStorage.setItem('code', code);
-            console.log('jestem');
             this.setState({ toDashboard: true });
         });
     };

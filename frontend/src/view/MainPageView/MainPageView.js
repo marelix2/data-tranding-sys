@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import {  Route} from 'react-router-dom';
 import LoginView from '../LoginView/LoginView';
 import {Layout} from 'antd';
-import MainPageHeader from './innerComonents/HeaderMenu/MainPageHeader';
+import MainPageHeader from './innerComonents/MainPageHeader';
 import TsFooter from '../../components/TsFooter/TsFooter';
 
 const { Header, Content } = Layout;

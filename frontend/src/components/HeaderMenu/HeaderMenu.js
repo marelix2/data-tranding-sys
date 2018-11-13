@@ -46,7 +46,7 @@ class HeaderMenu extends Component {
                             </Col>
                             <Col span={2}>
                                 <Link to='/dashboard/home'>
-                                    <img class='headerLogo' src={logo} alt="logo of trading system" />
+                                    <img className={'headerLogo'} src={logo} alt="logo of trading system" />
                                 </Link>
                             </Col>
                         </Row>
