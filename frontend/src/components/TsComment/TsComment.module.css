@@ -1,0 +1,11 @@
+.commnetRowTitle{
+    border-bottom: 1px solid #cacaca;
+}
+
+.commentRowDescription {
+    text-align: justify;
+    padding: 8px;
+    border: 1px solid #fafafa;
+    background: #fdfdfd;
+
+}

@@ -28,16 +28,29 @@ class MainPageView extends Component {
                  }
                 ],
                 commentsData: [
-                    {},
-                    {},
-                    {},
+                    { avatarShape: 'square',
+                    avatarSize: 64,
+                    avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    userNickname: 'DylanK',
+                    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
+                    },
+                    { avatarShape: 'square',
+                      avatarSize: 64,
+                      avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                      userNickname: 'DylanK',
+                      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
+                    },
+                    { avatarShape: 'square',
+                    avatarSize: 64,
+                    avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    userNickname: 'DylanK',
+                    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
+                     },
                 ]
         }
     }
 
     render() {
-
-
         return (
             <div>
                 <Layout>
@@ -47,7 +60,7 @@ class MainPageView extends Component {
                     <Layout>
                         <Content style={{ minHeight: '94vh' }}>
                             <TsSlider displayableContent={this.state.sliderData} autopaly='true'></TsSlider>
-                            <CommentSection></CommentSection>
+                            <CommentSection comments={this.state.commentsData}></CommentSection>
                         </Content>
                     </Layout >
                     <TsFooter/>

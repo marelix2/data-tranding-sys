@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Menu, Icon,Dropdown,Button} from 'antd';
 import logo from './../../../assets/logo.png';
 import { Link,Route } from 'react-router-dom';
-import './MainPageHeader.css';
+import classes from './MainPageHeader.module.css';
 import LoginView from '../../LoginView/LoginView';
 import CbHandler from './CbHandler';
 
@@ -40,7 +40,7 @@ class MainPageHeader extends Component {
                             </Col>
                             <Col span={2}>
                                 <Link to='/'>
-                                    <img className='headerLogo' src={logo} alt="logo of trading system" />
+                                    <img className={classes.headerLogo} src={logo} alt="logo of trading system" />
                                 </Link>
                             </Col>
                         </Row>
