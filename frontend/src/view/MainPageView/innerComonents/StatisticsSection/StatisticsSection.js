@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TsHeaderTitle from '../../../../components/TsHeaderTitle/TsHeaderTitle';
 import {Row,Col} from 'antd';
-import classes from './StatisticsSection.modules.css';
+import classes from './StatisticsSection.module.css';
 
 class StatisticsSection extends Component {
     constructor(props){
