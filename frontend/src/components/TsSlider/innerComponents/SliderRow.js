@@ -1,10 +1,10 @@
 import React from 'react';
-import './SliderRow.css'
+import classes from './SliderRow.module.css'
 
 function SliderRow (props){
         return (
             <div>
-                <img className={'sliderRowImage'} src={props.img.src} alt={props.img.altText}></img>
+                <img className={classes.sliderRowImage} src={props.img.src} alt={props.img.altText}></img>
             </div>
         );
 }

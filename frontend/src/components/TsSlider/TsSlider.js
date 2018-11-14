@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Carousel } from 'antd';
-import SliderRow from './innerComponent/SliderRow';
+import SliderRow from './innerComponents/SliderRow';
 import './TsSlider.css';
 
 class TsSlider extends Component {

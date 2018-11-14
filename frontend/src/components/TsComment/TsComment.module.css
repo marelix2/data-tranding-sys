@@ -9,3 +9,8 @@
     background: #fdfdfd;
 
 }
+
+.commentCard {
+    width: '25vw';
+    margin-top: 16 ;
+}
