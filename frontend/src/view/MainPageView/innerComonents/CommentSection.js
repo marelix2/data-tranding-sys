@@ -12,7 +12,8 @@ class CommentSection extends Component {
     }
 
     onCommentGenerateHandle = () => {
-        return this.state.comments.map( (comment) => <TsComment
+        return this.state.comments.map( (comment, index) => <TsComment
+        key={index}
          avatarShape={ comment.avatarShape} 
           avatarSize= { comment.avatarSize}
         avatarSrc = {comment.avatarSrc}

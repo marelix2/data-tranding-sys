@@ -24,7 +24,7 @@ class TsComment extends Component {
                 <Card style={{ width: '25vw', marginTop: 16 }}>
                 <Meta
                     avatar={<TsAvatar avatarSize={this.state.avatarSize} avatarShape={this.state.avatarShape} avatarSrc={this.state.avatarSrc}/>}
-                    title={<Row className={classes.commnetRowTitle} type='flex' justify='start'>{this.state.userNickname}</Row>}
+                    title={<Row className={classes.commnetRowTitle} type='flex' justify='start'><h2>{this.state.userNickname}</h2></Row>}
                     description={<Row className={classes.commentRowDescription}>"{this.state.comment}"</Row>}
                 />
                 </Card>
