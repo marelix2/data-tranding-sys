@@ -28,7 +28,7 @@ class Dashboard extends Component {
     render() {
         return (
             <Layout>
-                <Header style={{ height: '6vh' }}>
+                <Header>
                     <HeaderMenu sideMenuCollapsed={this.state.sideMenuCollapsed} onChangeCollapse={this.handleChangeCollapse} />
                 </Header>
                 <Layout>

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {Layout} from 'antd';
-import MainPageHeader from './innerComonents/MainPageHeader';
+import MainPageHeader from './innerComonents/MainPageHeader/MainPageHeader';
 import TsFooter from '../../components/TsFooter/TsFooter';
 import TsSlider from '../../components/TsSlider/TsSlider';
 import slider1 from './../../assets/slider/slider1.jpg';
 import slider2 from './../../assets/slider/slider2.png';
 import slider3 from './../../assets/slider/slider3.jpg';
-import CommentSection from './innerComonents/CommentSection';
-import Newsletter from './innerComonents/Newsletter';
+import CommentSection from './innerComonents/CommentSection/CommentSection';
+import Newsletter from './innerComonents/Newsletter/Newsletter';
+import StatisticsSection from './innerComonents/StatisticsSection/StatisticsSection.js';
 
 const { Header, Content } = Layout;
 class MainPageView extends Component {
@@ -62,6 +63,7 @@ class MainPageView extends Component {
                         <Content style={{ minHeight: '94vh' }}>
                             <TsSlider displayableContent={this.state.sliderData} autopaly='true'/>
                             <CommentSection comments={this.state.commentsData}/>
+                            <StatisticsSection/>
                             <Newsletter/>
                         </Content>
                     </Layout >

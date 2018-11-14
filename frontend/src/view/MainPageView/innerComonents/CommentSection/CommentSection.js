@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TsComment from './../../../components/TsComment/TsComment';
+import TsComment from '../../../../components/TsComment/TsComment';
 import {Row,Col} from 'antd';
 import classes from './CommnetSection.module.css';
 

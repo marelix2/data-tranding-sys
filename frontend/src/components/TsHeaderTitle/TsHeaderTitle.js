@@ -7,8 +7,9 @@ constructor(props){
 
     this.state = {
         message: props.message,
-        textSize: props.textSize,
+        textSize: props.textSize || 64,
     }
+    console.log('chuju');
 }
 
     render() {

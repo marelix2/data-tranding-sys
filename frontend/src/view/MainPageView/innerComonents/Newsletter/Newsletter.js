@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from './Newsletter.module.css';
 import {Icon, Input, Button,Row,Col} from 'antd';
-import TsHeaderTitle from '../../../components/TsHeaderTitle/TsHeaderTitle';
+import TsHeaderTitle from '../../../../components/TsHeaderTitle/TsHeaderTitle';
 import EmailValidator from 'email-validator';
 
 class Newsletter extends Component {

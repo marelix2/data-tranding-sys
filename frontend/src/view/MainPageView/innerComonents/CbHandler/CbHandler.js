@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from '../../../axiosAPI';
-import API from '../../../endpoints';
+import axios from './../../../../axiosAPI';
+import API from '../../../../endpoints';
 import {Redirect } from 'react-router-dom';
 
 class CbHandler extends Component {
