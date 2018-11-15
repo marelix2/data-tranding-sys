@@ -50,10 +50,12 @@ class StatisticsSection extends Component {
     }
 
     onStatisticInfoCardRender = () => {
-        return this.state.statisticsData.map((statistic) => {
+        return this.state.statisticsData.map((statistic, index) => {
             return (
-                <div className={classes.statisticsSectionCard}>
-                    <TsInfoCard
+                <div 
+                className={classes.statisticsSectionCard}
+                key={index}>
+                    <TsInfoCard 
                         infoCardIcon={statistic.icon}
                         infoCardIconColor={statistic.iconColor}
                         infoCardTitle={statistic.title}

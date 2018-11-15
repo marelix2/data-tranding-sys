@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
-import { Menu, Icon} from 'antd';
+import { Menu, Icon } from 'antd';
+import { logoutHandle } from './../../utils';
+import { Link } from 'react-router-dom';
 
 const SubMenu = Menu.SubMenu;
 
 class SideBarMenu extends Component {
 
     render() {
-    
+
         return (
             <div>
                 <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1','sub2']}
+                    defaultOpenKeys={['storage']}
                     mode="inline"
                     theme="dark"
                 >
-                    <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-                        <Menu.Item key="5">Option 5</Menu.Item>
-                        <Menu.Item key="6">Option 6</Menu.Item>
-                        <Menu.Item key="7">Option 7</Menu.Item>
-                        <Menu.Item key="8">Option 8</Menu.Item>
+                    <SubMenu key="storage" title={<span><Icon type="bar-chart" /><span>Zarządzanie</span></span>}>
+                        <Menu.Item key="storage_0">Kupione</Menu.Item>
+                        <Menu.Item key="storage_1">Sprzedane</Menu.Item>
+                        <Menu.Item key="storage_2">Twoj Portwel</Menu.Item>
                     </SubMenu>
-                    <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-                        <Menu.Item key="9">Option 9</Menu.Item>
-                        <Menu.Item key="10">Option 10</Menu.Item>
+                    <SubMenu key="trade" title={<span><Icon type="appstore" /><span>Sprzedaż</span></span>}>
+                        <Menu.Item key="trade_0">Zakup</Menu.Item>
+                        <Menu.Item key="trade_1">Sprzedaj</Menu.Item>
+                    </SubMenu>
+                    <SubMenu key="options" title={<span><Icon type="options" /><span>Ustawienia </span></span>}>
+                        <Menu.Item key="options_0"><Link to='/dashboard/settings'>Opcje</Link></Menu.Item>
+                        <Menu.Item key="options_1">Kontakt</Menu.Item>
+                        <Menu.Item key="options_2" onClick={() => logoutHandle()}><Link to='/'>Wyloguj</Link></Menu.Item>
                     </SubMenu>
                 </Menu>
             </div>

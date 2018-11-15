@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Row, Col, Menu, Icon, Button } from 'antd';
 import logo from './../../assets/logo.png';
 import { Link } from 'react-router-dom';
-import './HeaderMenu.styles.css';
+import classes from './HeaderMenu.module.css';
+import {logoutHandle} from './../../utils';
 
 const SubMenu = Menu.SubMenu;
 
@@ -46,7 +47,7 @@ class HeaderMenu extends Component {
                             </Col>
                             <Col span={2}>
                                 <Link to='/dashboard/home'>
-                                    <img className={'headerLogo'} src={logo} alt="logo of trading system" />
+                                    <img className={classes.headerLogo} src={logo} alt="logo of trading system" />
                                 </Link>
                             </Col>
                         </Row>
@@ -60,7 +61,7 @@ class HeaderMenu extends Component {
                             <SubMenu title={<span className="submenu-title-wrapper"><Icon type="setting" />Opcje</span>}>
 
                                 <Menu.Item key="setting:1"> <Link to='/dashboard/settings'>Ustawienia </Link></Menu.Item>
-                                <Menu.Item key="setting:2" onClick={() => this.logoutHandle()}><Link to='/'>Wyloguj</Link></Menu.Item>
+                                <Menu.Item key="setting:2" onClick={() => logoutHandle()}><Link to='/'>Wyloguj</Link></Menu.Item>
 
                             </SubMenu>
                         </Menu>
