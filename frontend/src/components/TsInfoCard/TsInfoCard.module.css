@@ -1,0 +1,30 @@
+.infoCardWrapper {
+    width: 15vw;
+}
+
+
+.infoCardTitle {
+    font-size: 2.1em;
+    font-weight: 700;
+    text-align: left;
+    text-justify: inter-word;
+    max-width: 10em;
+    display: flex;
+    align-items: flex-start;
+}
+
+.infoCardNumbers {
+    display: flex;
+    width: 5.8em;
+    justify-content: space-around;
+    font-size: 1.8em;
+    line-height: 1.1em;
+}
+
+.infoCardComment {
+    display: flex;
+    width: 5.8em;
+    justify-content: space-around;
+    margin-top: 0.2em;
+
+}

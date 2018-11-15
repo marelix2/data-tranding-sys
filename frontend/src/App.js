@@ -14,6 +14,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
+
             <Route path="/" render={() => (
               IsUserLoggedIn() ? (
                 <Redirect to={{ pathname: "/dashboard" }} />

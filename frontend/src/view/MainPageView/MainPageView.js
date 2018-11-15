@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Layout} from 'antd';
+import { Layout } from 'antd';
 import MainPageHeader from './innerComonents/MainPageHeader/MainPageHeader';
 import TsFooter from '../../components/TsFooter/TsFooter';
 import TsSlider from '../../components/TsSlider/TsSlider';
@@ -16,39 +16,42 @@ class MainPageView extends Component {
         super(props);
         this.state = {
             sliderData: [
-                { 
-                src: slider1,
-                altText:'slider 1'
-                }, 
-                { 
-                src: slider2,
-                altText:'slider 2'
-                }, 
-                { 
-                src:slider3,
-                altText:'slider 3'
-                 }
-                ],
-                commentsData: [
-                    { avatarShape: 'square',
+                {
+                    src: slider1,
+                    altText: 'slider 1'
+                },
+                {
+                    src: slider2,
+                    altText: 'slider 2'
+                },
+                {
+                    src: slider3,
+                    altText: 'slider 3'
+                }
+            ],
+            commentsData: [
+                {
+                    avatarShape: 'square',
                     avatarSize: 64,
                     avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
                     userNickname: 'DylanK',
                     comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
-                    },
-                    { avatarShape: 'square',
-                      avatarSize: 64,
-                      avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                      userNickname: 'DylanK',
-                      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
-                    },
-                    { avatarShape: 'square',
+                },
+                {
+                    avatarShape: 'square',
                     avatarSize: 64,
                     avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
                     userNickname: 'DylanK',
                     comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
-                     },
-                ]
+                },
+                {
+                    avatarShape: 'square',
+                    avatarSize: 64,
+                    avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    userNickname: 'DylanK',
+                    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
+                },
+            ]
         }
     }
 
@@ -57,17 +60,17 @@ class MainPageView extends Component {
             <div>
                 <Layout>
                     <Header>
-                        <MainPageHeader/>
+                        <MainPageHeader />
                     </Header>
                     <Layout>
                         <Content style={{ minHeight: '94vh' }}>
-                            <TsSlider displayableContent={this.state.sliderData} autopaly='true'/>
-                            <CommentSection comments={this.state.commentsData}/>
-                            <StatisticsSection/>
-                            <Newsletter/>
+                            <TsSlider displayableContent={this.state.sliderData} autopaly='true' />
+                            <CommentSection comments={this.state.commentsData} />
+                            <StatisticsSection />
+                            <Newsletter />
                         </Content>
                     </Layout >
-                    <TsFooter/>
+                    <TsFooter />
                 </Layout>
             </div>
         );

@@ -24,10 +24,7 @@ class MainPageHeader extends Component {
      );
 
     render() {
-        
-
         return (
-
             <div>
                 <Row type='flex'
                     justify='center'

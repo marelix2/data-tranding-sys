@@ -1,3 +1,17 @@
-.statisticSectionWrapper {
-    min-height: 40vh;
+.statisticSectionBackground {
+    background: #fafafa;
+}
+
+.statisticSectionTitle , .statisticSectionChart{
+    min-height: 60vh;
+}
+
+.statisticsSectionCard{
+    border-right: 1px solid #faaaaa;
+    margin-bottom: 3vh;
+}
+
+.statisticsSectionCard:last-child {
+    border: none;
+    
 }
