@@ -5,17 +5,17 @@ const { getGoogleAccountFromCode } = require('./google.service')
 
 const User = require('./../models/User');
 
-const isUserRegistered = async (auth,code) => {
+const isUserRegistered = async (auth, code) => {
 
     try {
         const userInfo = await getGoogleAccountFromCode(auth, code);
         if (userInfo.error) {
             throw user.error;
-        }else {
-            const user = await User.findOne({ where: { username: userInfo.username} });
+        } else {
+            const user = await User.findOne({ where: { username: userInfo.username } });
             if (user) return true;
         }
-      
+
     } catch (err) {
         return new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
     }
@@ -45,7 +45,14 @@ const registerUser = async (auth, code) => {
 
 const getUser = async (code) => {
     try {
-        return await User.findOne({ where: { code: code } });
+        const userInfo = await getGoogleAccountFromCode(auth, code);
+        if (userInfo.error) {
+            return user.error;
+        } else {
+            return await User.findOne({ where: { username: userInfo.username } });
+        }
+
+
     } catch (err) {
         return new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
     }

@@ -14,39 +14,41 @@ const connect = () => {
         googleConfig.redirect);
 }
 
-const getGooglePlusApi = async (auth)  => {
+const getGooglePlusApi = async (auth) => {
     return google.plus({ version: 'v1', auth });
 }
 
-const getGoogleAccountFromCode = async (previousAuth,code) =>  {
+const getGoogleAccountFromCode = async (previousAuth, code) => {
 
     try {
-    const data = await previousAuth.getToken(code);
-    const tokens = data.tokens;
+        const data = await previousAuth.getToken(code);
+        const tokens = data.tokens;
 
-    const auth = connect();
-    auth.setCredentials(tokens);
+        const auth =await connect();
+        auth.setCredentials(tokens);
 
+        const plus = await getGooglePlusApi(auth);
+        const me = await plus.people.get({ userId: 'me' });
 
-    const plus = await getGooglePlusApi(auth);
-    const me = await plus.people.get({ userId: 'me' });
+        const userGoogleId = me.data.id;
+        const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
+        const userGoogleName = me.data.displayName;
+        const userGoogleAvatar = me.data.image.url;
+        return {
+            error: null,
+            id: userGoogleId,
+            email: userGoogleEmail,
+            name: userGoogleName,
+            avatar: userGoogleAvatar,
+            tokens: tokens,
+        };
 
-    const userGoogleId = me.data.id;
-    const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
-    const userGoogleName = me.data.displayName;
-    const userGoogleAvatar = me.data.image.url;
-    return {
-        error: null,
-        id: userGoogleId,
-        email: userGoogleEmail,
-        name: userGoogleName,
-        avatar: userGoogleAvatar,
-        tokens: tokens,
-    };
-
-    }catch(err) {  
-        return { error: new GoogleErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to GoogleApi: ' + err)};
+    } catch (err) {
+        return { error: new GoogleErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to GoogleApi: ' + err) };
     }
 }
 
-module.exports = { connect, getGoogleAccountFromCode}
+module.exports = {
+    connect,
+    getGoogleAccountFromCode
+}
