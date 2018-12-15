@@ -9,7 +9,6 @@ constructor(props){
         message: props.message,
         textSize: props.textSize || 64,
     }
-    console.log('chuju');
 }
 
     render() {
