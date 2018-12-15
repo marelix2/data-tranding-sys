@@ -3,7 +3,7 @@ import { Row, Col, Menu, Icon,Dropdown,Button} from 'antd';
 import logo from './../../../../assets/logo.png';
 import { Link,Route } from 'react-router-dom';
 import classes from './MainPageHeader.module.css';
-import LoginView from '../../../LoginView/LoginView';
+import LoginView from './../../../LoginView/LoginView';
 import CbHandler from './../CbHandler/CbHandler';
 
 class MainPageHeader extends Component {
@@ -47,7 +47,7 @@ class MainPageHeader extends Component {
                     </Col>
                     <Col span={4}>
                     <Dropdown overlay={this.menu} placement="bottomCenter">
-                    <Button type='primary'>Zaloguj  <Icon type="down" /></Button>
+                    <Button type='primary'>Zaloguj<Icon type="down" /></Button>
                     </Dropdown>
                     </Col>
                 </Row>

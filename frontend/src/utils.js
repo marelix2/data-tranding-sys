@@ -7,9 +7,9 @@ const logoutHandle = () => {
     localStorage.removeItem('avatar');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
-};
+}
 
 module.exports = {
     IsUserLoggedIn,
-    logoutHandle
+    logoutHandle,
 }

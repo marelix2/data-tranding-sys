@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TsTitle from './../../components/TsTitle/TsTitle';
 
 class HomeView extends Component {
     constructor(props) {

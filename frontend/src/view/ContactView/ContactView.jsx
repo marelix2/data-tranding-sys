@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import TsTitle from './../../components/TsTitle/TsTitle';
 
 class ContactView extends Component {
     render() {
         return (
             <div>
-                Contact View;
+                <TsTitle
+                    title='Contact Us.'
+                    image={{ name: 'contacts', type: 'png' }} />
             </div>
         );
     }
