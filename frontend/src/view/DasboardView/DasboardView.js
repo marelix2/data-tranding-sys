@@ -58,6 +58,7 @@ class Dashboard extends Component {
                             <Route path={`${this.props.match.path}/buy`} component={BuyDataView} />
                             <Route path={`${this.props.match.path}/sell`} component={SellDataView} />
                             <Route path={`${this.props.match.path}/contact`} component={ContactView} />
+                            <Route path={`${this.props.match.path}/explore`} component={ExploreView} />
                         </div>
                     </Content>
                 </Layout >

@@ -1,0 +1,7 @@
+.HomeViewWrapper {
+    background-image: linear-gradient(to bottom right,#fff,#fff,#ccc);
+    min-height: 94vh; 
+    background-position: center;
+    background-size: cover;
+    padding: 1vh;
+}
