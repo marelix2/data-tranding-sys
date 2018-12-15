@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, Avatar, Row } from 'antd';
+import {Card, Row } from 'antd';
 import TsAvatar from '../TsAvatar/TsAvatar';
 import classes from './TsComment.module.css';
 

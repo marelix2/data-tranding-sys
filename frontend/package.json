@@ -6,6 +6,7 @@
     "antd": "^3.10.2",
     "axios": "^0.18.0",
     "email-validator": "^2.0.4",
+    "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-minimal-pie-chart": "^3.3.0",

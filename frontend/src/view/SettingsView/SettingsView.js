@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TsTitle from './../../components/TsTitle/TsTitle';
 class SettingsView extends Component {
     constructor(props) {
         super(props);
@@ -8,7 +9,9 @@ class SettingsView extends Component {
     render() {
         return(
             <div>
-                settings view
+                <TsTitle
+                    title='Settings'
+                    image={{ name: 'settings', type: 'png' }} />
             </div>
         );
     }
