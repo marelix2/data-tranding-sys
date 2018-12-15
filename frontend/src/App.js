@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import 'antd/dist/antd.css';
 import Dashboard from './view/DasboardView/DasboardView';
 import MainPageView from './view/MainPageView/MainPageView';

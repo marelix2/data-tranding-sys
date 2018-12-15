@@ -1,0 +1,9 @@
+.Header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ValueText {
+    text-align: center;
+    font-size: 1.5em;
+}

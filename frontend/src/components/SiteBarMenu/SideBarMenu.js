@@ -22,8 +22,9 @@ class SideBarMenu extends Component {
                         <Menu.Item key="storage_2"><Link to='/dashboard/wallet'>Twoj Portwel</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="trade" title={<span><Icon type="appstore" /><span>Sprzedaż</span></span>}>
-                        <Menu.Item key="trade_0"><Link to='/dashboard/buy'>Zakup</Link></Menu.Item>
-                        <Menu.Item key="trade_1"><Link to='/dashboard/sell'>Sprzedaj</Link></Menu.Item>
+                        <Menu.Item key="trade_0"><Link to='/dashboard/explore'>Przeglądaj</Link></Menu.Item>
+                        <Menu.Item key="trade_1"><Link to='/dashboard/buy'>Zakup</Link></Menu.Item>
+                        <Menu.Item key="trade_2"><Link to='/dashboard/sell'>Sprzedaj</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="options" title={<span><Icon type="fullscreen" /><span> Więcej </span></span>}>
                         <Menu.Item key="options_1"><Link to='/dashboard/contact'>Kontakt</Link></Menu.Item>
