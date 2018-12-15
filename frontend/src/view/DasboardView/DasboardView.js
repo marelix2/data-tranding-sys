@@ -12,7 +12,7 @@ import ContactView from './../ContactView/ContactView';
 import BoughtDataDisplayerView from './../BoughtDataDisplayerView/BoughtDataDisplayerView';
 import SoldDataDisplayerView from './../SoldDataDisplayerView/SoldDataDisplayerView';
 import WalletView from './../WalletView/WalletView';
-import ExploreView from './../ExploreView/ExploreView'
+import ExploreView from './../ExploreView/ExploreView';
 
 const { Header, Content, Sider } = Layout;
 
