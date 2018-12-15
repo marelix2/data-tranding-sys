@@ -12,22 +12,21 @@ class SideBarMenu extends Component {
         return (
             <div>
                 <Menu
-                    defaultOpenKeys={['storage']}
+                    defaultOpenKeys={['storage','trade','options']}
                     mode="inline"
                     theme="dark"
                 >
                     <SubMenu key="storage" title={<span><Icon type="bar-chart" /><span>Zarządzanie</span></span>}>
-                        <Menu.Item key="storage_0">Kupione</Menu.Item>
-                        <Menu.Item key="storage_1">Sprzedane</Menu.Item>
-                        <Menu.Item key="storage_2">Twoj Portwel</Menu.Item>
+                        <Menu.Item key="storage_0"><Link to='/dashboard/bought'>Kupione</Link></Menu.Item>
+                        <Menu.Item key="storage_1"><Link to='/dashboard/sold'>Sprzedane</Link></Menu.Item>
+                        <Menu.Item key="storage_2"><Link to='/dashboard/wallet'>Twoj Portwel</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="trade" title={<span><Icon type="appstore" /><span>Sprzedaż</span></span>}>
-                        <Menu.Item key="trade_0">Zakup</Menu.Item>
-                        <Menu.Item key="trade_1">Sprzedaj</Menu.Item>
+                        <Menu.Item key="trade_0"><Link to='/dashboard/buy'>Zakup</Link></Menu.Item>
+                        <Menu.Item key="trade_1"><Link to='/dashboard/sell'>Sprzedaj</Link></Menu.Item>
                     </SubMenu>
-                    <SubMenu key="options" title={<span><Icon type="options" /><span>Ustawienia </span></span>}>
-                        <Menu.Item key="options_0"><Link to='/dashboard/settings'>Opcje</Link></Menu.Item>
-                        <Menu.Item key="options_1">Kontakt</Menu.Item>
+                    <SubMenu key="options" title={<span><Icon type="fullscreen" /><span> Więcej </span></span>}>
+                        <Menu.Item key="options_1"><Link to='/dashboard/contact'>Kontakt</Link></Menu.Item>
                         <Menu.Item key="options_2" onClick={() => logoutHandle()}><Link to='/'>Wyloguj</Link></Menu.Item>
                     </SubMenu>
                 </Menu>

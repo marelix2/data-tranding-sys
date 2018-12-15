@@ -17,7 +17,7 @@ class App extends Component {
 
             <Route path="/" render={() => (
               IsUserLoggedIn() ? (
-                <Redirect to={{ pathname: "/dashboard" }} />
+                <Redirect to={{ pathname: "/dashboard/home" }} />
               ) : (
                   <MainPageView />
                 ))} />
