@@ -1,0 +1,48 @@
+.DisplayerBox {
+   width: 25em;
+   height: 25em;
+   background: #eee;
+   border: 1px solid #cedede;
+   border-radius: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.InnerWrapper{
+  width: 23em;
+  height: 23em;
+  background: #adb7da;
+  border: 1px solid #adb7da;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.InnerWrapper img {
+  border: 0px solid rgba(0,0,0,0);
+  border-radius: 50%;
+  position: absolute;
+  width: 100%;
+  transition: 0.5s;
+  z-index: 3;
+
+}
+
+.InnerWrapper:hover img {
+  transform: translate(0, -7em);
+}
+
+.childComponent {
+  display: flex;
+  position: absolute;
+  top: 17em;
+  z-index: 2;
+  font-family: 'Staatliches', sans-serif;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+}
