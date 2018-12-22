@@ -1,0 +1,12 @@
+.TableWrapper {
+  border: 1px solid rgb(229,229,229);
+  box-shadow: 0 0 1px 1px rgb(229,229,229,0.4);
+}
+
+.RowColor{
+  background: #fff;
+}
+
+.RowColor:nth-child(2n) {
+  background: #000;
+}

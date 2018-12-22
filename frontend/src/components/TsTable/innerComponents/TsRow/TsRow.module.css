@@ -1,0 +1,14 @@
+.RowWrapper {
+  border-bottom: 1px solid rgb(229,229,229); 
+  padding: 1em 0 1em .4em;
+  line-height: 2.2em;
+  
+}
+
+.ActionRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid rgb(229,229,229);
+  padding-left:  .4em;
+}

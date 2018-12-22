@@ -1,16 +1,24 @@
 import React from 'react';
-import { Row, Col} from 'antd';
+import { Row} from 'antd';
 import Search from './innerComponents/Search';
+import Header from './innerComponents/Header/Header';
+import classes from './TsTable.module.css';
+import TsRow from './innerComponents/TsRow/TsRow';
 
 const TsTable = (props) => {
-  const header = 'header';
-  const columns = 'columns'
+  const header = <Header headerCloumns={props.header}/>;
+  const rows = props.rows.map((row,index) => (
+        <TsRow key={index} class={classes.RowColor} data={row}></TsRow>
+      )
+  ) 
   return (
     <div>
-      <Row>
+      <Row >
         <Search/>
+        <Row className={classes.TableWrapper}>
         {header}
-        {columns}
+        {rows}
+        </Row>
       </Row>
     </div>
   );

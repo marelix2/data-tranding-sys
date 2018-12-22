@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TsTitle from './../../components/TsTitle/TsTitle';
-import TsTable from './../../components/TsTable/TsTable';
 
 class BuyDataView extends Component {
     render() {
@@ -8,8 +7,6 @@ class BuyDataView extends Component {
             <div>
                 <TsTitle title='Buying data dashboard'
                 image={{name:'buyData',type:'png'}}/>
-
-                <TsTable />
             </div>
         );
     }
