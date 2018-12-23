@@ -1,0 +1,9 @@
+.ExpandWrapper {
+  border-bottom: 1px solid  rgb(229,229,229);
+  background:rgb(245,245,245);
+  transition: 0.5s;
+}
+
+.ExpandCol {
+  padding: .5em 0;
+}

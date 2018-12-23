@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Button } from 'antd';
+import { Card } from 'antd';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import classes from './CurrentValue.module.css';

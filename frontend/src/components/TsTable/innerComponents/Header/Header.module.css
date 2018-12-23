@@ -1,0 +1,12 @@
+.HeaderWrapper {
+  border-bottom: 1px solid rgb(229,229,229); 
+  font-weight: 900;
+  padding: 1em 0 1em .4em;
+  color: #000;
+}
+
+.ActionHeader {
+  border-left: 1px solid rgb(229,229,229);
+  padding-left:  .4em;
+}
+

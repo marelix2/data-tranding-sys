@@ -12,32 +12,32 @@ class HomeView extends Component {
                 {
                     categoryName: 'kategoria 1',
                     dataToDisplay: {
-                        date:'12-12-12'
+                        date: '12-12-12'
                     },
-                    path: 'explore' 
+                    path: 'explore'
                 },
                 {
                     categoryName: 'kategoria 2',
                     dataToDisplay: {
                         date: '12-12-12'
                     },
-                    path: 'explore' 
+                    path: 'explore'
                 },
                 {
                     categoryName: 'kategoria 3',
                     dataToDisplay: {
                         date: '12-12-12'
                     },
-                    path: 'explore' 
+                    path: 'explore'
                 },
                 {
                     categoryName: 'kategoria 4',
                     dataToDisplay: {
                         date: '12-12-12'
                     },
-                    path: 'explore' 
+                    path: 'explore'
                 }
-            ]
+            ],
         }
     }
 
@@ -51,8 +51,8 @@ class HomeView extends Component {
                     <Col span={8}>
                         <CurrentValue value={1345}/>
                     </Col>
-                    
                 </Row>
+                
             </div>
 
         );
