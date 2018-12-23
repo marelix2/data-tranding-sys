@@ -10,3 +10,8 @@
 .RowColor:nth-child(2n) {
   background: #000;
 }
+.Pagination {
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Row, Col } from 'antd';
 import classes from './TsRow.module.css';
 import DeafultActions from '../DeafultActions';
-import ExpandRow from '../ExpandRow/ExpandRow';
+import DeafultExpandRow from '../DeafultExpandRow/DeafultExpandRow';
 
 class TsRow extends Component {
   constructor(props){
@@ -36,7 +36,7 @@ class TsRow extends Component {
       </Col>)
     } else {
       actions = (<Col span={4} className={classes.ActionRow}>
-        <DeafultActions expandRowClicked={this.rowExpandHandler}/>
+        <DeafultActions expand={this.state.expandRow} expandRowClicked={this.rowExpandHandler}/>
       </Col>)
     }
 
@@ -44,7 +44,7 @@ class TsRow extends Component {
     
     if(this.state.expandRow) {
       expandRow = (
-        <ExpandRow />
+        <DeafultExpandRow data={this.props.data}/>
       )
     }
   

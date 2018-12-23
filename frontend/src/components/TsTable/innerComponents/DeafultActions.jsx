@@ -6,11 +6,11 @@ const DeafultActions = (props) => {
   return (
     <>
       <ButtonGroup>
-        <Button type='primary'>
+        <Button type='primary' onClick={ () => console.log("kiedys sie pobiore!")}>
           <Icon type="cloud-download" />
         </Button>
         <Button type='primary'  onClick={() => props.expandRowClicked()}>
-          <Icon type="down"/>
+          <Icon type={props.expand ?"up" : "down"}/>
         </Button>
       </ButtonGroup>
     </>
