@@ -44,7 +44,7 @@ class TsRow extends Component {
     
     if(this.state.expandRow) {
       expandRow = (
-        <DeafultExpandRow data={this.props.data}/>
+        <DeafultExpandRow data={this.props.data} cols={this.props.cols}/>
       )
     }
   

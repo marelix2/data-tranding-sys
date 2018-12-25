@@ -41,7 +41,7 @@ class HeaderMenu extends Component {
                             justify='start'
                             align='middle'>
                             <Col span={1}>
-                                <Button ghost={true} onClick={() => this.state.toggleCollapsed()} style={{ marginBottom: 16 }}>
+                                <Button ghost={true} onClick={() => this.state.toggleCollapsed()} style={{ marginBottom: 16 , marginLeft: 16}}>
                                     <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                                 </Button>
                             </Col>
