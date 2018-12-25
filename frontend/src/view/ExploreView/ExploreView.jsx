@@ -222,7 +222,6 @@ class ExploreView extends Component {
                         <Route
                             exact path={`${this.props.match.path}/emails`}
                             render={() => {
-                                console.log(this.state.steps);
                                 if(this.state.steps[0].status === 'process') this.stepForwardHandler()
                                 return (<CategoryChooser category={'email'}
                                     data={this.state.emailCategories}

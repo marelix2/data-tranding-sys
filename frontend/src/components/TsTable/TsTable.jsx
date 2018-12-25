@@ -51,7 +51,7 @@ class TsTable extends Component {
     const header = <Header headerCloumns={this.props.header} />;
     const rows = this.state.rowsData.map((row, index) => (
       this.shouldShowRow(index) ?
-        <TsRow key={index} class={classes.RowColor} data={row}></TsRow>
+        <TsRow key={index} cols={this.props.header} class={classes.RowColor} data={row}></TsRow>
         : null
 
     ))

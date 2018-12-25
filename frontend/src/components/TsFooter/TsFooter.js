@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+import classes from './TsFooter.module.css';
 
 const {Footer} = Layout;
 
@@ -14,7 +15,7 @@ class TsFooter extends Component {
     render() {
         return (
             <div>
-                <Footer style={{ background: '#001529', color: 'rgba(255, 255, 255, 0.65)' }}>
+                <Footer className={classes.FooterWrapper}>
                     Data-trading system © 2018
                  </Footer>
             </div>

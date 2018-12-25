@@ -7,7 +7,7 @@ const ExpandRow = (props) => {
     if(col.isHidden) return null;
     return(
       <Col key={index} offset={1} className={classes.ExpandCol}>
-      {col.value}
+      <span className={classes.ColumnName}>{props.cols[index].name}:</span>  {col.value}
       </Col>
     )
   })

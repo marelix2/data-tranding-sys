@@ -7,3 +7,7 @@
 .ExpandCol {
   padding: .5em 0;
 }
+
+.ColumnName {
+  font-weight: 900;
+}
