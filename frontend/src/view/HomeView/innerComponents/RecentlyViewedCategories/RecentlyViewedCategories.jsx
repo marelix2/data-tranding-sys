@@ -27,7 +27,7 @@ const RecentlyViewedCategories = (props) => {
             <Card title="Ostatnio odwiedzane kategorie:">
                 <Collapse>
                     {panels}
-                </Collapse>,
+                </Collapse>
             </Card>
         </div>
     );

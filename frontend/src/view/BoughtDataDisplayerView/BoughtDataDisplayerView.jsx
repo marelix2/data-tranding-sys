@@ -1,34 +1,12 @@
-// import React, { Component } from 'react';
-// 
-
-// class BoughtDataDisplayerView extends Component {
-
-  
-//     render() {
-//         return (
-//             <div>
-//                 <TsTitle
-//                     title='Bought Data Displayer View'
-//                     image={{ name: 'boughtData', type: 'png' }} />
-
-//                 <TsTable
-//                     header={this.state.header}
-//                     rows={this.state.data} />
-//             </div>
-//         );
-//     }
-// }
-
-// export default BoughtDataDisplayerView;
 
 import React, { Component } from 'react';
 import TsTitle from './../../components/TsTitle/TsTitle';
 import TsTable from './../../components/TsTable/TsTable';
 
 class BoughtDataDisplayerView extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-    
+
         this.state = {
             header: [
                 {
@@ -322,7 +300,7 @@ class BoughtDataDisplayerView extends Component {
                         value: 'col1',
                         width: '3'
                     }
-                    
+
                 ],
                 [
                     {
@@ -432,14 +410,14 @@ class BoughtDataDisplayerView extends Component {
                         width: '3'
                     }
                 ]
-            ]        
+            ]
         }
-        }
+    }
 
     render() {
         return (
             <>
-                 <TsTitle
+                <TsTitle
                     title='Bought Data Displayer View'
                     image={{ name: 'boughtData', type: 'png' }} />
 

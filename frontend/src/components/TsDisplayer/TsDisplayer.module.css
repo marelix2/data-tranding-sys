@@ -1,17 +1,18 @@
 .DisplayerBox {
-   width: 25em;
-   height: 25em;
+   width: 250px;
+   height: 250px;
    background: #eee;
    border: 1px solid #cedede;
    border-radius: 50%;
    display: flex;
    justify-content: center;
    align-items: center;
+   margin-bottom: 2em;
 }
 
 .InnerWrapper{
-  width: 23em;
-  height: 23em;
+  width: 230px;
+  height: 230px;
   background: #adb7da;
   border: 1px solid #adb7da;
   border-radius: 50%;
@@ -29,6 +30,7 @@
   width: 100%;
   transition: 0.5s;
   z-index: 3;
+  background: #cacaca;
 
 }
 
@@ -39,10 +41,17 @@
 .childComponent {
   display: flex;
   position: absolute;
-  top: 17em;
+  top: 140px;
   z-index: 2;
   font-family: 'Staatliches', sans-serif;
   justify-content: flex-end;
   align-items: center;
   flex-direction: column;
+}
+
+@media only screen and (max-width: 1000px) {
+  /* For mobile phones: */
+  .childComponent{
+    top: 16vw;
+  }
 }
