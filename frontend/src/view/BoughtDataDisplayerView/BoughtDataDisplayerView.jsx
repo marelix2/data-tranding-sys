@@ -3,6 +3,8 @@ import TsTitle from './../../components/TsTitle/TsTitle';
 import TsTable from './../../components/TsTable/TsTable';
 import classes from './BoughtDataDisplayerView.module.css';
 import { Col, Row } from 'antd';
+import { Route } from 'react-router-dom';
+import TableChooser from './InnerComponents/TableChooser/TableChooser';
 
 class BoughtDataDisplayerView extends Component {
     constructor(props) {
@@ -58,11 +60,14 @@ class BoughtDataDisplayerView extends Component {
                     image={{ name: 'boughtData', type: 'png' }} />
 
                 <Row>
-                    <Col offset={1} span={22} className={classes.ContentWrapper}>
-                        <TsTable
-                            header={this.state.header}
-                            rows={this.state.data} />
-                    </Col>
+
+                    <Route exact path={`${this.props.match.path}`} render={() => (<TableChooser path={this.props.match.path} emailRows={this.state.data.length} companyRows={this.state.data.length}/>) }/>
+                    <Route path={`${this.props.match.path}/:category`} render={() => (
+                        <Col offset={1} span={22} className={classes.ContentWrapper}>
+                            <TsTable
+                                header={this.state.header}
+                                rows={this.state.data} />
+                        </Col>)} />
                 </Row>
             </>
         );
