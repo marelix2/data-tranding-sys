@@ -6,7 +6,7 @@ import classes from "./ExploreView.module.css";
 import BranchChooser from './InnerComponents/BranchChooser/BranchChooser';
 import { Route, Redirect } from 'react-router-dom';
 import CategoryChooser from './InnerComponents/CategoryChooser/CategoryChooser';
-import { findIndex ,findLastIndex} from 'lodash';
+import { findIndex, findLastIndex } from 'lodash';
 
 class ExploreView extends Component {
     constructor(props) {
@@ -184,7 +184,7 @@ class ExploreView extends Component {
     stepBackwardHandler = () => {
         let steps = [...this.state.steps];
         let index = findLastIndex(steps, (step) => step.status === 'finish');
- 
+
         if (index >= 0 && index < steps.length) {
             steps[index].status = 'process';
             steps[index + 1].status = 'wait';
@@ -222,7 +222,7 @@ class ExploreView extends Component {
                         <Route
                             exact path={`${this.props.match.path}/emails`}
                             render={() => {
-                                if(this.state.steps[0].status === 'process') this.stepForwardHandler()
+                                if (this.state.steps[0].status === 'process') this.stepForwardHandler();
                                 return (<CategoryChooser category={'email'}
                                     data={this.state.emailCategories}
                                     pathUrl={{
@@ -230,13 +230,11 @@ class ExploreView extends Component {
                                         current: `${this.props.match.path}/emails`
                                     }}
                                     goBack={this.goBackHandler} />)
-                            }
-                            }
+                            }}
                         />
-                        <Route
-                            exact path={`${this.props.match.path}/companies`}
-                            render={() => () => {
-                                if(this.state.steps[0].status === 'process') this.stepForwardHandler()
+                        <Route exact path={`${this.props.match.path}/companies`}
+                            render={() => {
+                                if (this.state.steps[0].status === 'process') this.stepForwardHandler();
                                 return (<CategoryChooser
                                     category={'companies'}
                                     data={this.state.companyCategories}
@@ -248,9 +246,10 @@ class ExploreView extends Component {
                             }}
                         />
                         <Route exact path={`${this.props.match.path}/emails/:category`} render={() => {
-                            if(this.state.steps[1].status === 'process') this.stepForwardHandler()
-                            return(<h1>eoeoeoeo</h1>)}
-                            } />
+                            if (this.state.steps[1].status === 'process') this.stepForwardHandler()
+                            return (<h1>eoeoeoeo</h1>)
+                        }
+                        } />
                         <Route exact path={`${this.props.match.path}/companies/:category`} render={() => (<h1>eoeoeoeo</h1>)} />
                     </Row>
                 </Row>
