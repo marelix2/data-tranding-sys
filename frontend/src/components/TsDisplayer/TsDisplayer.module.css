@@ -1,17 +1,18 @@
 .DisplayerBox {
-   width: 25vw;
-   height: 25vw;
+   width: 250px;
+   height: 250px;
    background: #eee;
    border: 1px solid #cedede;
    border-radius: 50%;
    display: flex;
    justify-content: center;
    align-items: center;
+   margin-bottom: 2em;
 }
 
 .InnerWrapper{
-  width: 23vw;
-  height: 23vw;
+  width: 230px;
+  height: 230px;
   background: #adb7da;
   border: 1px solid #adb7da;
   border-radius: 50%;
@@ -40,7 +41,7 @@
 .childComponent {
   display: flex;
   position: absolute;
-  top: 18vw;
+  top: 140px;
   z-index: 2;
   font-family: 'Staatliches', sans-serif;
   justify-content: flex-end;

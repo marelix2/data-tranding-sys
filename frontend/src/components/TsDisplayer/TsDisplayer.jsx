@@ -10,7 +10,7 @@ const TsDisplayer = (props) => {
       <div className={classes.DisplayerBox} >
       <Link to={props.path || 'home'}>
         <div className={classes.InnerWrapper}>
-            <img classname={classes.InnerWrapperImage} src={imgSrc} alt=""/>
+            <img className={classes.InnerWrapperImage} src={imgSrc} alt=""/>
             <div className={classes.childComponent}>
               {props.children}
             </div>

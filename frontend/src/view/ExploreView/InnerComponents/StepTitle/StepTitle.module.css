@@ -1,0 +1,15 @@
+.Header {
+  font-size: 3em;
+  font: outline;
+  margin-bottom: 0.2em;
+}
+
+.Value {
+  color: #1890ff;
+}
+
+.Subtitle {
+
+  font-size: 1.2em;
+  color: #bbb;
+}

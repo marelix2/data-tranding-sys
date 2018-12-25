@@ -1,0 +1,19 @@
+.CategoryWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}
+
+.DisplayersWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 2em;
+}
+
+.CategoryDisplayer {
+  flex: 2;
+  margin-bottom: 2em;
+}

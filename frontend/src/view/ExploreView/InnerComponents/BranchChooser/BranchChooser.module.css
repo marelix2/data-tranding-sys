@@ -1,0 +1,19 @@
+.BranchChooserWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.ChooserComponents {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Title {
+  margin-bottom: 2em;
+}
