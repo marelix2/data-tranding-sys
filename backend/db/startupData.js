@@ -2,8 +2,13 @@ const WalletModel = require('./../api/models/Wallet');
 const UserModel = require('./../api/models/User');
 const RoleModel = require('./../api/models/Role');
 const TagModel = require('./../api/models/Tag');
-const CategoryModel = require('./../api/models/Category.js');
+const CategoryModel = require('./../api/models/Category');
 const EmailModel = require('./../api/models/Email');
+const CompanyModel = require('./../api/models/Company');
+const SoldDataModel = require('./../api/models/SoldData');
+const BoughtDataModel = require('./../api/models/BoughtData');
+const RowStatusModel = require('./../api/models/RowStatus');
+const { filter, includes } = require('lodash');
 
 const { defaultImg } = require('./images');
 
@@ -11,14 +16,14 @@ const Sequelize = require('sequelize');
 
 const initData = async () => {
     try {
-        await insertUser();
-        const user = await UserModel.findOne({ where: { id: 1 } });
-        await loadWallet(user);
         await loadRoles();
+        await insertUser();
+        const users = await UserModel.findAll();
+        await loadWallet(users);
         await loadCategories();
         await loadTags();
-        await loadEmails();
-        await loadCompanies();
+        await loadSoldData(users);
+        await loadBoughtData(users);
     } catch (err) {
         return err;
     }
@@ -26,12 +31,30 @@ const initData = async () => {
 }
 
 const insertUser = async () => {
-    UserModel.create({
-        username: 'MMarelix',
-        googleId: '117299915804684678644',
-        email: 'marelix2@gmail.com',
-        avatar: 'https://lh3.googleusercontent.com/a-/AAuE7mAgdcWgQNBpEVVDsnNH4UO4gSJtBW-p6BiqnC3qsw?sz=50'
+    await UserModel.bulkCreate([
+        {
+            username: 'MMarelix',
+            googleId: '117299915804684678644',
+            email: 'marelix2@gmail.com',
+            avatar: 'https://lh3.googleusercontent.com/a-/AAuE7mAgdcWgQNBpEVVDsnNH4UO4gSJtBW-p6BiqnC3qsw?sz=50'
+        },
+        {
+            username: 'Michał Rusinek',
+            googleId: '104124918740810771973',
+            email: 'ttcrudspotify@gmail.com',
+            avatar: 'https://lh3.googleusercontent.com/a-/AAuE7mA4vldB4oskzoaXcRzCMDSLa2W3ZlOCCVNefqTi?sz=50'
+        }
+    ]
+    ).then(async (users) => {
+        const roles = await RoleModel.findAll();
+
+        await users.map(async (user) => {
+            await user.addRole(roles[0]);
+        })
+
     })
+
+
 }
 
 const loadWallet = async (user) => {
@@ -39,26 +62,33 @@ const loadWallet = async (user) => {
         name: 'portwel MMarelix',
         currentState: 0.00
     }).then(async (res) => {
-        await res.setUser(user);
+        await res.setUser(user[0]);
+    })
+
+    await WalletModel.create({
+        name: 'portwel Michal Rusinek',
+        currentState: 0.00
+    }).then(async (res) => {
+        await res.setUser(user[1]);
     })
 }
 
 const loadRoles = async () => {
-    RoleModel.bulkCreate([
+    await RoleModel.bulkCreate([
         { name: 'User' },
         { name: 'Admin' }
     ])
 }
 
 const loadCategories = async () => {
-    CategoryModel.bulkCreate([
+    await CategoryModel.bulkCreate([
         { name: 'Emails' },
         { name: 'Companies' }
     ])
 }
 
 const loadTags = async () => {
-    let tags = TagModel.bulkCreate(
+    let tags = await TagModel.bulkCreate(
         [
             {
                 name: 'games',
@@ -127,68 +157,25 @@ const loadTags = async () => {
         tag.setCategory(category);
     })
 
-    tags = TagModel.bulkCreate(
+    tags = await TagModel.bulkCreate(
         [
             {
-                name: 'c_games',
-                title: 'gry',
-                img: defaultImg
-            },
-            {
-                title: 'botanika',
-                name: 'c_botany',
-                img: defaultImg
-            },
-            {
-                title: 'geografia',
-                name: 'c_geography',
-                img: defaultImg
-            },
-            {
-                title: 'vege',
-                name: 'c_vege',
-                img: defaultImg
-            },
-            {
-                title: 'religia',
-                name: 'c_religion',
-                img: defaultImg
-            },
-            {
-                title: 'moda',
-                name: 'c_fashion',
-                img: defaultImg
-            },
-            {
-                title: 'obuwie',
-                name: 'c_boots',
-                img: defaultImg
-            },
-            {
-                title: 'zwierzeta',
-                name: 'c_animals',
-                img: defaultImg
-            },
-            {
-                title: 'filmy',
-                name: 'c_films',
-                img: defaultImg
-            },
-            {
-                title: 'programowanie',
                 name: 'c_dev',
+                title: 'oprogramowanie komputerowe',
                 img: defaultImg
             },
             {
-                title: 'wyprzedaze',
-                name: 'c_sales',
+                title: 'spółdzienie mieszkaniowe',
+                name: 'c_housing_association',
                 img: defaultImg
             },
             {
-                title: 'samorozwoj',
-                name: 'c_selfDev',
+                title: 'gastronomia',
+                name: 'c_gastronomy',
                 img: defaultImg
             }
+
+
         ]);
 
     category = await CategoryModel.findOne({ where: { name: 'Companies' } });
@@ -197,9 +184,25 @@ const loadTags = async () => {
     })
 }
 
-const loadEmails = async () => {
+const loadSoldData = async (users) => {
+    await SoldDataModel.create({
+        name: 'init_data_emails'
+    }).then(async (soldData) => {
+        await users[0].addSoldData(soldData);
+        await loadEmails(soldData);
+    });
+
+    await SoldDataModel.create({
+        name: 'init_data_companies'
+    }).then(async (soldData) => {
+        await users[0].addSoldData(soldData);
+        await loadCompanies(soldData);
+    });
+}
+
+const loadEmails = async (soldData) => {
     const emails =
-        EmailModel.bulkCreate([
+        await EmailModel.bulkCreate([
             { name: 'naoya@att.net' },
             { name: 'rande@yahoo.com' },
             { name: 'mallanmba@icloud.com' },
@@ -502,13 +505,166 @@ const loadEmails = async () => {
             { name: 'keiji@yahoo.com' }
         ]);
 
-            const tags = await TagModel.findAll({ where: { fk_category: 1 } });
-           emails.map( async (email) => {
-               let randTags = Math.floor(Math.random() * tags.length-1) + 1;
-               email.addTags(tags[randTags]);
-            })
+    const tags = await TagModel.findAll({ where: { fk_category: 1 } });
+    emails.map(async (email) => {
+        let randTags = Math.floor(Math.random() * tags.length - 1) + 1;
+        await email.addTags(tags[randTags]);
+        await soldData.addEmail(email);
+    })
+}
+
+const loadCompanies = async (soldData) => {
+    let companies = await CompanyModel.bulkCreate(
+        [
+            {
+                name: "SoftHard S.A.",
+                description: "Producent oprogramowania w Płocku",
+                contactNumber: "24 262 25 72",
+                locationCity: "Płock",
+                address: "Graniczna 27",
+                zipCode: "09-407",
+                country: "Polska"
+            },
+            {
+                name: "SoftHard S.A.",
+                description: "Producent oprogramowania w Płocku",
+                contactNumber: "54 411 55 50",
+                locationCity: "Włocławek",
+                address: "Jagiellońska 2",
+                zipCode: "87-800",
+                country: "Polska"
+            },
+            {
+                name: "SoftHard S.A.",
+                description: "Producent oprogramowania w Płocku",
+                contactNumber: "22 822 13 69",
+                locationCity: "Warszawa",
+                address: "Opaczewska 69",
+                zipCode: "02-201",
+                country: "Polska"
+            },
+            {
+                name: "SoftHard S.A.",
+                description: "Producent oprogramowania w Płocku",
+                contactNumber: "24 262 25 72",
+                locationCity: "Wrocław",
+                address: 'Sycowska 44',
+                zipCode: "51-001",
+                country: "Polska"
+            },
+            {
+                name: "Bocianek. Spółdzielnia Mieszkaniowa",
+                description: "Spółdzielnia mieszkaniowa",
+                contactNumber: "41 332 24 41",
+                locationCity: "Kielce",
+                address: "Marii Konopnickiej 5",
+                zipCode: "25-406",
+                country: "Polska"
+            },
+            {
+                name: "Spółdzielnia Mieszkaniowa. Administracja osiedla Kościuszki SMA",
+                description: "Spółdzielnia mieszkaniowa",
+                contactNumber: "41 344 96 31",
+                locationCity: "Kielce",
+                address: "Generała Tadeusza Kościuszki 50",
+                zipCode: "25-326",
+                country: "Polska"
+            },
+            {
+                name: "Słoneczko.",
+                description: " Osiedlowy Klub Kultury Kieleckiej Spółdzielni Mieszkaniowej",
+                contactNumber: "41 341 66 80",
+                locationCity: "Kielce",
+                address: "Romualda 3",
+                zipCode: "25-322",
+                country: "Polska"
+            },
+            {
+                name: "Setka Bar",
+                description: "Kuchnia polska",
+                contactNumber: "733 407 407",
+                locationCity: "Wrocław",
+                address: "Leszczyńskiego 4",
+                zipCode: "50-077",
+                country: "Polska",
+                website: 'http://setkapolska.pl/'
+            },
+            {
+                name: "Papa Bar",
+                description: "Kuchnia polska",
+                contactNumber: "71 341 04 85",
+                locationCity: "Wrocław",
+                address: "Rzeźnicza 32",
+                zipCode: "50-130",
+                country: "Polska",
+                website: 'https://papabar.pl/'
+            },
+        ]
+    )
+    const tags = await TagModel.findAll({ where: { fk_category: 2 } });
+
+    await companies.map(async (company, index) => {
+        if (index < 4) {
+            await company.addTags(tags[0]);
+        } else if (index < 7) {
+            await company.addTags(tags[1]);
+        } else {
+            await company.addTags(tags[2]);
+        }
+        await soldData.addCompany(company);
+    })
+}
+
+const loadBoughtData = async (users) => {
+    await BoughtDataModel.create({
+        name: 'bought_exaple_1'
+    }).then(async (boughtData) => {
+        await users[0].addBoughtData(boughtData);
+        await loadBoughtDataExampleFirst(boughtData);
+    });
+
+    await BoughtDataModel.create({
+        name: 'bought_exaple_2'
+    }).then(async (boughtData) => {
+        await users[0].addBoughtData(boughtData);
+        await loadBoughtDataExampleSecond(boughtData);
+    });
 
 }
+
+const loadBoughtDataExampleFirst = async (boughtData) => {
+    let emails = await EmailModel.findAll({
+        include: [
+            { model: TagModel, required: true }
+        ]
+    });
+
+    emails = filter(emails, (email) => {
+        let tags = filter(email.Tags, (tag) => {
+            return tag.id === 4 || tag.id === 7 || tag.id === 11
+        });
+        return tags.length !== 0
+    });
+
+    await emails.map(async (email) => await email.addBoughtData(boughtData));
+}
+
+const loadBoughtDataExampleSecond = async (boughtData) => {
+    let companies = await CompanyModel.findAll({
+        include: [
+            { model: TagModel, required: true }
+        ]
+    });
+    companies = filter(companies, (company) => {
+
+        let tags = filter(company.Tags, (tag) => tag.id === 14);
+        return tags.length !== 0;
+    });
+
+    await companies.map(async (company) => await company.addBoughtData(boughtData));
+}
+
+
 
 module.exports = {
     initData

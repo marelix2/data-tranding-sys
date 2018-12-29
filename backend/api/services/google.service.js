@@ -26,12 +26,12 @@ const getGoogleAccountFromCode = async (previousAuth, code) => {
         const data = await previousAuth.getToken(code);
         const tokens = data.tokens;
 
-        const auth =await connect();
+        const auth = await connect();
         auth.setCredentials(tokens);
 
         const plus = await getGooglePlusApi(auth);
         const me = await plus.people.get({ userId: 'me' });
-    
+
         const userGoogleId = me.data.id;
         const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
         const userGoogleName = me.data.displayName;
@@ -63,17 +63,18 @@ const checkIsUserRegistered = async (previousAuth, code) => {
 
         const plus = await getGooglePlusApi(auth);
         const me = await plus.people.get({ userId: 'me' });
-       
+
         const userGoogleId = me.data.id;
         const userGoogleEmail = me.data.emails[0].value;
         const userGoogleName = me.data.displayName;
         const userGoogleAvatar = me.data.image.url;
 
-        let user = await User.findOne({ where: { username: userGoogleName} });
+        let user = await User.findOne({ where: { username: userGoogleName } });
 
-        if(user === null) {
-         user = await User.create({
-                username: userGoogleName,
+        if (user === null) {
+            const username = userGoogleName !== "" ? userGoogleName : userGoogleEmail;
+            user = await User.create({
+                username: username,
                 googleId: userGoogleId,
                 email: userGoogleEmail,
                 avatar: userGoogleAvatar
