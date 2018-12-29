@@ -7,7 +7,8 @@
     "dev": "node ./app.js",
     "nodemon": "nodemon --exec npm run dev",
     "ustart": "npm run unodemon",
-    "unodemon": "sudo nodemon --exec npm run dev"
+    "unodemon": "sudo nodemon --exec npm run dev",
+    "startData":"node ./db/startupData.js" 
   },
   "dependencies": {
     "body-parser": "^1.18.3",

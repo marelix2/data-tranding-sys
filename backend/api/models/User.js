@@ -1,4 +1,4 @@
-const { STRING, DATE } = require('sequelize');
+const { STRING, DATE, INTEGER } = require('sequelize');
 const BoughtData = require('./BoughtData');
 const SoldData = require('./SoldData');
 
