@@ -1,7 +1,7 @@
 const { connect } = require('../services/google.service');
 const { OK, BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const ErrorDTO = require('./../dto/ErrorDTO.js');
-const { isUserRegistered, registerUser, getUser} = require('./../services/user.service');
+const { CheckUserRegistered, getUser} = require('./../services/user.service');
 
 const defaultScope = [
     'https://www.googleapis.com/auth/plus.me',
@@ -34,19 +34,19 @@ const AuthController = () => {
         const {code} = req.body;
         try {
             let user;
-            const userRegistered = await isUserRegistered(auth,code);
+            const userRegistered = await CheckUserRegistered(auth,code);
 
             console.log(userRegistered);
 
             if (!userRegistered){
                 user = await registerUser(auth,code);
             }else {
-                user = await getUser(code);
+                user = await getUser(userRegistered.dataValues.username);
             }
             
             return res.status(OK).json({user});
         } catch (error) {
-            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something goes wrong: ${error}`));
+            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
         }
     };
 

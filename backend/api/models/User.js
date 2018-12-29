@@ -1,4 +1,4 @@
-const { STRING, DATE } = require('sequelize');
+const { STRING, DATE, INTEGER } = require('sequelize');
 const BoughtData = require('./BoughtData');
 const SoldData = require('./SoldData');
 
@@ -29,7 +29,7 @@ const User = sequelize.define('User', {
   }
 }, { hooks, tableName });
 
-User.belongsToMany(Role, { through: 'UsersRoles' });
+User.belongsToMany(Role, { through: 'UsersRoles', foreignKey: 'fk_user_id', otherKey: 'fk_role_id'  });
 User.hasMany(BoughtData, { as: 'BoughtData', foreignKey: 'fk_user_id' });
 User.hasMany(SoldData, { as: 'SoldData', foreignKey: 'fk_user_id' });
 

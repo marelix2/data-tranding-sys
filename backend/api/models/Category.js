@@ -15,6 +15,7 @@ const Category = sequelize.define('Category', {
     }
 }, { hooks, tableName });
 
+
 // eslint-disable-next-line
 Category.prototype.toJSON = function () {
     const values = Object.assign({}, this.get());

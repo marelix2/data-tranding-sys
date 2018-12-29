@@ -1,0 +1,5 @@
+const letterImg = 'iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAODwAADg8Bxgru6QAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAABoXSURBVHja7d1tjGX1XcDxNUpIDG3ii77gTd';
+
+module.exports = {
+    defaultImg: letterImg,
+}

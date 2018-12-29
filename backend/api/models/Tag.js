@@ -1,8 +1,8 @@
 const { STRING } = require('sequelize');
 
 const sequelize = require('../../config/database');
-
 const Category = require('./Category');
+
 
 const hooks = {};
 
@@ -12,7 +12,14 @@ const Tag = sequelize.define('Tag', {
     name: {
         type: STRING,
         unique: true,
+    },
+    title: {
+        type: STRING
+    },
+    img: {
+        type: STRING,
     }
+
 }, { hooks, tableName });
 
 Tag.belongsTo(Category, { foreignKey: 'fk_category', foreignKeyConstraint: true });
