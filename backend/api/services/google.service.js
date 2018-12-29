@@ -2,6 +2,9 @@ const { OK, BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } = require
 const { google } = require('googleapis');
 const GoogleErrorDTO = require('./../dto/GoogleErrorDTO');
 const User = require('./../models/User');
+const Wallet = require('./../models/Wallet');
+const Role = require('./../models/Role');
+
 
 const googleConfig = {
     clientId: '588208763196-h43ntaum2us5c42svjs27t6lb83qaq06.apps.googleusercontent.com',
@@ -78,6 +81,17 @@ const checkIsUserRegistered = async (previousAuth, code) => {
                 googleId: userGoogleId,
                 email: userGoogleEmail,
                 avatar: userGoogleAvatar
+            }).then(async (user) => {
+                await Wallet.create({
+                    name: 'portwel' + user.username,
+                    currentState: 0.00
+                }).then(async (res) => {
+                    await res.setUser(user);
+                });
+                
+                const roles = await Role.findAll();
+                await user.addRole(roles[0]);
+               
             });
         }
 

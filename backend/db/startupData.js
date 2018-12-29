@@ -7,7 +7,6 @@ const EmailModel = require('./../api/models/Email');
 const CompanyModel = require('./../api/models/Company');
 const SoldDataModel = require('./../api/models/SoldData');
 const BoughtDataModel = require('./../api/models/BoughtData');
-const RowStatusModel = require('./../api/models/RowStatus');
 const { filter, includes } = require('lodash');
 
 const { defaultImg } = require('./images');

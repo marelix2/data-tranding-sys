@@ -1,5 +1,7 @@
 const { OK, BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const ErrorDTO = require('./../dto/ErrorDTO.js');
+const RoleModel = require('./../models/Role');
+const Wallet = require('./../models/Wallet');
 
 const { getGoogleAccountFromCode, checkIsUserRegistered } = require('./google.service')
 
@@ -8,6 +10,7 @@ const User = require('./../models/User');
 const CheckUserRegistered = async (auth, code) => {
 
     try {
+        await loadUserRoles();
         const user = await checkIsUserRegistered(auth, code);
         return user;
     } catch (err) {
@@ -19,11 +22,26 @@ const CheckUserRegistered = async (auth, code) => {
 const getUser = async (username) => {
     try {
     
-            return await User.findOne({ where: { username: username } });
+            return await User.findOne({ where: { username: username },
+                include: [
+                    { model: Wallet, required: true }
+                ] });
         
     } catch (err) {
         return new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
     }
+}
+
+const loadUserRoles = async () => {
+    const roles = await RoleModel.findAll();
+     if(roles.length === 0) {
+         await RoleModel.bulkCreate([
+             { name: 'User' },
+             { name: 'Admin' }
+         ])
+     }
+   
+
 }
 
 module.exports = {
