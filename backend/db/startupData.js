@@ -619,7 +619,7 @@ const loadBoughtData = async (users) => {
         name: 'bought_exaple_1'
     }).then(async (boughtData) => {
         const category = await CategoryModel.findOne({ where: { name: 'Emails' } });
-        await boughtData.addCategory(category);
+        await boughtData.setCategory(category);
         await users[0].addBoughtData(boughtData);
         await loadBoughtDataExampleFirst(boughtData);
     });
@@ -627,10 +627,20 @@ const loadBoughtData = async (users) => {
     await BoughtDataModel.create({
         name: 'bought_exaple_2'
     }).then(async (boughtData) => {
-        const category = await CategoryModel.findOne({ where: { name: 'Companies' } });
-        await boughtData.addCategory(category);
+       const category = await CategoryModel.findOne({ where: { name: 'Companies' } });
+        await boughtData.setCategory(category);
+        
         await users[0].addBoughtData(boughtData);
         await loadBoughtDataExampleSecond(boughtData);
+    });
+
+    await BoughtDataModel.create({
+        name: 'bought_exaple_3'
+    }).then(async (boughtData) => {
+        const category = await CategoryModel.findOne({ where: { name: 'Companies' } });
+        await boughtData.setCategory(category);
+        await users[0].addBoughtData(boughtData);
+        await loadBoughtDataExampleThrind(boughtData);
     });
 
 }
@@ -666,6 +676,19 @@ const loadBoughtDataExampleSecond = async (boughtData) => {
     await companies.map(async (company) => await company.addBoughtData(boughtData));
 }
 
+const loadBoughtDataExampleThrind = async (boughtData) => {
+    let companies = await CompanyModel.findAll({
+        include: [
+            { model: TagModel, required: true }
+        ]
+    });
+    companies = filter(companies, (company) => {
+        let tags = filter(company.Tags, (tag) => { return tag.id === 15 });
+        return tags.length !== 0;
+    });
+
+    await companies.map(async (company) => await company.addBoughtData(boughtData));
+}
 
 
 module.exports = {

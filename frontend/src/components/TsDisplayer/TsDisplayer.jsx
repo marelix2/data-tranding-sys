@@ -3,7 +3,13 @@ import classes from './TsDisplayer.module.css';
 import { Link } from 'react-router-dom';
 
 const TsDisplayer = (props) => {
-  const imgSrc = require(`./../../assets/displayer/${props.image.name}.${props.image.type || 'png'}`);
+  let imgSrc;
+  if (props.img) {
+    imgSrc ="data:image/png;base64," + props.img;
+  }else {
+    imgSrc = require(`./../../assets/displayer/${props.image.name}.${props.image.type || 'png'}`);
+  }
+
   return (
     <>
      

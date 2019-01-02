@@ -5,5 +5,14 @@ const publicRoutes = {
     'PUT /sold/user': 'SoldDataController.getAllForDisplay',
     'PUT /bought/user/emails': 'BoughtDataController.getAllForDisplayEmails',
     'PUT /bought/user/companies': 'BoughtDataController.getAllForDisplayCompanies',
+    'PUT /bought/user/number': 'BoughtDataController.getNumberOfTables',
+
+    'PUT /wallet/user/current': 'WalletController.getUserCurrent',
+    
+    'PUT /home/user/explored/path': 'ExploredTagsController.updateExploredTag',
+    'PUT /home/user/explored': 'ExploredTagsController.getTagsForDisplay',
+
+    'PUT /explored/emails': 'ExploredController.getEmailTagsForDisplay',
+    'PUT /explored/companies': 'ExploredController.getCompaniesTagsForDisplay',
 };
 module.exports = publicRoutes;

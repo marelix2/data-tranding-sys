@@ -11,10 +11,9 @@ const BoughtDataController = () => {
 
   const getAllForDisplayEmails = async (req, res) => {
     try {
-      const { userId} = req.body;
-      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId } });
-      console.log(tables);
-
+      const { userId, categoryId } = req.body;
+      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, CategoryId: categoryId } });
+    
       for( let index = 0 ; index < tables.length ; index++){
         let emails = await EmailModel.findAll({
           include: [{
@@ -25,9 +24,7 @@ const BoughtDataController = () => {
             }
           }]
         })
-        //console.log(JSON.stringify(emails, null, 1), emails.length)
         emails = filter(emails, (email) => email.BoughtData.length > 0)
-        
         if(emails.length > 0){
           tables[index].dataValues.rows = emails.length;
         }else {
@@ -45,8 +42,8 @@ const BoughtDataController = () => {
   getAllForDisplayCompanies = async (req, res) => {
     try {
       
-      const { userId} = req.body;
-      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId } });
+      const {userId, categoryId} = req.body;
+      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, CategoryId: categoryId} });
 
       for( let index = 0 ; index < tables.length ; index++){
         console.log(index);
@@ -59,9 +56,7 @@ const BoughtDataController = () => {
             }
           }]
         })
-        
         companies = filter(companies, (companies) => companies.BoughtData.length > 0);
-       
         if(companies.length > 0){
           tables[index].dataValues.rows = companies.length;
         }else {
@@ -75,9 +70,27 @@ const BoughtDataController = () => {
     }
   }
 
+  getNumberOfTables = async (req, res) => {
+    try {
+
+    const { userId } = req.body;
+
+    let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId} });
+
+    tables = tables.map( (table) => {
+      return {id: table.dataValues.id , categoryId: table.dataValues.CategoryId}
+    })
+    console.log(tables);
+      return res.status(OK).json({ tables });
+    } catch (error) {
+      return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+    }
+  }
+
   return {
     getAllForDisplayEmails,
-    getAllForDisplayCompanies
+    getAllForDisplayCompanies,
+    getNumberOfTables
   }
 }
 

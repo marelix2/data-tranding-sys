@@ -7,7 +7,8 @@ import { Route } from 'react-router-dom';
 import TableChooser from './InnerComponents/TableChooser/TableChooser';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
-import {getPathFromUrl} from './../../utils';
+import { getPathFromUrl } from './../../utils';
+import {filter} from 'lodash';
 class BoughtDataDisplayerView extends Component {
     constructor(props) {
         super(props);
@@ -28,56 +29,69 @@ class BoughtDataDisplayerView extends Component {
                 }
             ],
             data: [],
-            shouldFetch : true
+            shouldFetch: true,
+            emailRows: 0,
+            companyRows: 0
+        }
+    }
+    
+    componentDidMount() {
+        this.fetchNumberOfTables();
+    }
+
+    fetchData = (category) => {
+        if (this.state.shouldFetch && category === 'emails') {
+            axios.put(Api.PUT_ALL_BOUGHT_DATA_EMAIL, { userId: 1, categoryId: 1 }).then((response) => {
+                const data = response.data.tables.map((row) => {
+                    return ([
+                        {
+                            value: row.name,
+                            width: '9'
+                        },
+                        {
+                            value: row.rows,
+                            width: '7'
+                        },
+                        {
+                            value: row.createdAt,
+                            width: '4'
+                        }
+                    ])
+                })
+
+                this.setState({ data: data, shouldFetch: false });
+            })
+        } else if (this.state.shouldFetch && category === 'companies') {
+            axios.put(Api.PUT_ALL_BOUGHT_DATA_COMPANY, { userId: 1, categoryId: 2 }).then((response) => {
+                const data = response.data.tables.map((row) => {
+                    console.log(row);
+                    return ([
+                        {
+                            value: row.name,
+                            width: '9'
+                        },
+                        {
+                            value: row.rows,
+                            width: '7'
+                        },
+                        {
+                            value: row.createdAt,
+                            width: '4'
+                        }
+                    ])
+                })
+
+                this.setState({ data: data, shouldFetch: false });
+            })
         }
     }
 
-
-    fetchData = (category) => {
-            if(this.state.shouldFetch  && category === 'emails'){
-                axios.put(Api.PUT_ALL_BOUGHT_DATA_EMAIL, { userId: 1 }).then((response) => {
-                    const data = response.data.tables.map((row) => {
-                        return ([
-                            {
-                                value: row.name,
-                                width: '9'
-                            },
-                            {
-                                value: row.rows,
-                                width: '7'
-                            },
-                            {
-                                value: row.createdAt,
-                                width: '4'
-                            }
-                        ])
-                    })
-        
-                    this.setState({ data: data , shouldFetch: false});
-                })
-            }else if(this.state.shouldFetch  && category === 'companies'){
-                axios.put(Api.PUT_ALL_BOUGHT_DATA_COMPANY, { userId: 1 }).then((response) => {
-                    const data = response.data.tables.map((row) => {
-                        console.log(row);
-                        return ([
-                            {
-                                value: row.name,
-                                width: '9'
-                            },
-                            {
-                                value: row.rows,
-                                width: '7'
-                            },
-                            {
-                                value: row.createdAt,
-                                width: '4'
-                            }
-                        ])
-                    })
-        
-                    this.setState({ data: data , shouldFetch: false});
-                })
-            }
+    fetchNumberOfTables() {
+        axios.put(Api.PUT_TABLES_NUMBER, { userId: 1}).then((response) => {
+            const emailRows = filter(response.data.tables , (row) =>{return row.categoryId === 1});
+            const companyRows = filter(response.data.tables, (row) =>{return row.categoryId === 2 });
+            this.setState({ emailRows: emailRows.length, companyRows: companyRows.length});
+        })
     }
 
     render() {
@@ -89,7 +103,7 @@ class BoughtDataDisplayerView extends Component {
 
                 <Row>
 
-                    <Route exact path={`${this.props.match.path}`} render={() => (<TableChooser path={this.props.match.path} emailRows={this.state.data.length} companyRows={this.state.data.length} />)} />
+                    <Route exact path={`${this.props.match.path}`} render={() => (<TableChooser path={this.props.match.path} emailRows={this.state.emailRows} companyRows={this.state.companyRows} />)} />
                     <Route path={`${this.props.match.path}/:category`} render={() => {
                         this.fetchData(getPathFromUrl(this.props.location.pathname, this.props.match.path));
                         return (
