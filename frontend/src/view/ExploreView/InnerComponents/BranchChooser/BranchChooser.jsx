@@ -13,11 +13,11 @@ const BranchChooser = (props) => {
                 <div className={classes.ChooserComponents}>
                     <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.pathUrl}/emails`}>
                         <h3> {'Emaile'}</h3>
-                        <p> {props.rows || 0} wierszy</p>
+                        <p> {props.totalEmails || 0} Kategorii</p>
                     </TsDisplayer>
                     <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.pathUrl}/companies`}>
                         <h3> {'Firmy'}</h3>
-                        <p> {props.rows || 0}  wierszy</p>
+                        <p> {props.totalCompanies || 0}  Kategorii</p>
                     </TsDisplayer>
                 </div>
             </div>
