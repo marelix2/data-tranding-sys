@@ -72,7 +72,7 @@ class SoldDataDisplayerView extends Component {
             this.setState({ data: data });
         })
     }
- 
+
     render() {
         return (
             <div>
@@ -85,9 +85,9 @@ class SoldDataDisplayerView extends Component {
 
                 <Row>
                     <Col offset={1} span={22} className={classes.ContentWrapper}>
-                        <TsTable
-                            header={this.state.header}
-                            rows={this.state.data} />
+                    <TsTable
+                header={this.state.header}
+                rows={this.state.data} />
                     </Col>
                 </Row>
             </div>

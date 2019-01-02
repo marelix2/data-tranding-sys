@@ -5,7 +5,9 @@ import classes from './BoughtDataDisplayerView.module.css';
 import { Col, Row } from 'antd';
 import { Route } from 'react-router-dom';
 import TableChooser from './InnerComponents/TableChooser/TableChooser';
-
+import axios from './../../axiosAPI';
+import Api from './../../endpoints';
+import {getPathFromUrl} from './../../utils';
 class BoughtDataDisplayerView extends Component {
     constructor(props) {
         super(props);
@@ -14,42 +16,68 @@ class BoughtDataDisplayerView extends Component {
             header: [
                 {
                     name: 'Nazwa',
-                    width: '6'
-                },
-                {
-                    name: 'tag',
-                    width: '6'
+                    width: '9'
                 },
                 {
                     name: 'Liczba wierszy',
-                    width: '4'
+                    width: '7'
                 },
                 {
                     name: 'Data zakupu',
                     width: '4'
                 }
             ],
-            data: [
-                [
-                    {
-                        value: 'tabela_1',
-                        width: '6'
-                    },
-                    {
-                        value: 'gry',
-                        width: '6'
-                    },
-                    {
-                        value: '150',
-                        width: '4'
-                    },
-                    {
-                        value: '19-05-05',
-                        width: '4'
-                    }
-                ]
-            ]
+            data: [],
+            shouldFetch : true
         }
+    }
+
+
+    fetchData = (category) => {
+            if(this.state.shouldFetch  && category === 'emails'){
+                axios.put(Api.PUT_ALL_BOUGHT_DATA_EMAIL, { userId: 1 }).then((response) => {
+                    const data = response.data.tables.map((row) => {
+                        return ([
+                            {
+                                value: row.name,
+                                width: '9'
+                            },
+                            {
+                                value: row.rows,
+                                width: '7'
+                            },
+                            {
+                                value: row.createdAt,
+                                width: '4'
+                            }
+                        ])
+                    })
+        
+                    this.setState({ data: data , shouldFetch: false});
+                })
+            }else if(this.state.shouldFetch  && category === 'companies'){
+                axios.put(Api.PUT_ALL_BOUGHT_DATA_COMPANY, { userId: 1 }).then((response) => {
+                    const data = response.data.tables.map((row) => {
+                        console.log(row);
+                        return ([
+                            {
+                                value: row.name,
+                                width: '9'
+                            },
+                            {
+                                value: row.rows,
+                                width: '7'
+                            },
+                            {
+                                value: row.createdAt,
+                                width: '4'
+                            }
+                        ])
+                    })
+        
+                    this.setState({ data: data , shouldFetch: false});
+                })
+            }
     }
 
     render() {
@@ -61,13 +89,17 @@ class BoughtDataDisplayerView extends Component {
 
                 <Row>
 
-                    <Route exact path={`${this.props.match.path}`} render={() => (<TableChooser path={this.props.match.path} emailRows={this.state.data.length} companyRows={this.state.data.length}/>) }/>
-                    <Route path={`${this.props.match.path}/:category`} render={() => (
-                        <Col offset={1} span={22} className={classes.ContentWrapper}>
-                            <TsTable
-                                header={this.state.header}
-                                rows={this.state.data} />
-                        </Col>)} />
+                    <Route exact path={`${this.props.match.path}`} render={() => (<TableChooser path={this.props.match.path} emailRows={this.state.data.length} companyRows={this.state.data.length} />)} />
+                    <Route path={`${this.props.match.path}/:category`} render={() => {
+                        this.fetchData(getPathFromUrl(this.props.location.pathname, this.props.match.path));
+                        return (
+                            <Col offset={1} span={22} className={classes.ContentWrapper}>
+                                <TsTable
+                                    header={this.state.header}
+                                    rows={this.state.data} />
+                            </Col>)
+                    }
+                    } />
                 </Row>
             </>
         );
