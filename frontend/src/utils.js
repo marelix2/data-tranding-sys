@@ -1,9 +1,9 @@
 const IsUserLoggedIn = () => {
-    return localStorage.getItem('code') ? true : false;
+    return localStorage.getItem('googleId') ? true : false;
 }
 
 const logoutHandle = () => {
-    localStorage.removeItem('code');
+    localStorage.removeItem('googleId');
     localStorage.removeItem('avatar');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
