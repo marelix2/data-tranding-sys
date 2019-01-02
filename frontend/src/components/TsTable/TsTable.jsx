@@ -5,6 +5,7 @@ import Header from './innerComponents/Header/Header';
 import classes from './TsTable.module.css';
 import TsRow from './innerComponents/TsRow/TsRow';
 import { filter, reduce, upperCase } from 'lodash';
+import equal from 'fast-deep-equal';
 
 class TsTable extends Component {
   constructor(props) {
@@ -14,8 +15,20 @@ class TsTable extends Component {
       rowsData: this.props.rows,
       pageSize: 10,
       currentPage: 1,
-      totalPages: 0
+      totalPages: 0,
+      rows: ""
     }
+  }
+
+
+  componentDidUpdate(prevProps) {
+    if (!equal(this.props.rows, prevProps.rows)) {
+      this.setState({ rows: this.renderRows()})
+    }
+  }
+
+  componentDidMount() {
+    this.setState({ rows: this.renderRows() })
   }
 
   searchDataHandler = (e) => {
@@ -31,7 +44,7 @@ class TsTable extends Component {
   }
 
   onShowSizeChange = (current, pageSize) => {
-    console.log(current,pageSize);
+    console.log(current, pageSize);
     this.setState({
       pageSize: pageSize,
       currentPage: current
@@ -47,14 +60,17 @@ class TsTable extends Component {
     return (this.state.currentPage - 1) * this.state.pageSize <= index && index < this.state.currentPage * this.state.pageSize;
   }
 
-  render() {
-    const header = <Header headerCloumns={this.props.header} />;
-    const rows = this.state.rowsData.map((row, index) => (
+  renderRows = () => {
+    return this.props.rows.map((row, index) => (
       this.shouldShowRow(index) ?
         <TsRow key={index} cols={this.props.header} class={classes.RowColor} data={row}></TsRow>
         : null
 
     ))
+  }
+
+  render() {
+    const header = <Header headerCloumns={this.props.header} />;
     const pagination = (<Col className={classes.Pagination}>
       <Pagination
         defaultCurrent={this.state.currentPage}
@@ -62,7 +78,7 @@ class TsTable extends Component {
         onShowSizeChange={this.onShowSizeChange}
         onChange={this.onPageChange}
         showSizeChanger
-         />
+      />
     </Col>)
 
     return (
@@ -73,7 +89,7 @@ class TsTable extends Component {
             changed={this.searchDataHandler} />
           <Row className={classes.TableWrapper}>
             {header}
-            {rows}
+            {this.state.rows}
           </Row>
           {pagination}
         </Row>

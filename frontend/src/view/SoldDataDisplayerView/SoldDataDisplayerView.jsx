@@ -4,6 +4,8 @@ import classes from './SoldDataDisplayerView.module.css';
 import { Col, Row } from 'antd';
 import { Route } from 'react-router-dom';
 import TsTable from './../../components/TsTable/TsTable';
+import axios from './../../axiosAPI';
+import Api from './../../endpoints';
 
 class SoldDataDisplayerView extends Component {
     constructor(props) {
@@ -32,14 +34,24 @@ class SoldDataDisplayerView extends Component {
                     width: '4'
                 }
             ],
-            data: [
-                [
+            data: []
+        }
+    }
+
+    componentDidMount() {
+        this.dataImportHandler();
+    }
+
+    dataImportHandler = () => {
+        axios.put(Api.PUT_ALL_SOLD_DATA, { userId: 1 }).then((response) => {
+            const data = response.data.tables.map((row) => {
+                return ([
                     {
-                        value: 'tabela_1',
+                        value: row.name,
                         width: '4'
                     },
                     {
-                        value: 'email',
+                        value: row.category,
                         width: '4'
                     },
                     {
@@ -47,16 +59,18 @@ class SoldDataDisplayerView extends Component {
                         width: '4'
                     },
                     {
-                        value: '150',
+                        value: row.rows,
                         width: '4'
                     },
                     {
-                        value: '19-05-05',
+                        value: row.createdAt,
                         width: '4'
                     }
-                ]
-            ]
-        }
+                ])
+            })
+
+            this.setState({ data: data });
+        })
     }
 
     render() {
@@ -71,9 +85,9 @@ class SoldDataDisplayerView extends Component {
 
                 <Row>
                     <Col offset={1} span={22} className={classes.ContentWrapper}>
-                        <TsTable
-                            header={this.state.header}
-                            rows={this.state.data} />
+                    <TsTable
+                header={this.state.header}
+                rows={this.state.data} />
                     </Col>
                 </Row>
             </div>

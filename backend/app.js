@@ -58,6 +58,7 @@ require('./api/models/SoldData');
 require('./api/models/Email');
 require('./api/models/Company');
 require('./api/models/RowStatus');
+require('./api/models/ExploredTag');
 
 
 module.exports = app;

@@ -6,11 +6,12 @@ import StepTitle from '../StepTitle/StepTitle';
 import {upperFirst} from 'lodash'
 
 const CategoryChooser = (props) => {
-
   const categories = props.data.map((category) => {
     return (
+      
       <TsDisplayer key={category.id}
         image={{ name: 'letter', type: 'png' }}
+        img={category.img}
         path={`${props.pathUrl.current}/${category.name}`}>
         <h3> {category.title}</h3>
         <p> {category.rows} wierszy</p>

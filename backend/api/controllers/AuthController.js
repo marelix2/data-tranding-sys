@@ -25,7 +25,7 @@ const AuthController = () => {
 
             return res.status(OK).json({ url });
         } catch (error) {
-            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something goes wrong: ${error}`));
+            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something goes went: ${error}`));
         }
 
     };
