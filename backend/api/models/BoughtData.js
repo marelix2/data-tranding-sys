@@ -1,5 +1,6 @@
 const { STRING } = require('sequelize');
 const RowStatus = require('./RowStatus');
+const Category = require('./Category');
 
 const sequelize = require('../../config/database');
 
@@ -15,6 +16,8 @@ const BoughtData = sequelize.define('BoughtData', {
         unique: true,
     }
 }, { hooks, tableName });
+
+BoughtData.belongsTo(Category);
 
 // eslint-disable-next-line
 BoughtData.prototype.toJSON = function () {

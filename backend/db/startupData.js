@@ -618,6 +618,8 @@ const loadBoughtData = async (users) => {
     await BoughtDataModel.create({
         name: 'bought_exaple_1'
     }).then(async (boughtData) => {
+        const category = await CategoryModel.findOne({ where: { name: 'Emails' } });
+        await boughtData.addCategory(category);
         await users[0].addBoughtData(boughtData);
         await loadBoughtDataExampleFirst(boughtData);
     });
@@ -625,6 +627,8 @@ const loadBoughtData = async (users) => {
     await BoughtDataModel.create({
         name: 'bought_exaple_2'
     }).then(async (boughtData) => {
+        const category = await CategoryModel.findOne({ where: { name: 'Companies' } });
+        await boughtData.addCategory(category);
         await users[0].addBoughtData(boughtData);
         await loadBoughtDataExampleSecond(boughtData);
     });
@@ -655,8 +659,7 @@ const loadBoughtDataExampleSecond = async (boughtData) => {
         ]
     });
     companies = filter(companies, (company) => {
-
-        let tags = filter(company.Tags, (tag) => tag.id === 14);
+        let tags = filter(company.Tags, (tag) => { return tag.id === 14});
         return tags.length !== 0;
     });
 
