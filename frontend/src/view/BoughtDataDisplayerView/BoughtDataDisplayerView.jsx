@@ -41,7 +41,7 @@ class BoughtDataDisplayerView extends Component {
 
     fetchData = (category) => {
         if (this.state.shouldFetch && category === 'emails') {
-            axios.put(Api.PUT_ALL_BOUGHT_DATA_EMAIL, { userId: 1, categoryId: 1 }).then((response) => {
+            axios.put(Api.PUT_ALL_BOUGHT_DATA_EMAIL, { userId: localStorage.getItem('id'), categoryId: 1 }).then((response) => {
                 const data = response.data.tables.map((row) => {
                     return ([
                         {
@@ -62,7 +62,7 @@ class BoughtDataDisplayerView extends Component {
                 this.setState({ data: data, shouldFetch: false });
             })
         } else if (this.state.shouldFetch && category === 'companies') {
-            axios.put(Api.PUT_ALL_BOUGHT_DATA_COMPANY, { userId: 1, categoryId: 2 }).then((response) => {
+            axios.put(Api.PUT_ALL_BOUGHT_DATA_COMPANY, { userId: localStorage.getItem('id'), categoryId: 2 }).then((response) => {
                 const data = response.data.tables.map((row) => {
                     console.log(row);
                     return ([
@@ -87,7 +87,7 @@ class BoughtDataDisplayerView extends Component {
     }
 
     fetchNumberOfTables() {
-        axios.put(Api.PUT_TABLES_NUMBER, { userId: 1}).then((response) => {
+        axios.put(Api.PUT_TABLES_NUMBER, { userId: localStorage.getItem('id')}).then((response) => {
             const emailRows = filter(response.data.tables , (row) =>{return row.categoryId === 1});
             const companyRows = filter(response.data.tables, (row) =>{return row.categoryId === 2 });
             this.setState({ emailRows: emailRows.length, companyRows: companyRows.length});

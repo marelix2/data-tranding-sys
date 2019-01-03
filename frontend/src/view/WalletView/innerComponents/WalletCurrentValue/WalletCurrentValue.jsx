@@ -2,13 +2,13 @@ import React from 'react';
 import { Card } from 'antd';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
-import classes from './CurrentValue.module.css';
+import classes from './WalletCurrentValue.module.css';
 import TsBasicButton from './../../../../components/TsBasicButton/TsBasicButton';
 
 const CurrentValue = (props) => {
     const actions = [
-        <TsBasicButton type="shopping-cart" message={'przejdź do zakupów'} directory='buy'/>,
-        <TsBasicButton type="wallet" message={'twój portwel'} directory='wallet'/>
+        <TsBasicButton type="schedule" message={'historia zakupów'} directory='sold'/>,
+        <TsBasicButton type="rise" message={'Wypłać zgromadzone środki'} directory='wallet'/>
     ];
     const value = props.value ? numeral(props.value).format('0.00') : '0.00'
     return (

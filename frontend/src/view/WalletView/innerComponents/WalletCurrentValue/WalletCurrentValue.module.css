@@ -1,0 +1,17 @@
+.Header {
+    display: flex;
+    justify-content: center;
+
+}
+
+.ValueText {
+    text-align: center;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.ant-card-head-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

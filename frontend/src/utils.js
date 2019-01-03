@@ -11,6 +11,7 @@ const logoutHandle = () => {
     localStorage.removeItem('avatar');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
+    localStorage.removeItem('id');
 }
 
 module.exports = {
