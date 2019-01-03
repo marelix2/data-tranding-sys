@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 const Panel = Collapse.Panel;
 
 const RecentlyViewedCategories = (props) => {
-
-    const panels = props.data.map((panel) => {
+        console.log(props.data);
+    const panels = props.data.length > 0 ? props.data.map((panel) => {
         return (<Panel header={panel.categoryName} key={panel.categoryName}>
             <div className={classes.PanelWrapper}>
                 <span> Wyświetlono: {panel.dataToDisplay.date}</span>
@@ -19,8 +19,8 @@ const RecentlyViewedCategories = (props) => {
                 </Link>
             </div>
 
-        </Panel>)
-    })
+        </Panel>) 
+    }) : (<Panel header={'brak danych :('} disabled> </Panel>)
 
     return (
         <div>

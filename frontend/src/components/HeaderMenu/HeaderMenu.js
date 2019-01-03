@@ -57,7 +57,7 @@ class HeaderMenu extends Component {
                             mode='horizontal'
                             theme='dark'
                         >
-                            <Menu.Item key="a"> user </Menu.Item>
+                            <Menu.Item key="a"> {localStorage.getItem('username') || 'Użytkownik'} </Menu.Item>
                             <SubMenu title={<span className="submenu-title-wrapper"><Icon type="setting" />Opcje</span>}>
 
                                 <Menu.Item key="setting:1"> <Link to='/dashboard/settings'>Ustawienia </Link></Menu.Item>

@@ -11,34 +11,6 @@ class HomeView extends Component {
         super(props);
         this.state = {
             explored: [
-                {
-                    categoryName: 'kategoria 1',
-                    dataToDisplay: {
-                        date: '12-12-12'
-                    },
-                    path: 'explore'
-                },
-                {
-                    categoryName: 'kategoria 2',
-                    dataToDisplay: {
-                        date: '12-12-12'
-                    },
-                    path: 'explore'
-                },
-                {
-                    categoryName: 'kategoria 3',
-                    dataToDisplay: {
-                        date: '12-12-12'
-                    },
-                    path: 'explore'
-                },
-                {
-                    categoryName: 'kategoria 4',
-                    dataToDisplay: {
-                        date: '12-12-12'
-                    },
-                    path: 'explore'
-                }
             ],
 
             walletValue: 0
@@ -51,13 +23,13 @@ class HomeView extends Component {
     }
 
     fetchWalletValue = () => {
-        axios.put(Api.GET_CURRENT_VALUE, {userId: 1}).then((response) => {
+        axios.put(Api.GET_CURRENT_VALUE, { userId: localStorage.getItem('id')}).then((response) => {
             this.setState({walletValue: response.data.current.currentState})
         })
     }
 
     fetchExplored = () => {
-        axios.put(Api.GET_EXPLORED, { userId: 1 }).then((response) => {
+        axios.put(Api.GET_EXPLORED, { userId: localStorage.getItem('id') }).then((response) => {
             console.log(response);
             const explored = response.data.exploredTag.map((tag) => {
                 return ({

@@ -21,13 +21,12 @@ class CbHandler extends Component {
 
         axios.post(API.POST_GOOGLE_CODE, { code: this.extractParams()})
         .then((response) => {
-            const {email,avatar,username,code} = response.data.user;
-
-            console.log([response.data]);
+            const { email, avatar, username, googleId,id} = response.data.user[0];
+            localStorage.setItem('id', id)
             localStorage.setItem('email',email);
             localStorage.setItem('avatar', avatar);
             localStorage.setItem('username', username);
-            localStorage.setItem('code', code);
+            localStorage.setItem('googleId', googleId);
             this.setState({ toDashboard: true });
         });
     };

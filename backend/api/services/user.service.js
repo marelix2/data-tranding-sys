@@ -21,26 +21,27 @@ const CheckUserRegistered = async (auth, code) => {
 
 const getUser = async (username) => {
     try {
-    
-            return await User.findOne({ where: { username: username },
-                include: [
-                    { model: Wallet, required: true }
-                ] });
-        
+
+        return await User.findAll({
+            where: { 
+                username: username 
+            }
+        });
+
     } catch (err) {
-        return new ErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to database (ApiController)');
+        return new ErrorDTO(INTERNAL_SERVER_ERROR, err);
     }
 }
 
 const loadUserRoles = async () => {
     const roles = await RoleModel.findAll();
-     if(roles.length === 0) {
-         await RoleModel.bulkCreate([
-             { name: 'User' },
-             { name: 'Admin' }
-         ])
-     }
-   
+    if (roles.length === 0) {
+        await RoleModel.bulkCreate([
+            { name: 'User' },
+            { name: 'Admin' }
+        ])
+    }
+
 
 }
 
