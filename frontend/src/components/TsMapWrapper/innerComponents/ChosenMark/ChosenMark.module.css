@@ -1,0 +1,9 @@
+.ColumnWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ChoiceProgress {
+    color: #cecece;
+}
