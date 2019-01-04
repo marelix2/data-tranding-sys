@@ -2,6 +2,7 @@ const { OK, BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } = require
 const ErrorDTO = require('./../dto/ErrorDTO.js');
 const TagModel = require('./../models/Tag');
 const EmailModel = require('./../models/Email');
+const CompanyModel = require('./../models/Company');
 const { filter } = require('lodash');
 
 
@@ -31,15 +32,15 @@ const ExploredController = () => {
     getCompaniesTagsForDisplay = async (req, res) => {
         try {
             const companyTags = await TagModel.findAll({ where: { fk_category: 2 } });
-            const emails = await EmailModel.findAll({
+            const companies = await CompanyModel.findAll({
                 include: [{
                     model: TagModel
                 }]
             })
 
             for (let index = 0; index < companyTags.length; index++) {
-                let filteredEmails = filter(emails, (email) => {
-                    return email.dataValues.Tags[0].id === companyTags[index].dataValues.id;
+                let filteredEmails = filter(companies, (company) => {
+                    return company.dataValues.Tags[0].id === companyTags[index].dataValues.id;
                 })
                 companyTags[index].dataValues.rows = filteredEmails.length;
             }

@@ -6,7 +6,7 @@ class ContactView extends Component {
         return (
             <div>
                 <TsTitle
-                    title='Contact Us.'
+                    title='Kontakt'
                     image={{ name: 'contacts', type: 'png' }} />
             </div>
         );

@@ -3,14 +3,17 @@ import axios from './../../../../axiosAPI';
 import Api from './../../../../endpoints';
 import { getPathFromUrl } from './../../../../utils';
 import TsMapWrapper from './../../../../components/TsMapWrapper/TsMapWrapper';
+import { Col, Row, Divider, Card, Button, Icon } from 'antd';
+import TsTable from './../../../../components/TsTable/TsTable';
+import {upperFirst} from 'lodash';
+import classes from './CategoryInfoPage.module.css';
+import StepTitle from './../StepTitle/StepTitle';
 
 class CategoryInfoPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-
-
             defaultMarkers: [
                 {
                     name: 'Mazowieckie',
@@ -42,7 +45,7 @@ class CategoryInfoPage extends Component {
                 },
                 {
                     name: 'Opolskie',
-                    latlng: [50.5893 , 17.8033]
+                    latlng: [50.5893, 17.8033]
                 },
                 {
                     name: 'Podkarpackie',
@@ -50,7 +53,7 @@ class CategoryInfoPage extends Component {
                 },
                 {
                     name: 'Podlaskie',
-                    latlng: [53.359 , 22.768]
+                    latlng: [53.359, 22.768]
                 },
                 {
                     name: 'Pomorskie',
@@ -80,6 +83,9 @@ class CategoryInfoPage extends Component {
 
 
             ],
+            categoryName: '',
+            data: []
+
         }
     }
 
@@ -88,16 +94,73 @@ class CategoryInfoPage extends Component {
     }
 
     saveExploredPath = () => {
-
         axios.put(Api.PUT_EXPLORED_PATH, { userId: 1, path: this.props.location, name: getPathFromUrl(this.props.location, this.props.path) }).then((response) => {
+            this.setState({ categoryName: response.data.exploredTag.name });
         })
     }
 
     render() {
+        const mapWrapper = this.props.showMap ? (
+            <Row>
+                <Col offset={1} span={22}>
+                    <Divider dashed>Podgląd</Divider>
+                </Col>
+                <Col offset={1} span={22}>
+                    <TsMapWrapper defaultMarkers={this.state.defaultMarkers} />
+                </Col>
+            </Row>) : null
         return (
-            <div>
-                <TsMapWrapper defaultMarkers={this.state.defaultMarkers} />
-            </div>
+            <>
+                <Row gutter={24}>
+                    <Col offset={6} span={12} className={classes.TagWrapper}>
+                        
+                        <Button type="primary"
+                            onClick={() => this.props.goBack(this.props.path)}>
+                                <Icon type="left" />Powrót
+                        </Button>
+                        
+                        <StepTitle subText={'Wybrany Tag:'} value={upperFirst(this.state.categoryName)}>
+                                <p>Wybrana kategoria: {upperFirst(this.props.category)}</p>
+                            </StepTitle>
+                    </Col>
+
+                    <Col>
+                        <Button type="primary"
+                            onClick={() => this.props.goBack(this.props.path)}>
+                            Dodaj Do koszyka <Icon type="shopping-cart" />
+                        </Button> 
+                    </Col>
+                    <Col offset={2} span={20}>
+                        <Card title="OPIS">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu ante lobortis, condimentum quam non, ornare orci.
+                                Nullam ut neque vel leo egestas tincidunt nec id odio. Fusce ullamcorper dictum nulla id laoreet. Nunc ac consequat diam, vitae sagittis nibh.
+                                Pellentesque fringilla magna a elit tristique, ut venenatis tellus ornare. Donec placerat, sapien eu blandit dignissim, dolor nisi scelerisque liberoc mattis mi arcu ut neque.
+                                Maecenas sit amet semper risus, in pellentesque dolor. Sed tincidunt maximus magna, ut porta purus lacinia quis.
+                                Vivamus congue enim ut congue pellentesque.
+                           </p>
+                        </Card>
+                       
+                    </Col>
+                    <Col offset={1} span={22}>
+                        <Divider>Przykładowe dane</Divider>
+                    </Col>
+                    <Col offset={1} span={22}>
+                        <TsTable
+                            header={this.props.tableHeader}
+                            rows={this.state.data}>
+                        </TsTable>
+                    </Col>
+                    <Col offset={1} span={22}>
+                        <Divider>Statystyki</Divider>
+                    </Col>
+                    <Col offset={1} span={22}>
+
+                    </Col>
+                    {mapWrapper}
+                </Row>
+
+            </>
         );
     }
 }
