@@ -64,7 +64,7 @@ class ExploreView extends Component {
                     width: '9'
                 },
                 {
-                    name: 'Liczba wierszy',
+                    name: 'Tag',
                     width: '7'
                 },
                 {
@@ -194,7 +194,7 @@ class ExploreView extends Component {
                             }}
                         />
                         <Route exact path={`${this.props.match.path}/emails/:category`} render={() => {
-                            if (this.state.steps[1].status === 'process') this.stepForwardHandler()
+                            if (this.state.steps[1].status === 'process' || this.state.steps[0].status === 'process' ) this.stepForwardHandler()
                             return (<CategoryInfoPage
                                 location={this.props.location.pathname}
                                 path={`${this.props.match.path}/emails`}
@@ -204,7 +204,7 @@ class ExploreView extends Component {
                         }
                         } />
                         <Route exact path={`${this.props.match.path}/companies/:category`} render={() => {
-                            if (this.state.steps[1].status === 'process') this.stepForwardHandler()
+                            if (this.state.steps[1].status === 'process' || this.state.steps[0].status === 'process' ) this.stepForwardHandler()
                             return (<CategoryInfoPage
                                 location={this.props.location.pathname}
                                 path={`${this.props.match.path}/companies`}

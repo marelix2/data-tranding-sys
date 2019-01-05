@@ -22,7 +22,7 @@ const ExploredTagsController = () => {
                 exploredTag = await ExploredTagModel.create({ path: path, name: tag.title });
                 await exploredTag.setUser(user);
             }
-            
+
             return res.status(OK).json({ exploredTag});
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
@@ -32,7 +32,7 @@ const ExploredTagsController = () => {
     getTagsForDisplay= async ( req, res) => {
         try {
             const { userId } = req.body;
-            const exploredTag = await ExploredTagModel.findAll({ where: { UserId: userId } }, { limit: 5 });
+            const exploredTag = await ExploredTagModel.findAll({ where: { UserId: userId }  , limit: 5 });
             
             return res.status(OK).json({ exploredTag });
         } catch (error) {

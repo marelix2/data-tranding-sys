@@ -8,7 +8,6 @@ import {Row, Col } from 'antd';
 
 const CategoryChooser = (props) => {
   const categories = props.data.map((category) => {
-    console.log(category)
     return (
       <TsDisplayer key={category.id}
         image={{ name: 'letter', type: 'png' }}

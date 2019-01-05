@@ -5,7 +5,7 @@ import { getPathFromUrl } from './../../../../utils';
 import TsMapWrapper from './../../../../components/TsMapWrapper/TsMapWrapper';
 import { Col, Row, Divider, Card, Button, Icon } from 'antd';
 import TsTable from './../../../../components/TsTable/TsTable';
-import {upperFirst} from 'lodash';
+import { upperFirst } from 'lodash';
 import classes from './CategoryInfoPage.module.css';
 import StepTitle from './../StepTitle/StepTitle';
 
@@ -90,14 +90,43 @@ class CategoryInfoPage extends Component {
     }
 
     componentDidMount() {
-        this.saveExploredPath()
+        this.saveExploredPath();
     }
 
     saveExploredPath = () => {
         axios.put(Api.PUT_EXPLORED_PATH, { userId: 1, path: this.props.location, name: getPathFromUrl(this.props.location, this.props.path) }).then((response) => {
             this.setState({ categoryName: response.data.exploredTag.name });
+            this.fetchExpampleData(response.data.exploredTag.name);
         })
     }
+
+    fetchExpampleData = (name) => {
+        axios.put(Api.PUT_EXPLORED_TAG_EXAMPLE_DATA, { name: name, category: this.props.category }).then((response) => {
+            if (this.props.category === 'email') {
+                const data = response.data.data.map((row) => {
+                    return [
+                        {
+                            value: row.name,
+                            width: '9'
+                        },
+                        {
+                            value: row.Tags[0].title,
+                            width: '7'
+                        },
+                        {
+                            value: row.createdAt,
+                            width: '4'
+                        }]
+                })
+
+                this.setState({data: data});
+            } else if (this.props.category === 'companies') {
+
+             }
+        })
+    }
+
+
 
     render() {
         const mapWrapper = this.props.showMap ? (
@@ -113,22 +142,22 @@ class CategoryInfoPage extends Component {
             <>
                 <Row gutter={24}>
                     <Col offset={6} span={12} className={classes.TagWrapper}>
-                        
+
                         <Button type="primary"
                             onClick={() => this.props.goBack(this.props.path)}>
-                                <Icon type="left" />Powrót
+                            <Icon type="left" />Powrót
                         </Button>
-                        
+
                         <StepTitle subText={'Wybrany Tag:'} value={upperFirst(this.state.categoryName)}>
-                                <p>Wybrana kategoria: {upperFirst(this.props.category)}</p>
-                            </StepTitle>
+                            <p>Wybrana kategoria: {upperFirst(this.props.category)}</p>
+                        </StepTitle>
                     </Col>
 
                     <Col>
                         <Button type="primary"
                             onClick={() => this.props.goBack(this.props.path)}>
                             Dodaj Do koszyka <Icon type="shopping-cart" />
-                        </Button> 
+                        </Button>
                     </Col>
                     <Col offset={2} span={20}>
                         <Card title="OPIS">
@@ -140,7 +169,7 @@ class CategoryInfoPage extends Component {
                                 Vivamus congue enim ut congue pellentesque.
                            </p>
                         </Card>
-                       
+
                     </Col>
                     <Col offset={1} span={22}>
                         <Divider>Przykładowe dane</Divider>

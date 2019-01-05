@@ -3,7 +3,7 @@ const ErrorDTO = require('./../dto/ErrorDTO.js');
 const TagModel = require('./../models/Tag');
 const EmailModel = require('./../models/Email');
 const CompanyModel = require('./../models/Company');
-const { filter } = require('lodash');
+const { filter, takeRight } = require('lodash');
 
 
 const ExploredController = () => {
@@ -51,9 +51,54 @@ const ExploredController = () => {
         }
     }
 
+    getExampleDataForDisplay = async (req, res) => {
+        try {
+            const {name, category} = req.body;
+
+            const chosenTag = await TagModel.findOne({where:{title: name}});
+            let data;
+
+            switch(category){
+                case 'companies':
+                    data = await CompanyModel.findAll({include: [{
+                        model: TagModel
+                    }]});
+
+                    data = filter(data, (d) => {
+                        return d.Tags[0].id === chosenTag.id;
+                    })
+                    data = takeRight(data, 5);
+                break;
+                case 'email':
+                    data = await EmailModel.findAll({
+                        include: [{
+                            model: TagModel,
+                        }]
+                    })
+
+                    data = filter(data, (d) => {
+                        return d.Tags[0].id === chosenTag.id; 
+                    })
+
+                    data = takeRight(data,5);
+                break;
+
+                default: 
+                    return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+                break;
+            }
+
+
+            return res.status(OK).json({ data });
+        } catch (error) {
+            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+        }
+    }
+
     return {
         getEmailTagsForDisplay,
-        getCompaniesTagsForDisplay
+        getCompaniesTagsForDisplay,
+        getExampleDataForDisplay
     }
 }
 
