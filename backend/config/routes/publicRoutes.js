@@ -11,8 +11,13 @@ const publicRoutes = {
     
     'PUT /home/user/explored/path': 'ExploredTagsController.updateExploredTag',
     'PUT /home/user/explored': 'ExploredTagsController.getTagsForDisplay',
+    
 
     'PUT /explored/emails': 'ExploredController.getEmailTagsForDisplay',
     'PUT /explored/companies': 'ExploredController.getCompaniesTagsForDisplay',
+    'PUT /explored/data/example': 'ExploredController.getExampleDataForDisplay',
+    'PUT /explored/data/province': 'ExploredController.getTagProvincesForDisplay',
+    'PUT /explored/data/description': 'ExploredController.getTagDescription',
+    
 };
 module.exports = publicRoutes;

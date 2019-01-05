@@ -64,7 +64,6 @@ class BoughtDataDisplayerView extends Component {
         } else if (this.state.shouldFetch && category === 'companies') {
             axios.put(Api.PUT_ALL_BOUGHT_DATA_COMPANY, { userId: localStorage.getItem('id'), categoryId: 2 }).then((response) => {
                 const data = response.data.tables.map((row) => {
-                    console.log(row);
                     return ([
                         {
                             value: row.name,

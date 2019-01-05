@@ -44,7 +44,6 @@ class TsTable extends Component {
   }
 
   onShowSizeChange = (current, pageSize) => {
-    console.log(current, pageSize);
     this.setState({
       pageSize: pageSize,
       currentPage: current

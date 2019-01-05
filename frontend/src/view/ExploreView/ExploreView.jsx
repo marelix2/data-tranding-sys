@@ -40,12 +40,63 @@ class ExploreView extends Component {
             ],
             emailCategories: [
             ],
-
             companyCategories: [
             ],
             totalEmails: 0,
-            totalCompanies: 0
-              
+            totalCompanies: 0,
+            companyHeader: [
+                {
+                    name: 'Nazwa',
+                    width: '9'
+                },
+                {
+                    name: 'Tag',
+                    width: '7'
+                },
+                {
+                    name: 'Data zakupu',
+                    width: '4'
+                },
+                {
+                    name: 'Opis',
+                    isHidden: true
+                },
+                {
+                    name: 'Lokalizacja',
+                    isHidden: true
+                },
+                {
+                    name: 'Województwo',
+                    isHidden: true
+                },
+                {
+                    name: 'Numer Kontaktowy',
+                    isHidden: true
+                },
+                {
+                    name: 'strona internetowa',
+                    isHidden: true
+                },
+                {
+                    name: 'Kod pocztowy',
+                    isHidden: true
+                },
+               
+            ],
+            emailHeader: [
+                {
+                    name: 'Nazwa',
+                    width: '9'
+                },
+                {
+                    name: 'Tag',
+                    width: '7'
+                },
+                {
+                    name: 'Data zakupu',
+                    width: '4'
+                }
+            ],
         }
     }
 
@@ -111,7 +162,7 @@ class ExploreView extends Component {
                     img: tag.img
                 });
             })
-            
+
             this.setState({
                 companyCategories: companyCategories,
                 totalCompanies: companyCategories.length
@@ -168,13 +219,25 @@ class ExploreView extends Component {
                             }}
                         />
                         <Route exact path={`${this.props.match.path}/emails/:category`} render={() => {
-                            if (this.state.steps[1].status === 'process') this.stepForwardHandler()
-                            return (<CategoryInfoPage location={this.props.location.pathname} path={`${this.props.match.path}/emails`} />)
+                            if (this.state.steps[1].status === 'process' || this.state.steps[0].status === 'process' ) this.stepForwardHandler()
+                            return (<CategoryInfoPage
+                                location={this.props.location.pathname}
+                                path={`${this.props.match.path}/emails`}
+                                tableHeader={this.state.emailHeader}
+                                goBack={this.goBackHandler} 
+                                category={'email'}/>)
                         }
                         } />
                         <Route exact path={`${this.props.match.path}/companies/:category`} render={() => {
-                            if (this.state.steps[1].status === 'process') this.stepForwardHandler()
-                            return (<CategoryInfoPage location={this.props.location.pathname} path={`${this.props.match.path}/companies`} />)
+                            if (this.state.steps[1].status === 'process' || this.state.steps[0].status === 'process' ) this.stepForwardHandler()
+                            return (<CategoryInfoPage
+                                location={this.props.location.pathname}
+                                path={`${this.props.match.path}/companies`}
+                                tableHeader={this.state.companyHeader} 
+                                goBack={this.goBackHandler}
+                                category={'companies'}
+                                showMap={true}
+                                />)
                         }} />
                     </Row>
                 </Row>

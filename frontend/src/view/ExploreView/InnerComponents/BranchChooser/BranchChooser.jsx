@@ -8,7 +8,7 @@ const BranchChooser = (props) => {
         <>
             <div className={classes.BranchChooserWrapper}>
                 <div className={classes.Title}>
-                    <StepTitle  value='Kategorię' />
+                    <StepTitle subText={'Wybierz: '}  value='Kategorię' />
                 </div>
                 <div className={classes.ChooserComponents}>
                     <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.pathUrl}/emails`}>

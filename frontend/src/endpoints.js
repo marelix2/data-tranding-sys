@@ -15,8 +15,12 @@ const GET_CURRENT_VALUE = BASE_PUBLIC + '/wallet/user/current';
 const GET_EXPLORED = BASE_PUBLIC + '/home/user/explored';
 const PUT_EXPLORED_PATH = BASE_PUBLIC + '/home/user/explored/path';
 
+
 const GET_EMAIL_CATEGORIES = BASE_PUBLIC + '/explored/emails';
 const GET_COMPANY_CATEGORIES = BASE_PUBLIC + '/explored/companies';
+const PUT_EXPLORED_TAG_EXAMPLE_DATA = BASE_PUBLIC + '/explored/data/example';
+const PUT_EXPLORED_PROVINCE = BASE_PUBLIC + '/explored/data/province';
+const PUT_EXPLORED_TAG_DESCRIPTION = BASE_PUBLIC + '/explored/data/description';
 
 export default {
     GET_GOOGLE_URL,
@@ -32,6 +36,9 @@ export default {
 
     GET_EXPLORED,
     PUT_EXPLORED_PATH,
+    PUT_EXPLORED_TAG_EXAMPLE_DATA,
+    PUT_EXPLORED_PROVINCE,
+    PUT_EXPLORED_TAG_DESCRIPTION,
 
     GET_EMAIL_CATEGORIES,
     GET_COMPANY_CATEGORIES,

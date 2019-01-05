@@ -46,7 +46,6 @@ const BoughtDataController = () => {
       let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, CategoryId: categoryId} });
 
       for( let index = 0 ; index < tables.length ; index++){
-        console.log(index);
         let companies = await CompanyModel.findAll({
           include: [{
             model: BuyDataModel,
@@ -80,7 +79,6 @@ const BoughtDataController = () => {
     tables = tables.map( (table) => {
       return {id: table.dataValues.id , categoryId: table.dataValues.CategoryId}
     })
-    console.log(tables);
       return res.status(OK).json({ tables });
     } catch (error) {
       return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));

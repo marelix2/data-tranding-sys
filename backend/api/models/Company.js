@@ -33,6 +33,9 @@ const Company = sequelize.define('Company', {
     },
     website: {
         type: STRING
+    },
+    province: {
+        type: STRING
     }
 }, { hooks, tableName });
 

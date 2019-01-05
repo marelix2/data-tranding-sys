@@ -3,6 +3,7 @@ const UserModel = require('./../api/models/User');
 const RoleModel = require('./../api/models/Role');
 const TagModel = require('./../api/models/Tag');
 const CategoryModel = require('./../api/models/Category');
+const DescriptionModel = require('./../api/models/Description');
 const EmailModel = require('./../api/models/Email');
 const CompanyModel = require('./../api/models/Company');
 const SoldDataModel = require('./../api/models/SoldData');
@@ -20,6 +21,7 @@ const initData = async () => {
         const users = await UserModel.findAll();
         await loadWallet(users);
         await loadCategories();
+        await loadDescriptions();
         await loadTags();
         await loadSoldData(users);
         await loadBoughtData(users);
@@ -84,6 +86,62 @@ const loadCategories = async () => {
         { name: 'Emails' },
         { name: 'Companies' }
     ])
+}
+
+const loadDescriptions = async () => {
+    await DescriptionModel.bulkCreate( 
+        [
+            {
+                description: 'Kategoria ta skierowana jest do ludzi szukających rozrywki.'
+            },
+            {
+                description: 'Ludzie interesujcy się ogrodnictwem.'
+            },
+            {
+                description: 'Wszystko co związane z podróżami.'
+            },
+            {
+                description: 'Zdrowy styl życia.'
+            },
+            {
+                description: 'Religia.'
+            },
+            {
+                description: 'Kategoria dla ludzi interesujących się nowymi trendami, lub szukających promocji.'
+            },
+            {
+                description: 'Kategoria dla ludzi interesujących się butami.'
+            },
+            {
+                description: 'Kategoria dla miłośników zwierząt.'
+            },
+            {
+                description: 'Kategoria dla miłośników kinematografii i seriali.'
+            },
+            {
+                description: 'Gałąź przeznaczona dla programistów.'
+            },
+            {
+                description: 'Kategoria dla ludzi szukających okazji.'
+            },
+            {
+                description: 'Kategoria dla ludzi chcących rozwijać swoje pasje.'
+            },
+
+
+
+            {
+                description: 'Kategoria zawera inforamcje o firmach produkujących oprogramowanie komputerowe.'
+            },
+            {
+                description: 'Kategoria zawera inforamcje o spółdzielniach mieszkaniowych.'
+            },
+            {
+                description: 'Kategoria zawera inforamcje o firmach z branży gastronomicznej.'
+            },
+
+        ]
+    )
 }
 
 const loadTags = async () => {
@@ -152,9 +210,14 @@ const loadTags = async () => {
         ]);
 
     let category = await CategoryModel.findOne({ where: { name: 'Emails' } });
-    await tags.map((tag) => {
-        tag.setCategory(category);
+    let descriptions = await DescriptionModel.findAll();
+    await tags.map(async (tag) => {
+      await  tag.setCategory(category);
+        await tag.setDescription(descriptions[tag.id - 1]);
     })
+
+    
+
 
     tags = await TagModel.bulkCreate(
         [
@@ -173,13 +236,12 @@ const loadTags = async () => {
                 name: 'c_gastronomy',
                 img: defaultImg
             }
-
-
         ]);
 
     category = await CategoryModel.findOne({ where: { name: 'Companies' } });
-    await tags.map((tag) => {
-        tag.setCategory(category);
+    await tags.map(async (tag) => {
+      await  tag.setCategory(category);
+      await  tag.setDescription(descriptions[tag.id-1]);
     })
 }
 
@@ -522,34 +584,38 @@ const loadCompanies = async (soldData) => {
                 locationCity: "Płock",
                 address: "Graniczna 27",
                 zipCode: "09-407",
-                country: "Polska"
+                country: "Polska",
+                province: "Mazowieckie"
             },
             {
                 name: "SoftHard S.A.",
-                description: "Producent oprogramowania w Płocku",
+                description: "Producent oprogramowania w Włocławku",
                 contactNumber: "54 411 55 50",
                 locationCity: "Włocławek",
                 address: "Jagiellońska 2",
                 zipCode: "87-800",
-                country: "Polska"
+                country: "Polska",
+                province: "Kujawsko-pomorskie"
             },
             {
                 name: "SoftHard S.A.",
-                description: "Producent oprogramowania w Płocku",
+                description: "Producent oprogramowania w Warszawie",
                 contactNumber: "22 822 13 69",
                 locationCity: "Warszawa",
                 address: "Opaczewska 69",
                 zipCode: "02-201",
-                country: "Polska"
+                country: "Polska",
+                province: "Mazowieckie"
             },
             {
                 name: "SoftHard S.A.",
-                description: "Producent oprogramowania w Płocku",
+                description: "Producent oprogramowania w Wrocławiu",
                 contactNumber: "24 262 25 72",
                 locationCity: "Wrocław",
                 address: 'Sycowska 44',
                 zipCode: "51-001",
-                country: "Polska"
+                country: "Polska",
+                province: "Dolnośląskie"
             },
             {
                 name: "Bocianek. Spółdzielnia Mieszkaniowa",
@@ -558,7 +624,8 @@ const loadCompanies = async (soldData) => {
                 locationCity: "Kielce",
                 address: "Marii Konopnickiej 5",
                 zipCode: "25-406",
-                country: "Polska"
+                country: "Polska",
+                province: "Świętokrzyskie"
             },
             {
                 name: "Spółdzielnia Mieszkaniowa. Administracja osiedla Kościuszki SMA",
@@ -567,7 +634,8 @@ const loadCompanies = async (soldData) => {
                 locationCity: "Kielce",
                 address: "Generała Tadeusza Kościuszki 50",
                 zipCode: "25-326",
-                country: "Polska"
+                country: "Polska",
+                province: "Świętokrzyskie"
             },
             {
                 name: "Słoneczko.",
@@ -576,7 +644,8 @@ const loadCompanies = async (soldData) => {
                 locationCity: "Kielce",
                 address: "Romualda 3",
                 zipCode: "25-322",
-                country: "Polska"
+                country: "Polska",
+                province: "Świętokrzyskie"
             },
             {
                 name: "Setka Bar",
@@ -586,7 +655,8 @@ const loadCompanies = async (soldData) => {
                 address: "Leszczyńskiego 4",
                 zipCode: "50-077",
                 country: "Polska",
-                website: 'http://setkapolska.pl/'
+                website: 'http://setkapolska.pl/',
+                province: "Dolnośląskie"
             },
             {
                 name: "Papa Bar",
@@ -596,7 +666,8 @@ const loadCompanies = async (soldData) => {
                 address: "Rzeźnicza 32",
                 zipCode: "50-130",
                 country: "Polska",
-                website: 'https://papabar.pl/'
+                website: 'https://papabar.pl/',
+                province: "Dolnośląskie"
             },
         ]
     )

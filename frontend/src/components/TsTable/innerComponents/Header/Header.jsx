@@ -5,11 +5,17 @@ import {upperCase} from 'lodash';
 
 const Header = (props) => {
   const header = props.headerCloumns.map( (column,index) => {
-    return( 
-      <Col key={index} span={column.width} >
-      {upperCase(column.name)}
-      </Col>
-    )
+    if (column.isHidden){
+      return null;
+    } 
+    else{
+      return (
+        <Col key={index} span={column.width} >
+          {upperCase(column.name)}
+        </Col>
+      )
+    }
+   
   })
   
   const actions = ( <Col span={4} className={classes.ActionHeader}>ACTIONS</Col>)
