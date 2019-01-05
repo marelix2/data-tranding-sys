@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 const Panel = Collapse.Panel;
 
 const RecentlyViewedCategories = (props) => {
-        console.log(props.data);
     const panels = props.data.length > 0 ? props.data.map((panel) => {
         return (<Panel header={panel.categoryName} key={panel.categoryName}>
             <div className={classes.PanelWrapper}>

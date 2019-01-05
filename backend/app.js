@@ -49,6 +49,7 @@ server.listen(config.port, () => {
     return DB;
 });
 require('./api/models/Category');
+require('./api/models/Description');
 require('./api/models/Tag');
 require('./api/models/Role');
 require('./api/models/User');

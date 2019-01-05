@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import axios from './../../../../axiosAPI';
 import Api from './../../../../endpoints';
 import { getPathFromUrl } from './../../../../utils';
 import TsMapWrapper from './../../../../components/TsMapWrapper/TsMapWrapper';
 import { Col, Row, Divider, Card, Button, Icon } from 'antd';
 import TsTable from './../../../../components/TsTable/TsTable';
-import { upperFirst } from 'lodash';
+import { upperFirst, filter } from 'lodash';
 import classes from './CategoryInfoPage.module.css';
 import StepTitle from './../StepTitle/StepTitle';
 
-class CategoryInfoPage extends Component {
+class CategoryInfoPage extends PureComponent  {
     constructor(props) {
         super(props);
 
@@ -84,7 +84,8 @@ class CategoryInfoPage extends Component {
 
             ],
             categoryName: '',
-            data: []
+            data: [],
+            description: "Brak opisu :<"
 
         }
     }
@@ -95,12 +96,15 @@ class CategoryInfoPage extends Component {
 
     saveExploredPath = () => {
         axios.put(Api.PUT_EXPLORED_PATH, { userId: 1, path: this.props.location, name: getPathFromUrl(this.props.location, this.props.path) }).then((response) => {
-            this.setState({ categoryName: response.data.exploredTag.name });
-            this.fetchExpampleData(response.data.exploredTag.name);
+            const { name } = response.data.exploredTag;
+            this.setState({ categoryName: name });
+            this.fetchExampleData(name);
+            this.fetchProvinceData(name);
+            this.fetchTagDescription(name);
         })
     }
 
-    fetchExpampleData = (name) => {
+    fetchExampleData = (name) => {
         axios.put(Api.PUT_EXPLORED_TAG_EXAMPLE_DATA, { name: name, category: this.props.category }).then((response) => {
             if (this.props.category === 'email') {
                 const data = response.data.data.map((row) => {
@@ -121,23 +125,80 @@ class CategoryInfoPage extends Component {
 
                 this.setState({data: data});
             } else if (this.props.category === 'companies') {
+                const data = response.data.data.map((row) => {
+                    return [
+                        {
+                            value: row.name,
+                            width: '9'
+                        },
+                        {
+                            value: row.Tags[0].title,
+                            width: '7'
+                        },
+                        {
+                            value: row.createdAt,
+                            width: '4'
+                        },
+                        {
+                            value: row.description,
+                            isHidden: true
+                        },
+                        {
+                            value: row.address,
+                            isHidden: true
+                        },
+                        {
+                            value: row.province,
+                            isHidden: true
+                        },
+                        {
+                            value: row.contactNumber,
+                            isHidden: true
+                        },
+                        {
+                            value: row.website,
+                            isHidden: true
+                        },
+                        {
+                            value: row.zipCode,
+                            isHidden: true
+                        }
+                    ]
+                })
 
+                this.setState({ data: data });
              }
         })
     }
 
+    fetchProvinceData = (name) => {
+        axios.put(Api.PUT_EXPLORED_PROVINCE, { name: name }).then((response) => {
+            const markers = filter(this.state.defaultMarkers, (marker) => {
+                return response.data.data.includes(marker.name);
+            })
 
+            this.setState({defaultMarkers: markers});
+        })
+    }
+
+    fetchTagDescription = (name) => {
+        axios.put(Api.PUT_EXPLORED_TAG_DESCRIPTION, { name: name }).then((response) => {
+            console.log(response);
+            this.setState({description: response.data.desc});
+        })
+    }
 
     render() {
         const mapWrapper = this.props.showMap ? (
-            <Row>
+            <>
                 <Col offset={1} span={22}>
-                    <Divider dashed>Podgląd</Divider>
+                    <Divider dashed>Dostępne aktualnie dla podanych województw</Divider>
                 </Col>
                 <Col offset={1} span={22}>
                     <TsMapWrapper defaultMarkers={this.state.defaultMarkers} />
                 </Col>
-            </Row>) : null
+            </>
+            ) : null
         return (
             <>
                 <Row gutter={24}>
@@ -162,11 +223,7 @@ class CategoryInfoPage extends Component {
                     <Col offset={2} span={20}>
                         <Card title="OPIS">
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu ante lobortis, condimentum quam non, ornare orci.
-                                Nullam ut neque vel leo egestas tincidunt nec id odio. Fusce ullamcorper dictum nulla id laoreet. Nunc ac consequat diam, vitae sagittis nibh.
-                                Pellentesque fringilla magna a elit tristique, ut venenatis tellus ornare. Donec placerat, sapien eu blandit dignissim, dolor nisi scelerisque liberoc mattis mi arcu ut neque.
-                                Maecenas sit amet semper risus, in pellentesque dolor. Sed tincidunt maximus magna, ut porta purus lacinia quis.
-                                Vivamus congue enim ut congue pellentesque.
+                               {this.state.description}
                            </p>
                         </Card>
 
@@ -179,12 +236,6 @@ class CategoryInfoPage extends Component {
                             header={this.props.tableHeader}
                             rows={this.state.data}>
                         </TsTable>
-                    </Col>
-                    <Col offset={1} span={22}>
-                        <Divider>Statystyki</Divider>
-                    </Col>
-                    <Col offset={1} span={22}>
-
                     </Col>
                     {mapWrapper}
                 </Row>

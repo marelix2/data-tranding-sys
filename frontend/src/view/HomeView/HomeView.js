@@ -30,7 +30,6 @@ class HomeView extends Component {
 
     fetchExplored = () => {
         axios.put(Api.GET_EXPLORED, { userId: localStorage.getItem('id') }).then((response) => {
-            console.log(response);
             const explored = response.data.exploredTag.map((tag) => {
                 return ({
                     categoryName: tag.name,

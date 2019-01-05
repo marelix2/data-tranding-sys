@@ -2,7 +2,7 @@ const { STRING } = require('sequelize');
 
 const sequelize = require('../../config/database');
 const Category = require('./Category');
-
+const Description = require('./Description');
 
 const hooks = {};
 
@@ -23,6 +23,7 @@ const Tag = sequelize.define('Tag', {
 }, { hooks, tableName });
 
 Tag.belongsTo(Category, { foreignKey: 'fk_category', foreignKeyConstraint: true });
+Tag.belongsTo(Description, { foreignKey: 'fk_description', foreignKeyConstraint: true });
 
 Tag.prototype.toJSON = function () {
     const values = Object.assign({}, this.get());

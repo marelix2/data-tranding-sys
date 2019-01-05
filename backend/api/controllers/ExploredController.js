@@ -3,7 +3,8 @@ const ErrorDTO = require('./../dto/ErrorDTO.js');
 const TagModel = require('./../models/Tag');
 const EmailModel = require('./../models/Email');
 const CompanyModel = require('./../models/Company');
-const { filter, takeRight } = require('lodash');
+const DescriptionModel = require('./../models/Description');
+const { filter, takeRight, uniqBy } = require('lodash');
 
 
 const ExploredController = () => {
@@ -16,13 +17,13 @@ const ExploredController = () => {
                     model: TagModel
                 }]
             })
-            for (let index = 0; index < emailTags.length; index++){
+            for (let index = 0; index < emailTags.length; index++) {
                 let filteredEmails = filter(emails, (email) => {
                     return email.dataValues.Tags[0].id === emailTags[index].dataValues.id;
                 })
                 emailTags[index].dataValues.rows = filteredEmails.length;
             }
-        
+
             return res.status(OK).json({ emailTags });
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
@@ -44,7 +45,7 @@ const ExploredController = () => {
                 })
                 companyTags[index].dataValues.rows = filteredEmails.length;
             }
-        
+
             return res.status(OK).json({ companyTags });
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
@@ -53,22 +54,24 @@ const ExploredController = () => {
 
     getExampleDataForDisplay = async (req, res) => {
         try {
-            const {name, category} = req.body;
+            const { name, category } = req.body;
 
-            const chosenTag = await TagModel.findOne({where:{title: name}});
+            const chosenTag = await TagModel.findOne({ where: { title: name } });
             let data;
 
-            switch(category){
+            switch (category) {
                 case 'companies':
-                    data = await CompanyModel.findAll({include: [{
-                        model: TagModel
-                    }]});
+                    data = await CompanyModel.findAll({
+                        include: [{
+                            model: TagModel
+                        }]
+                    });
 
                     data = filter(data, (d) => {
                         return d.Tags[0].id === chosenTag.id;
                     })
                     data = takeRight(data, 5);
-                break;
+                    break;
                 case 'email':
                     data = await EmailModel.findAll({
                         include: [{
@@ -77,16 +80,41 @@ const ExploredController = () => {
                     })
 
                     data = filter(data, (d) => {
-                        return d.Tags[0].id === chosenTag.id; 
+                        return d.Tags[0].id === chosenTag.id;
                     })
 
-                    data = takeRight(data,5);
-                break;
+                    data = takeRight(data, 5);
+                    break;
 
-                default: 
+                default:
                     return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
-                break;
+                    break;
             }
+            return res.status(OK).json({ data });
+        } catch (error) {
+            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+        }
+    }
+
+    getTagProvincesForDisplay = async (req, res) => {
+        try {
+            const { name } = req.body;
+
+            const chosenTag = await TagModel.findOne({ where: { title: name } });
+            let data;
+
+            data = await CompanyModel.findAll({
+                include: [{
+                    model: TagModel
+                }]
+            });
+
+            data = filter(data, (d) => {
+                return d.Tags[0].id === chosenTag.id;
+            })
+            data = uniqBy(data, (d) => d.province);
+            data = data.map((d) => d.province)
+           
 
 
             return res.status(OK).json({ data });
@@ -95,10 +123,33 @@ const ExploredController = () => {
         }
     }
 
+    getTagDescription = async (req, res) => {
+        try {
+            const { name } = req.body;
+
+            let tag = await TagModel.findOne({
+                where: { title: name },
+                 include: [{
+                    model: DescriptionModel
+                }] });
+                console.log(tag);
+
+           const desc = tag.Description.description;
+        
+
+            
+            return res.status(OK).json({ desc });
+        } catch (error) {
+            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+        }
+    }
+
     return {
         getEmailTagsForDisplay,
         getCompaniesTagsForDisplay,
-        getExampleDataForDisplay
+        getExampleDataForDisplay,
+        getTagProvincesForDisplay,
+        getTagDescription
     }
 }
 

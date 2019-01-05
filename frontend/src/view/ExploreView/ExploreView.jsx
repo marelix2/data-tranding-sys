@@ -50,13 +50,38 @@ class ExploreView extends Component {
                     width: '9'
                 },
                 {
-                    name: 'Liczba wierszy',
+                    name: 'Tag',
                     width: '7'
                 },
                 {
                     name: 'Data zakupu',
                     width: '4'
-                }
+                },
+                {
+                    name: 'Opis',
+                    isHidden: true
+                },
+                {
+                    name: 'Lokalizacja',
+                    isHidden: true
+                },
+                {
+                    name: 'Województwo',
+                    isHidden: true
+                },
+                {
+                    name: 'Numer Kontaktowy',
+                    isHidden: true
+                },
+                {
+                    name: 'strona internetowa',
+                    isHidden: true
+                },
+                {
+                    name: 'Kod pocztowy',
+                    isHidden: true
+                },
+               
             ],
             emailHeader: [
                 {
@@ -210,7 +235,9 @@ class ExploreView extends Component {
                                 path={`${this.props.match.path}/companies`}
                                 tableHeader={this.state.companyHeader} 
                                 goBack={this.goBackHandler}
-                                category={'companies'}/>)
+                                category={'companies'}
+                                showMap={true}
+                                />)
                         }} />
                     </Row>
                 </Row>
