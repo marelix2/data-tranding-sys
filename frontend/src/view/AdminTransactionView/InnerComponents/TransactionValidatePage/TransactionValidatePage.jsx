@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TsTable from '../../../../components/TsTable/TsTable';
 import axios from './../../../../axiosAPI';
 import Api from './../../../../endpoints';
+import ValidationActions from '../ValidationActions/ValidationActions';
 
 class TransactionValidatePage extends Component {
     constructor(props) {
@@ -9,6 +10,10 @@ class TransactionValidatePage extends Component {
 
         this.state = {
             header: [
+                {
+                    name: 'Id',
+                    isHidden: true
+                },
                 {
                     name: 'Wartość',
                     width: '8'
@@ -40,6 +45,10 @@ class TransactionValidatePage extends Component {
                     const data = rows.map( (row) => {
                         return ( [
                             {
+                                value: row.id,
+                                isHidden: true
+                            },
+                            {
                                 value: row.name,
                                 width: '8'
                             },
@@ -67,11 +76,16 @@ class TransactionValidatePage extends Component {
         })
     }
 
+
+    rowDeleteHandle = (id) => {
+            console.log('usune:', id)
+    }
+
     render() {
-        console.log(this.props);
+        const actions = <ValidationActions rowDeleteHandle={this.rowDeleteHandle} />
         return (
             <div>
-                <TsTable header={this.state.header} rows={this.state.data}></TsTable>
+                <TsTable header={this.state.header} rows={this.state.data} actions={actions}></TsTable>
             </div>
         );
     }

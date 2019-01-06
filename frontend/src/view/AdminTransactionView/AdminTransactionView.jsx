@@ -75,6 +75,8 @@ class AdminTransactionView extends Component {
             this.setState({ data: data });
         })
     }
+
+
     render() {
         const actions = <TableActions path={`${this.props.match.path}`} />
         return (
@@ -95,7 +97,6 @@ class AdminTransactionView extends Component {
                                 <TransactionValidatePage tableId={props.match.params.id} />
                             )
                         }
-                        
                     } />
                     </Col>
                     <Col offset={1} span={22}> <Divider></Divider></Col>

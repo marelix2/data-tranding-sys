@@ -49,14 +49,12 @@ class TsTable extends Component {
     });
   }
   onPageChange = (page, pageSize) => {
-    console.log('wchodze tu');
     this.setState({
       currentPage: page
     });
   }
 
   shouldShowRow = (index) => {
-    console.log((this.state.currentPage - 1) * this.state.pageSize <= index && index < this.state.currentPage * this.state.pageSize)
     return (this.state.currentPage - 1) * this.state.pageSize <= index && index < this.state.currentPage * this.state.pageSize;
   }
 
