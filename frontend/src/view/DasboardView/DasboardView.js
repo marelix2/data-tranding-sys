@@ -13,6 +13,7 @@ import BoughtDataDisplayerView from './../BoughtDataDisplayerView/BoughtDataDisp
 import SoldDataDisplayerView from './../SoldDataDisplayerView/SoldDataDisplayerView';
 import WalletView from './../WalletView/WalletView';
 import ExploreView from './../ExploreView/ExploreView';
+import AdminTransactionView from './../AdminTransactionView/AdminTransactionView';
 
 const { Header, Content, Sider } = Layout;
 
@@ -58,6 +59,8 @@ class Dashboard extends Component {
                             <Route path={`${this.props.match.path}/sell`} component={SellDataView} />
                             <Route path={`${this.props.match.path}/contact`} component={ContactView} />
                             <Route path={`${this.props.match.path}/explore`} component={ExploreView} />
+                            <Route path={`${this.props.match.path}/admin/transactions`} component={AdminTransactionView} />
+                           
                         </div>
                     </Content>
                 </Layout >

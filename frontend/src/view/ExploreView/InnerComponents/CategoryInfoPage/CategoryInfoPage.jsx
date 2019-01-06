@@ -234,7 +234,8 @@ class CategoryInfoPage extends PureComponent  {
                     <Col offset={1} span={22}>
                         <TsTable
                             header={this.props.tableHeader}
-                            rows={this.state.data}>
+                            rows={this.state.data}
+                            disableDownload={true}>
                         </TsTable>
                     </Col>
                     {mapWrapper}

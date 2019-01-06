@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Map from 'pigeon-maps';
 import Marker from 'pigeon-marker';
 import ChosenMark from './innerComponents/ChosenMark/ChosenMark';
-import { Row, Col, Switch, Icon } from 'antd';
 
 class TsMapWrapper extends Component {
 

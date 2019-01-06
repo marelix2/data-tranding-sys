@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import TsTitle from './../../components/TsTitle/TsTitle';
-import classes from './SoldDataDisplayerView.module.css';
-import { Col, Row } from 'antd';
-import TsTable from './../../components/TsTable/TsTable';
+import TsTable from '../../components/TsTable/TsTable';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
+import TableActions from './InnerComponents/TableActions/TableActions';
+import { Route } from 'react-router-dom';
+import TransactionValidatePage from './InnerComponents/TransactionValidatePage/TransactionValidatePage';
 
-class SoldDataDisplayerView extends Component {
+class AdminTransactionView extends Component {
     constructor(props) {
         super(props);
 
@@ -14,14 +15,10 @@ class SoldDataDisplayerView extends Component {
             header: [
                 {
                     name: 'Nazwa',
-                    width: '4'
+                    width: '8'
                 },
                 {
                     name: 'Kategoria danych',
-                    width: '4'
-                },
-                {
-                    name: 'tag',
                     width: '4'
                 },
                 {
@@ -38,23 +35,19 @@ class SoldDataDisplayerView extends Component {
     }
 
     componentDidMount() {
-        this.dataImportHandler();
+        this.dataImportHandler()
     }
 
     dataImportHandler = () => {
-        axios.put(Api.PUT_ALL_SOLD_DATA, { userId: localStorage.getItem('id'), status: 'completed' }).then((response) => {
+        axios.put(Api.PUT_ALL_IN_PROGRESS_DATA, { status: 'progress' }).then((response) => {
             const data = response.data.tables.map((row) => {
                 return ([
                     {
                         value: row.name,
-                        width: '4'
+                        width: '8'
                     },
                     {
                         value: row.category,
-                        width: '4'
-                    },
-                    {
-                        value: 'gry',
                         width: '4'
                     },
                     {
@@ -71,27 +64,29 @@ class SoldDataDisplayerView extends Component {
             this.setState({ data: data });
         })
     }
-
     render() {
+        const actions = <TableActions path={`${this.props.match.path}`} />
         return (
-            <div>
-                <TsTitle
-                    title='Dostarczone dane.'
-                    image={{
-                        name: 'soldData',
-                        type: 'png'
-                    }} />
+            <>
+                <TsTitle title='Panel zarządzania trazakcjami'
+                    image={{ name: 'buyData', type: 'png' }} />
 
-                <Row>
-                    <Col offset={1} span={22} className={classes.ContentWrapper}>
+                <Route exact path={`${this.props.match.path}`} render={() => (
                     <TsTable
-                header={this.state.header}
-                rows={this.state.data} />
-                    </Col>
-                </Row>
-            </div>
+                        header={this.state.header}
+                        rows={this.state.data}
+                        actions={actions}>
+                    </TsTable>)} />
+
+                <Route path={`${this.props.match.path}/:name`} render={() => {
+                    console.log(this.props)
+                return (
+                    <TransactionValidatePage />
+                ) }} />
+
+            </>
         );
     }
 }
 
-export default SoldDataDisplayerView;
+export default AdminTransactionView;

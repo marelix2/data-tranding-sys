@@ -6,7 +6,7 @@ const DeafultActions = (props) => {
   return (
     <>
       <ButtonGroup>
-        <Button type='primary' onClick={ () => console.log("kiedys sie pobiore!")}>
+        <Button type='primary' onClick={ () => console.log("kiedys sie pobiore!")} disabled={!!props.disableDownload}>
           <Icon type="cloud-download" />
         </Button>
         <Button type='primary'  onClick={() => props.expandRowClicked()}>

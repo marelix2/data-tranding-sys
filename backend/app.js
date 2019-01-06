@@ -48,6 +48,7 @@ server.listen(config.port, () => {
     }
     return DB;
 });
+
 require('./api/models/Category');
 require('./api/models/Description');
 require('./api/models/Tag');
@@ -56,11 +57,12 @@ require('./api/models/User');
 require('./api/models/Wallet');
 require('./api/models/BoughtData');
 require('./api/models/SoldData');
+require('./api/models/ProgressEmail');
+require('./api/models/ProgressCompany');
 require('./api/models/Email');
 require('./api/models/Company');
 require('./api/models/RowStatus');
 require('./api/models/ExploredTag');
-
 
 module.exports = app;
 

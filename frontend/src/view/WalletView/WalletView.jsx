@@ -50,7 +50,7 @@ class WalletView extends Component {
     }
 
     fetchTransactions = () => {
-        axios.put(Api.PUT_ALL_SOLD_DATA, { userId: localStorage.getItem('id') }).then((response) => {
+        axios.put(Api.PUT_ALL_USER_PROGRESS_DATA, { userId: localStorage.getItem('id'), status: 'progress' }).then((response) => {
             const data = response.data.tables.map((row) => {
                 return ([
                     {
