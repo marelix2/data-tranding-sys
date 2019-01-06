@@ -176,14 +176,12 @@ class CategoryInfoPage extends PureComponent  {
             const markers = filter(this.state.defaultMarkers, (marker) => {
                 return response.data.data.includes(marker.name);
             })
-
             this.setState({defaultMarkers: markers});
         })
     }
 
     fetchTagDescription = (name) => {
         axios.put(Api.PUT_EXPLORED_TAG_DESCRIPTION, { name: name }).then((response) => {
-            console.log(response);
             this.setState({description: response.data.desc});
         })
     }

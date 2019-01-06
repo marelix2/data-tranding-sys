@@ -4,6 +4,7 @@ import { Link} from 'react-router-dom';
 const ButtonGroup = Button.Group;
 
 const TableActions = (props) => {
+    console.log(props);
     return (
        
             <>
@@ -15,7 +16,7 @@ const TableActions = (props) => {
                         <Icon type={props.expand ? "up" : "down"} />
                     </Button>
                     <Button type='primary'>
-                    <Link to={props.path} params={{ name: props.params }}> <Icon type="right" /> </Link>
+                    <Link to={`${props.path}/${props.param.value}`} params={{ name: props.param }}> <Icon type="right" /> </Link>
                     </Button>
                 </ButtonGroup>
             </>

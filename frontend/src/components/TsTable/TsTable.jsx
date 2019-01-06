@@ -20,9 +20,8 @@ class TsTable extends Component {
     }
   }
 
-
-  componentDidUpdate(prevProps) {
-    if (!equal(this.props.rows, prevProps.rows)) {
+  componentDidUpdate(prevProps,prevState, snapshot) {
+    if (!equal(this.props.rows, prevProps.rows) || !equal(this.state.currentPage, prevState.currentPage) || !equal(this.state.pageSize, prevState.pageSize)){
       this.setState({ rows: this.renderRows()})
     }
   }
@@ -50,12 +49,14 @@ class TsTable extends Component {
     });
   }
   onPageChange = (page, pageSize) => {
+    console.log('wchodze tu');
     this.setState({
       currentPage: page
     });
   }
 
   shouldShowRow = (index) => {
+    console.log((this.state.currentPage - 1) * this.state.pageSize <= index && index < this.state.currentPage * this.state.pageSize)
     return (this.state.currentPage - 1) * this.state.pageSize <= index && index < this.state.currentPage * this.state.pageSize;
   }
 
@@ -74,7 +75,7 @@ class TsTable extends Component {
     const pagination = (<Col className={classes.Pagination}>
       <Pagination
         defaultCurrent={this.state.currentPage}
-        total={this.state.rowsData.length }
+        total={this.props.rows.length }
         onShowSizeChange={this.onShowSizeChange}
         onChange={this.onPageChange}
         showSizeChanger

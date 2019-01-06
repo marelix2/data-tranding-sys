@@ -6,6 +6,8 @@ import Api from './../../endpoints';
 import TableActions from './InnerComponents/TableActions/TableActions';
 import { Route } from 'react-router-dom';
 import TransactionValidatePage from './InnerComponents/TransactionValidatePage/TransactionValidatePage';
+import { Row, Col, Divider } from 'antd';
+import { O_RDONLY } from 'constants';
 
 class AdminTransactionView extends Component {
     constructor(props) {
@@ -13,6 +15,10 @@ class AdminTransactionView extends Component {
 
         this.state = {
             header: [
+                {
+                    name: 'id',
+                    isHidden: true
+                },
                 {
                     name: 'Nazwa',
                     width: '8'
@@ -29,6 +35,7 @@ class AdminTransactionView extends Component {
                     name: 'Data zakupu',
                     width: '4'
                 }
+                
             ],
             data: []
         }
@@ -42,6 +49,10 @@ class AdminTransactionView extends Component {
         axios.put(Api.PUT_ALL_IN_PROGRESS_DATA, { status: 'progress' }).then((response) => {
             const data = response.data.tables.map((row) => {
                 return ([
+                    {
+                        value: row.id,
+                        isHidden: true
+                    },
                     {
                         value: row.name,
                         width: '8'
@@ -68,21 +79,29 @@ class AdminTransactionView extends Component {
         const actions = <TableActions path={`${this.props.match.path}`} />
         return (
             <>
-                <TsTitle title='Panel zarządzania trazakcjami'
+                <TsTitle title='Panel zarządzania transakcjami'
                     image={{ name: 'buyData', type: 'png' }} />
+                <Row>
+                    <Col offset={1} span={22}>
+                        <Route exact path={`${this.props.match.path}`} render={() => (
+                            <TsTable
+                                header={this.state.header}
+                                rows={this.state.data}
+                                actions={actions}>
+                            </TsTable>)} />
 
-                <Route exact path={`${this.props.match.path}`} render={() => (
-                    <TsTable
-                        header={this.state.header}
-                        rows={this.state.data}
-                        actions={actions}>
-                    </TsTable>)} />
+                        <Route path={`${this.props.match.path}/:id`} render={(props) => {
+                            return (
+                                <TransactionValidatePage tableId={props.match.params.id} />
+                            )
+                        }
+                        
+                    } />
+                    </Col>
+                    <Col offset={1} span={22}> <Divider></Divider></Col>
+                </Row>
 
-                <Route path={`${this.props.match.path}/:name`} render={() => {
-                    console.log(this.props)
-                return (
-                    <TransactionValidatePage />
-                ) }} />
+                
 
             </>
         );

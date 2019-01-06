@@ -71,9 +71,6 @@ const SoldDataController = () => {
       let tables = await SoldDataModel.findAll({
         where: { status: status, fk_user_id: userId}
       });
-
-      console.log(JSON.stringify(tables,null,1))
-
       const tablesId = tables.map((tab) => tab.id);
 
       for (let index = 0; index < tablesId.length; index++) {
@@ -94,10 +91,28 @@ const SoldDataController = () => {
     }
   }
 
+  const getTransactionData = async (req,res) => {
+    try {
+      const {id} = req.body;
+      let type = 'emails'
+      let rows = await ProgressEmailModel.findAll({ where: { fk_st_progress_email_id: id } });
+
+      if(rows.length === 0) {
+        type = 'companies'
+        rows = await ProgressCompanyModel.findAll({ where: { fk_st_progress_company_id: id} });
+      } 
+      
+      return res.status(OK).json({ rows, type });
+    } catch (error) {
+      return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+    }
+  }
+
   return {
     getAllForDisplay,
     getInProgressForDisplay,
-    getUserInProgress
+    getUserInProgress,
+    getTransactionData
   }
 }
 
