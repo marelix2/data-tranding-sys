@@ -4,14 +4,13 @@ import { Button, Icon } from 'antd';
 const ButtonGroup = Button.Group;
 
 const ValidationActions = (props) => {
-    console.log(props);
     return (
         <>
             <ButtonGroup>
-                <Button type='primary' onClick={() => props.rowDeleteHandle(props.param.value)} >
-                    <Icon type="cloud-download" />
+                <Button type='danger' onClick={() => props.rowDeleteHandle(props.param.value, props.category)} >
+                    <Icon type="delete" />
                 </Button>
-                <Button type='primary' onClick={() => props.expandRowClicked()}>
+                <Button type='default' onClick={() => props.expandRowClicked()}>
                     <Icon type={props.expand ? "up" : "down"} />
                 </Button>
             </ButtonGroup>

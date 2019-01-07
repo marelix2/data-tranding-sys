@@ -6,6 +6,7 @@ const publicRoutes = {
     'PUT /sold/progress':'SoldDataController.getInProgressForDisplay',
     'PUT /sold/user/progress': 'SoldDataController.getUserInProgress',
     'PUT /sold/user/transaction': 'SoldDataController.getTransactionData',
+    'PUT /sold/user/delete/data': 'SoldDataController.DeleteRecord',
 
     'PUT /bought/user/emails': 'BoughtDataController.getAllForDisplayEmails',
     'PUT /bought/user/companies': 'BoughtDataController.getAllForDisplayCompanies',

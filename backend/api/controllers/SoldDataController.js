@@ -108,11 +108,34 @@ const SoldDataController = () => {
     }
   }
 
+  const DeleteRecord = async (req,res) => {
+   
+
+    try {
+      const { rowId, category } = req.body;
+      let row;
+
+      switch(category){
+        case 'emails': 
+          row = await ProgressEmailModel.findById(rowId).then(async(row) => await row.destroy());
+        break;
+        case 'companies':
+          row = await ProgressCompanyModel.findById(rowId).then(async (row) => await row.destroy());
+        break;
+      }
+      return res.status(OK).json({ row });
+     
+    } catch (error) {
+      return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+    }
+  }
+
   return {
     getAllForDisplay,
     getInProgressForDisplay,
     getUserInProgress,
-    getTransactionData
+    getTransactionData,
+    DeleteRecord
   }
 }
 
