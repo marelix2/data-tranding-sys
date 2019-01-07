@@ -1,0 +1,6 @@
+.Panel{
+  width: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
