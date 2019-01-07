@@ -14,6 +14,9 @@ const BoughtData = sequelize.define('BoughtData', {
     name: {
         type: STRING,
         unique: true,
+    },
+    status: {
+        type: STRING
     }
 }, { hooks, tableName });
 

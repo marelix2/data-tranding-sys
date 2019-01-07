@@ -687,7 +687,8 @@ const loadCompanies = async (soldData) => {
 
 const loadBoughtData = async (users) => {
     await BoughtDataModel.create({
-        name: 'bought_exaple_1'
+        name: 'bought_exaple_1',
+        status:'completed'
     }).then(async (boughtData) => {
         const category = await CategoryModel.findOne({ where: { name: 'Emails' } });
         await boughtData.setCategory(category);
@@ -696,17 +697,18 @@ const loadBoughtData = async (users) => {
     });
 
     await BoughtDataModel.create({
-        name: 'bought_exaple_2'
+        name: 'bought_exaple_2',
+        status:'completed'
     }).then(async (boughtData) => {
        const category = await CategoryModel.findOne({ where: { name: 'Companies' } });
         await boughtData.setCategory(category);
-        
         await users[0].addBoughtData(boughtData);
         await loadBoughtDataExampleSecond(boughtData);
     });
 
     await BoughtDataModel.create({
-        name: 'bought_exaple_3'
+        name: 'bought_exaple_3',
+        status:'completed'
     }).then(async (boughtData) => {
         const category = await CategoryModel.findOne({ where: { name: 'Companies' } });
         await boughtData.setCategory(category);
