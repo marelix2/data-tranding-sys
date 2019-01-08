@@ -26,6 +26,10 @@ const publicRoutes = {
     'PUT /explored/data/province': 'ExploredController.getTagProvincesForDisplay',
     'PUT /explored/data/description': 'ExploredController.getTagDescription',
 
+    'PUT /admin/categories': 'AdminController.getCategories',
+    'PUT /admin/tags': 'AdminController.getTags',
+    'PUT /admin/tag/update': 'AdminController.updateTagValue',
+
     
 };
 module.exports = publicRoutes;

@@ -28,6 +28,10 @@ const PUT_EXPLORED_TAG_EXAMPLE_DATA = BASE_PUBLIC + '/explored/data/example';
 const PUT_EXPLORED_PROVINCE = BASE_PUBLIC + '/explored/data/province';
 const PUT_EXPLORED_TAG_DESCRIPTION = BASE_PUBLIC + '/explored/data/description';
 
+const GET_CATEGORIES = BASE_PUBLIC + '/admin/categories';
+const GET_TAGS = BASE_PUBLIC + '/admin/tags';
+const UPDATE_TAG_VALUE = BASE_PUBLIC + '/admin/tag/update';
+
 export default {
     GET_GOOGLE_URL,
     POST_GOOGLE_CODE,
@@ -54,4 +58,8 @@ export default {
 
     GET_EMAIL_CATEGORIES,
     GET_COMPANY_CATEGORIES,
+
+    GET_CATEGORIES,
+    GET_TAGS,
+    UPDATE_TAG_VALUE,
 };

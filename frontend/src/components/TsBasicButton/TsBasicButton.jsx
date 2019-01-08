@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const TsBasicButton = (props) => {
     return (
         <Link to={props.directory}>
-        <div className={classes.Wrapper}>
+        <div className={classes.Wrapper} onClick={props.clicked}>
            <span className={classes.ButtonMessage}>{props.message}</span> 
            <Icon type={props.type} theme={props.theme} />
         </div>

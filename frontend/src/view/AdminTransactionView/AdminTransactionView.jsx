@@ -95,7 +95,7 @@ class AdminTransactionView extends Component {
         return (
             <>
                 <TsTitle title='Panel zarządzania transakcjami'
-                    image={{ name: 'buyData', type: 'png' }} />
+                    image={{ name: 'adminTransactions', type: 'png' }} />
                 <Row>
                     <Col offset={1} span={22}>
                         <Route exact path={`${this.props.match.path}`} render={() => (

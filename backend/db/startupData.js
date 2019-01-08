@@ -9,6 +9,7 @@ const CompanyModel = require('./../api/models/Company');
 const SoldDataModel = require('./../api/models/SoldData');
 const BoughtDataModel = require('./../api/models/BoughtData');
 const ProgressEmailModel = require('./../api/models/ProgressEmail');
+const TagValueModel = require('./../api/models/TagValue');
 const { filter, includes } = require('lodash');
 
 const { defaultImg } = require('./images');
@@ -213,6 +214,8 @@ const loadTags = async () => {
     let category = await CategoryModel.findOne({ where: { name: 'Emails' } });
     let descriptions = await DescriptionModel.findAll();
     await tags.map(async (tag) => {
+        const tagValue = await TagValueModel.create({value: 0.01});
+        tag.setTagValue(tagValue);
       await  tag.setCategory(category);
         await tag.setDescription(descriptions[tag.id - 1]);
     })
@@ -241,6 +244,8 @@ const loadTags = async () => {
 
     category = await CategoryModel.findOne({ where: { name: 'Companies' } });
     await tags.map(async (tag) => {
+        const tagValue = await TagValueModel.create({ value: 0.01 });
+        tag.setTagValue(tagValue);
       await  tag.setCategory(category);
       await  tag.setDescription(descriptions[tag.id-1]);
     })
