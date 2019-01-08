@@ -176,14 +176,12 @@ class CategoryInfoPage extends PureComponent  {
             const markers = filter(this.state.defaultMarkers, (marker) => {
                 return response.data.data.includes(marker.name);
             })
-
             this.setState({defaultMarkers: markers});
         })
     }
 
     fetchTagDescription = (name) => {
         axios.put(Api.PUT_EXPLORED_TAG_DESCRIPTION, { name: name }).then((response) => {
-            console.log(response);
             this.setState({description: response.data.desc});
         })
     }
@@ -234,7 +232,8 @@ class CategoryInfoPage extends PureComponent  {
                     <Col offset={1} span={22}>
                         <TsTable
                             header={this.props.tableHeader}
-                            rows={this.state.data}>
+                            rows={this.state.data}
+                            disableDownload={true}>
                         </TsTable>
                     </Col>
                     {mapWrapper}

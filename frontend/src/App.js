@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import Dashboard from './view/DasboardView/DasboardView';
 import MainPageView from './view/MainPageView/MainPageView';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect , Link} from 'react-router-dom';
 import { IsUserLoggedIn } from './utils';
 import "./styles/global.css";
 

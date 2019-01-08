@@ -3,6 +3,13 @@ const publicRoutes = {
     'POST /login/user': 'AuthController.authUser',
 
     'PUT /sold/user': 'SoldDataController.getAllForDisplay',
+    'PUT /sold/progress':'SoldDataController.getInProgressForDisplay',
+    'PUT /sold/user/progress': 'SoldDataController.getUserInProgress',
+    'PUT /sold/user/transaction': 'SoldDataController.getTransactionData',
+    'PUT /sold/user/delete/data': 'SoldDataController.DeleteRecord',
+    'PUT /sold/user/delete/table' : 'SoldDataController.DeleteTable',
+    'PUT /sold/user/accept/table' : 'SoldDataController.AcceptTable',
+
     'PUT /bought/user/emails': 'BoughtDataController.getAllForDisplayEmails',
     'PUT /bought/user/companies': 'BoughtDataController.getAllForDisplayCompanies',
     'PUT /bought/user/number': 'BoughtDataController.getNumberOfTables',
@@ -18,6 +25,7 @@ const publicRoutes = {
     'PUT /explored/data/example': 'ExploredController.getExampleDataForDisplay',
     'PUT /explored/data/province': 'ExploredController.getTagProvincesForDisplay',
     'PUT /explored/data/description': 'ExploredController.getTagDescription',
+
     
 };
 module.exports = publicRoutes;

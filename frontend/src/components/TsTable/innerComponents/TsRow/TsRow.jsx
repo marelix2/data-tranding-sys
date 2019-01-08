@@ -13,13 +13,24 @@ class TsRow extends Component {
     }
   }
 
+ 
   rowExpandHandler = () => {
     this.setState((previousState) => {
-      return( { expandRow: !previousState.expandRow});
+      return ({ expandRow: !previousState.expandRow });
     })
   }
 
   render() {
+    const children = React.Children.map(this.props.children, (child, index) => {
+      return React.cloneElement(child, {
+        expand: this.state.expandRow,
+        expandRowClicked: this.rowExpandHandler,
+        disableDownload : this.props.disableDownload,
+        param: this.props.data[0]
+      });
+    });
+
+
     const row = this.props.data.map((row) => {
       if (row.isHidden) return null;
       return (
@@ -32,11 +43,11 @@ class TsRow extends Component {
     let actions = null;
     if (this.props.children) {
       actions = (<Col span={4} className={classes.ActionRow}>
-        {this.props.children}
+        {children}
       </Col>)
     } else {
       actions = (<Col span={4} className={classes.ActionRow}>
-        <DeafultActions expand={this.state.expandRow} expandRowClicked={this.rowExpandHandler}/>
+        <DeafultActions expand={this.state.expandRow} expandRowClicked={this.rowExpandHandler} disableDownload={this.props.disableDownload}/>
       </Col>)
     }
 

@@ -8,6 +8,7 @@ const EmailModel = require('./../api/models/Email');
 const CompanyModel = require('./../api/models/Company');
 const SoldDataModel = require('./../api/models/SoldData');
 const BoughtDataModel = require('./../api/models/BoughtData');
+const ProgressEmailModel = require('./../api/models/ProgressEmail');
 const { filter, includes } = require('lodash');
 
 const { defaultImg } = require('./images');
@@ -247,18 +248,62 @@ const loadTags = async () => {
 
 const loadSoldData = async (users) => {
     await SoldDataModel.create({
-        name: 'init_data_emails'
+        name: 'init_data_emails',
+        status: 'completed'
     }).then(async (soldData) => {
         await users[0].addSoldData(soldData);
         await loadEmails(soldData);
     });
 
     await SoldDataModel.create({
-        name: 'init_data_companies'
+        name: 'init_data_companies',
+        status: 'completed'
     }).then(async (soldData) => {
         await users[0].addSoldData(soldData);
         await loadCompanies(soldData);
     });
+
+    await SoldDataModel.create({
+        name: 'progress_data_emails',
+        status: 'progress'
+    }).then(async (soldData) => {
+        await users[0].addSoldData(soldData);
+        await loadProgressEmails(soldData);
+    });
+}
+
+const loadProgressEmails = async (soldData) => {
+    const emails =
+        await ProgressEmailModel.bulkCreate([
+            { name: 'yzheng@comcast.net' },
+            { name: 'munson@mac.com' },
+            { name: 'liedra@yahoo.com' },
+            { name: 'sethbrown@outlook.com' },
+            { name: 'bancboy@verizon.net' },
+            { name: 'mhoffman@icloud.com' },
+            { name: 'mbrown@outlook.com' },
+            { name: 'dcoppit@comcast.net' },
+            { name: 'sethbrown@me.com' },
+            { name: 'budinger@sbcglobal.net' },
+            { name: 'samavati@icloud.com' },
+            { name: 'oechslin@verizon.net' },
+            { name: 'dogdude@hotmail.com' },
+            { name: 'scarolan@me.com' },
+            { name: 'frostman@aol.com' },
+            { name: 'campware@optonline.net' },
+            { name: 'muzzy@msn.com' },
+            { name: 'arebenti@mac.com' },
+            { name: 'ducasse@hotmail.com' },
+            { name: 'damian@live.com' },
+            { name: 'keiji@yahoo.com' }
+        ]);
+
+    const tags = await TagModel.findAll({ where: { fk_category: 1 } });
+    emails.map(async (email) => {
+        let randTags = Math.floor(Math.random() * tags.length - 1) + 1;
+        await email.addTags(tags[randTags]);
+        await soldData.addProgressEmail(email);
+    })
 }
 
 const loadEmails = async (soldData) => {
@@ -542,28 +587,7 @@ const loadEmails = async (soldData) => {
             { name: 'portscan@optonline.net' },
             { name: 'dburrows@sbcglobal.net' },
             { name: 'ghaviv@yahoo.ca' },
-            { name: 'phyruxus@msn.com' },
-            { name: 'yzheng@comcast.net' },
-            { name: 'munson@mac.com' },
-            { name: 'liedra@yahoo.com' },
-            { name: 'sethbrown@outlook.com' },
-            { name: 'bancboy@verizon.net' },
-            { name: 'mhoffman@icloud.com' },
-            { name: 'mbrown@outlook.com' },
-            { name: 'dcoppit@comcast.net' },
-            { name: 'sethbrown@me.com' },
-            { name: 'budinger@sbcglobal.net' },
-            { name: 'samavati@icloud.com' },
-            { name: 'oechslin@verizon.net' },
-            { name: 'dogdude@hotmail.com' },
-            { name: 'scarolan@me.com' },
-            { name: 'frostman@aol.com' },
-            { name: 'campware@optonline.net' },
-            { name: 'muzzy@msn.com' },
-            { name: 'arebenti@mac.com' },
-            { name: 'ducasse@hotmail.com' },
-            { name: 'damian@live.com' },
-            { name: 'keiji@yahoo.com' }
+            { name: 'phyruxus@msn.com' }   
         ]);
 
     const tags = await TagModel.findAll({ where: { fk_category: 1 } });

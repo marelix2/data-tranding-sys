@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TsTitle from './../../components/TsTitle/TsTitle';
 import TsSteps from './InnerComponents/TsSteps/TsSteps';
-import { Row, Col } from 'antd';
+import { Row, Col, Divider } from 'antd';
 import classes from "./ExploreView.module.css";
 import BranchChooser from './InnerComponents/BranchChooser/BranchChooser';
 import { Route, Redirect } from 'react-router-dom';
@@ -240,6 +240,7 @@ class ExploreView extends Component {
                                 />)
                         }} />
                     </Row>
+                    <Col offset={1} span={22}> <Divider></Divider></Col>
                 </Row>
             </div>
         );

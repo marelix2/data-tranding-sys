@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TsTitle from './../../components/TsTitle/TsTitle';
 import classes from './SoldDataDisplayerView.module.css';
 import { Col, Row } from 'antd';
-import { Route } from 'react-router-dom';
 import TsTable from './../../components/TsTable/TsTable';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
@@ -43,7 +42,7 @@ class SoldDataDisplayerView extends Component {
     }
 
     dataImportHandler = () => {
-        axios.put(Api.PUT_ALL_SOLD_DATA, { userId: localStorage.getItem('id') }).then((response) => {
+        axios.put(Api.PUT_ALL_SOLD_DATA, { userId: localStorage.getItem('id'), status: 'completed' }).then((response) => {
             const data = response.data.tables.map((row) => {
                 return ([
                     {
