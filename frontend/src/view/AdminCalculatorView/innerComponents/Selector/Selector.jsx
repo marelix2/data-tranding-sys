@@ -3,8 +3,9 @@ import { Row, Col, Divider, Select } from 'antd';
 
 const Option = Select.Option;
 
+
+
 const Selector = (props) => {
-  const options = <Option value="jack">Jack</Option>
   return (
     <>
       <Row gutter={22}>
@@ -13,11 +14,12 @@ const Selector = (props) => {
         </Col>
         <Col offset={1} span={22}>
           <Select 
-          nChange={props.handleChange} 
+          onChange={props.handle} 
           style={{width:'100%'}}
           disabled={props.disabled}
+          allowClear={props.allowClear}
           >
-            {options}
+            {props.options}
           </Select></Col>
       </Row>
 
