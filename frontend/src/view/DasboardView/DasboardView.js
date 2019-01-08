@@ -14,6 +14,7 @@ import SoldDataDisplayerView from './../SoldDataDisplayerView/SoldDataDisplayerV
 import WalletView from './../WalletView/WalletView';
 import ExploreView from './../ExploreView/ExploreView';
 import AdminTransactionView from './../AdminTransactionView/AdminTransactionView';
+import AdminTCalculatorView from './../AdminCalculatorView/AdminCalculatorView';
 
 const { Header, Content, Sider } = Layout;
 
@@ -60,6 +61,7 @@ class Dashboard extends Component {
                             <Route path={`${this.props.match.path}/contact`} component={ContactView} />
                             <Route path={`${this.props.match.path}/explore`} component={ExploreView} />
                             <Route path={`${this.props.match.path}/admin/transactions`} component={AdminTransactionView} />
+                            <Route path={`${this.props.match.path}/admin/calculator`} component={AdminTCalculatorView} />
                            
                         </div>
                     </Content>

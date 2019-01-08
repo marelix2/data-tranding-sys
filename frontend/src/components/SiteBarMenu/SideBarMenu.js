@@ -28,6 +28,7 @@ class SideBarMenu extends Component {
                     </SubMenu>
                     <SubMenu key="admin" title={<span><Icon type="paper-clip" /><span> Moderacja </span></span>}>
                         <Menu.Item key="admin_1"><Link to='/dashboard/admin/transactions'>Transakcje</Link></Menu.Item>
+                        <Menu.Item key="admin_2"><Link to='/dashboard/admin/calculator'>Wartości</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="options" title={<span><Icon type="fullscreen" /><span> Więcej </span></span>}>
                         <Menu.Item key="options_1"><Link to='/dashboard/contact'>Kontakt</Link></Menu.Item>
