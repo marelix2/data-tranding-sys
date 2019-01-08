@@ -130,12 +130,71 @@ const SoldDataController = () => {
     }
   }
 
+
+  const DeleteTable = async (req,res) => {
+   
+    try {
+      const { id , category } = req.body;
+
+      switch(category) {
+
+        case 'emails': 
+        await ProgressEmailModel.findAll({where: {fk_st_progress_email_id: id}}).then(async(emails) => {
+          emails.map(async (email) => await email.destroy())
+        });
+        break;
+
+        case 'companies': 
+        await ProgressCompanyModel.findAll({where: {fk_st_progress_company_id: id}}).then(async(companies) => {
+          companies.map(async (company) => await company.destroy())
+        });
+        break;
+      }
+      
+      const table = await SoldDataModel.findById(id).then( async( table) => {
+        await table.destroy();
+      })
+
+      return res.status(OK).json({ table });
+     
+    } catch (error) {
+      return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+    }
+  }
+
+  const AcceptTable = async (req, res) => {
+    try {
+      const { id , category } = req.body;
+
+      switch(category) {
+
+        case 'emails': 
+      ;
+        break;
+
+        case 'companies': 
+        
+        break;
+      }
+      
+      const table = await SoldDataModel.findById(id);
+
+      return res.status(OK).json({ table });
+     
+    } catch (error) {
+      return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+    }
+  }
+  
+
   return {
     getAllForDisplay,
     getInProgressForDisplay,
     getUserInProgress,
     getTransactionData,
-    DeleteRecord
+    DeleteRecord,
+    DeleteTable,
+    AcceptTable
   }
 }
 

@@ -7,7 +7,7 @@ import TableActions from './InnerComponents/TableActions/TableActions';
 import { Route } from 'react-router-dom';
 import TransactionValidatePage from './InnerComponents/TransactionValidatePage/TransactionValidatePage';
 import { Row, Col, Divider } from 'antd';
-import { O_RDONLY } from 'constants';
+import {filter} from 'lodash';
 
 class AdminTransactionView extends Component {
     constructor(props) {
@@ -76,6 +76,19 @@ class AdminTransactionView extends Component {
         })
     }
 
+    tableUpdateHandler = (tableId) => {
+        const tables = [...this.state.data];
+        const data = tables.map((row) => {  
+            const d = filter(row , (r) => { 
+                return r.value !== parseInt(tableId);
+            })
+            if (d.length === row.length) return d;
+         })
+
+         this.setState( {data: filter(data , (d) => d !== undefined)});
+        
+    }
+
 
     render() {
         const actions = <TableActions path={`${this.props.match.path}`} />
@@ -94,7 +107,7 @@ class AdminTransactionView extends Component {
 
                         <Route path={`${this.props.match.path}/:id`} render={(props) => {
                             return (
-                                <TransactionValidatePage tableId={props.match.params.id} />
+                                <TransactionValidatePage tableId={props.match.params.id} updateTable={this.tableUpdateHandler}/>
                             )
                         }
                     } />

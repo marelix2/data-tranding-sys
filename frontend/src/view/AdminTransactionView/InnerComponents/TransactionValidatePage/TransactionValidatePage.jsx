@@ -6,6 +6,7 @@ import ValidationActions from '../ValidationActions/ValidationActions';
 import { Divider, Col, Button, Icon, Popconfirm } from 'antd';
 import classes from './TransactionValidatePage.module.css';
 import {filter} from 'lodash';
+import {Redirect} from 'react-router-dom';
 class TransactionValidatePage extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +31,8 @@ class TransactionValidatePage extends Component {
                 }
             ],
             data: [],
-            category: ''
+            category: '',
+            stepBack: false
         }
     }
 
@@ -78,9 +80,7 @@ class TransactionValidatePage extends Component {
         })
     }
 
-
     rowDeleteHandle = (id, category) => {
-        console.log('usune:', id, category);
         axios.put(Api.DELETE_IN_PROGRESS_ROW_DATA, { rowId: id, category: category }).then((response) => {
            
            const data = this.state.data.map((row) => {  
@@ -89,21 +89,32 @@ class TransactionValidatePage extends Component {
                })
                if (d.length === row.length) return d;
             })
-
-            console.log(data);
             this.setState( {data: filter(data , (d) => d!== undefined)});
         })
     }
 
     acceptTableHandler = () => {
         console.log('akceptuje ta tablice');
+        axios.put(Api.ACCEPT_PROGRESS_TABLE, {id: this.props.tableId, category: this.state.category}).then((response) => {
+            this.props.updateTable(this.props.tableId);
+            this.setState({stepBack: true})
+        })
     }
 
     deleteTableHandler = () => {
         console.log('usuwam tabele');
+        axios.put(Api.DELETE_PROGRESS_TABLE, {id: this.props.tableId, category: this.state.category}).then((response) => {
+            this.props.updateTable(this.props.tableId);
+            this.setState({stepBack: true})
+        })
     }
 
     render() {
+
+        if (this.state.stepBack) {
+            return <Redirect to='/dashboard/admin/transactions' />
+          }
+
         const actions = <ValidationActions rowDeleteHandle={this.rowDeleteHandle} category={this.state.category} />
         return (
             <>  <Col>
