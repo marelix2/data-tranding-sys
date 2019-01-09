@@ -94,7 +94,6 @@ class TransactionValidatePage extends Component {
     }
 
     acceptTableHandler = () => {
-        console.log('akceptuje ta tablice');
         axios.put(Api.ACCEPT_PROGRESS_TABLE, {id: this.props.tableId, category: this.state.category}).then((response) => {
             this.props.updateTable(this.props.tableId);
             this.setState({stepBack: true})
@@ -102,7 +101,6 @@ class TransactionValidatePage extends Component {
     }
 
     deleteTableHandler = () => {
-        console.log('usuwam tabele');
         axios.put(Api.DELETE_PROGRESS_TABLE, {id: this.props.tableId, category: this.state.category}).then((response) => {
             this.props.updateTable(this.props.tableId);
             this.setState({stepBack: true})

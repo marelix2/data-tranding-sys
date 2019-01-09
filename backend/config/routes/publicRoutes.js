@@ -33,6 +33,8 @@ const publicRoutes = {
     'PUT /buy/user/table': 'BuyDataController.addTableToCart',
     'PUT /buy/user/table/emails': 'BuyDataController.getAllInProgressEmails',
     'PUT /buy/user/table/companies': 'BuyDataController.getAllInProgressCompanies', 
-    'PUT /buy/user/table/clear' : 'BuyDataController.deleteInProgressTables'
+    'PUT /buy/user/table/clear' : 'BuyDataController.deleteInProgressTables',
+    'PUT /buy/user/table/confirmed': 'BuyDataController.transactionTableConfirmed',
+    
 };
 module.exports = publicRoutes;

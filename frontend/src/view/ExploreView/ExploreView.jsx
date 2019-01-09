@@ -172,10 +172,7 @@ class ExploreView extends Component {
     }
 
     buyCategoryDataHandler = (data) => {
-        console.log("chce kupic dane z kategorii", data);
-
         axios.put(Api.PUT_TABLE_TO_BUY, { title: data, userId: localStorage.getItem('id') }).then((response) => {
-            console.log(response);
             if(response.data.message) {
                 notification.open({
                     message: response.data.message

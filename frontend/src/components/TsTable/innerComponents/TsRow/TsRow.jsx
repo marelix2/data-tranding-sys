@@ -63,7 +63,7 @@ class TsRow extends Component {
       <>
         <Row className={classes.RowWrapper}>
           {row}
-          {actions}
+          { this.props.showActions ? actions : null}
         </Row>
         {expandRow}
       </>

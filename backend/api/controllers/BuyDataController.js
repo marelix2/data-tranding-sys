@@ -197,7 +197,22 @@ const BuyDataController = () => {
         try {
 
             const { userId} = req.body;
-            let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, status: 'progress' } });
+            let tables = await BoughtDataModel.findAll({ where: { fk_user_id: userId, status: 'progress' } }).then(async (tables) => {
+                 tables.map(async (table) => await table.destroy());
+            });
+            return res.status(OK).json({ tables });
+        } catch (error) {
+            return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+        }
+    }
+
+    transactionTableConfirmed = async (req,res) => {
+        try {
+
+            const { userId } = req.body;
+            let tables = await BoughtDataModel.findAll({ where: { fk_user_id: userId, status: 'progress' } }).then(async (tables) => {
+                tables.map(async (table) => await table.update({status: 'completed'}, {fields: ['status']}));
+            });
             return res.status(OK).json({ tables });
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
@@ -208,7 +223,8 @@ const BuyDataController = () => {
         addTableToCart,
         getAllInProgressEmails,
         getAllInProgressCompanies,
-        deleteInProgressTables
+        deleteInProgressTables,
+        transactionTableConfirmed
     }
 }
 
