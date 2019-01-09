@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Collapse, Button, Icon } from 'antd';
-import PropTypes from 'prop-types';
 import classes from './RecentlyViewedCategories.module.css';
 import { Link } from 'react-router-dom';
 

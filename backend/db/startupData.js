@@ -756,7 +756,7 @@ const loadBoughtDataExampleFirst = async (boughtData) => {
 
     emails = filter(emails, (email) => {
         let tags = filter(email.Tags, (tag) => {
-            return tag.id === 4 || tag.id === 7 || tag.id === 11
+            return tag.id === 4;
         });
         return tags.length !== 0
     });

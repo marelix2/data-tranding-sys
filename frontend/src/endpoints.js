@@ -16,6 +16,7 @@ const PUT_ALL_BOUGHT_DATA_EMAIL = BASE_PUBLIC + '/bought/user/emails';
 const PUT_ALL_BOUGHT_DATA_COMPANY = BASE_PUBLIC + '/bought/user/companies';
 const PUT_TABLES_NUMBER = BASE_PUBLIC + '/bought/user/number';
 
+
 const GET_CURRENT_VALUE = BASE_PUBLIC + '/wallet/user/current';
 
 const GET_EXPLORED = BASE_PUBLIC + '/home/user/explored';
@@ -31,6 +32,12 @@ const PUT_EXPLORED_TAG_DESCRIPTION = BASE_PUBLIC + '/explored/data/description';
 const GET_CATEGORIES = BASE_PUBLIC + '/admin/categories';
 const GET_TAGS = BASE_PUBLIC + '/admin/tags';
 const UPDATE_TAG_VALUE = BASE_PUBLIC + '/admin/tag/update';
+
+const PUT_TABLE_TO_BUY = BASE_PUBLIC + '/buy/user/table';
+const GET_EMAIL_TABLES = BASE_PUBLIC + '/buy/user/table/emails';
+const GET_COMPANY_TABLES = BASE_PUBLIC + '/buy/user/table/companies';
+const PUT_CLEAR_CART = BASE_PUBLIC + '/buy/user/table/clear';
+
 
 export default {
     GET_GOOGLE_URL,
@@ -62,4 +69,9 @@ export default {
     GET_CATEGORIES,
     GET_TAGS,
     UPDATE_TAG_VALUE,
+
+    PUT_TABLE_TO_BUY,
+    GET_EMAIL_TABLES,
+    GET_COMPANY_TABLES,
+    PUT_CLEAR_CART
 };

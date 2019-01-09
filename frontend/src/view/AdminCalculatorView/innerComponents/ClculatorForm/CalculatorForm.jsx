@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Icon } from 'antd';
+import { Card } from 'antd';
 import Selector from '../Selector/Selector';
 import DataValueInput from '../DataValueInput/DataValueInput';
-import TsBasicButton from './../../../../components/TsBasicButton/TsBasicButton';
+
 import CardButton from '../../CardButton/CardButton';
 
 const CalculatorForm = (props) => {

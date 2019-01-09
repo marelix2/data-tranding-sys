@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TsTitle from './../../components/TsTitle/TsTitle';
 import TsSteps from './InnerComponents/TsSteps/TsSteps';
-import { Row, Col, Divider } from 'antd';
+import { Row, Col, Divider, notification} from 'antd';
 import classes from "./ExploreView.module.css";
 import BranchChooser from './InnerComponents/BranchChooser/BranchChooser';
 import { Route, Redirect } from 'react-router-dom';
@@ -171,6 +171,19 @@ class ExploreView extends Component {
 
     }
 
+    buyCategoryDataHandler = (data) => {
+        console.log("chce kupic dane z kategorii", data);
+
+        axios.put(Api.PUT_TABLE_TO_BUY, { title: data, userId: localStorage.getItem('id') }).then((response) => {
+            console.log(response);
+            if(response.data.message) {
+                notification.open({
+                    message: response.data.message
+                });
+            }
+        })
+    }
+
     render() {
         if (this.state.goBack) {
             this.setState({ goBack: false });
@@ -225,7 +238,8 @@ class ExploreView extends Component {
                                 path={`${this.props.match.path}/emails`}
                                 tableHeader={this.state.emailHeader}
                                 goBack={this.goBackHandler} 
-                                category={'email'}/>)
+                                category={'email'}
+                                buyDataClicked={this.buyCategoryDataHandler}/>)
                         }
                         } />
                         <Route exact path={`${this.props.match.path}/companies/:category`} render={() => {
@@ -237,6 +251,7 @@ class ExploreView extends Component {
                                 goBack={this.goBackHandler}
                                 category={'companies'}
                                 showMap={true}
+                                buyDataClicked={this.buyCategoryDataHandler}
                                 />)
                         }} />
                     </Row>
