@@ -60,12 +60,21 @@ class TsTable extends Component {
 
 
   renderRows = () => {
+    if(this.props.rows.length > 0){ 
     return this.props.rows.map((row, index) => (
       this.shouldShowRow(index) ?
-        <TsRow key={index} cols={this.props.header} class={classes.RowColor} rowExpandHandler={this.rowExpandHandler} data={row} disableDownload={this.props.disableDownload}>{this.props.actions}</TsRow>
-        : null
-
-    ))
+        <TsRow key={index}
+         cols={this.props.header} 
+         class={classes.RowColor}
+          rowExpandHandler={this.rowExpandHandler}
+           data={row}
+            disableDownload={this.props.disableDownload}
+            showActions={true}
+            >{this.props.actions}</TsRow>
+        : null))
+    }else {
+      return <TsRow data={[{value: 'Brak Danych', width: 20}]}></TsRow>
+    }
   }
 
   render() {

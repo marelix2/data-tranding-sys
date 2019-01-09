@@ -214,7 +214,7 @@ class CategoryInfoPage extends PureComponent  {
 
                     <Col>
                         <Button type="primary"
-                            onClick={() => this.props.goBack(this.props.path)}>
+                            onClick={() => this.props.buyDataClicked(this.state.categoryName)}>
                             Dodaj Do koszyka <Icon type="shopping-cart" />
                         </Button>
                     </Col>

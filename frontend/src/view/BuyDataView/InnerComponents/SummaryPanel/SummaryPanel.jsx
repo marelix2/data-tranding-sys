@@ -5,8 +5,10 @@ import classes from './SummaryPanel.module.css';
 const Panel = Collapse.Panel;
 
 const SummaryPanel = (props) => {
-  const panels = props.sumUp.map((panel) => (
-    <Panel header={props.sumUp[0].title}>
+  const panels = props.sumUp.map((panel,index) => (
+    <Panel 
+      header={props.sumUp[index].title} 
+      key={index}>
       <div className={classes.Panel}>
         <span>{panel.title} </span>
         <span>{panel.value} {panel.suffix}</span>

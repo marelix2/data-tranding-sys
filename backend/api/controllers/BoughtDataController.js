@@ -12,7 +12,7 @@ const BoughtDataController = () => {
   const getAllForDisplayEmails = async (req, res) => {
     try {
       const { userId, categoryId } = req.body;
-      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, CategoryId: categoryId } });
+      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, CategoryId: categoryId, status: 'completed' } });
     
       for( let index = 0 ; index < tables.length ; index++){
         let emails = await EmailModel.findAll({
@@ -43,7 +43,7 @@ const BoughtDataController = () => {
     try {
       
       const {userId, categoryId} = req.body;
-      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, CategoryId: categoryId} });
+      let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, CategoryId: categoryId, status: 'completed'} });
 
       for( let index = 0 ; index < tables.length ; index++){
         let companies = await CompanyModel.findAll({
@@ -74,7 +74,7 @@ const BoughtDataController = () => {
 
     const { userId } = req.body;
 
-    let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId} });
+    let tables = await BuyDataModel.findAll({ where: { fk_user_id: userId, status: 'completed'} });
 
     tables = tables.map( (table) => {
       return {id: table.dataValues.id , categoryId: table.dataValues.CategoryId}
