@@ -57,8 +57,13 @@ class BuyDataView extends Component {
             console.log(response);
 
             let tables = [...this.state.data];
+            let sumUp = [...this.state.sumUp];
 
             let data = response.data.tables.map((table) => {
+
+                sumUp[0].value += table.rows;
+                sumUp[1].value += table.rows * response.data.tableValue.value;
+
                 return ([
                     {
                         value: table.name,
@@ -73,14 +78,14 @@ class BuyDataView extends Component {
                         width: 6
                     },
                     {
-                        value: 0.1,
+                        value: response.data.tableValue.value,
                         width: 2
                     }
                 ])
             })
 
             tables = [...tables,...data];
-            this.setState({data:tables});
+            this.setState({data:tables, sumUp : sumUp});
 
         })
     }
@@ -88,8 +93,13 @@ class BuyDataView extends Component {
     fetchCompanies = () => {
         axios.put(Api.GET_COMPANY_TABLES, { userId: localStorage.getItem('id') }).then((response) => {
             let tables = [...this.state.data];
+            let sumUp = [...this.state.sumUp];
 
             let data = response.data.tables.map((table) => {
+
+                sumUp[0].value += table.rows;
+                sumUp[1].value += table.rows * response.data.tableValue.value;
+
                 return ([
                     {
                         value: table.name,
@@ -104,14 +114,15 @@ class BuyDataView extends Component {
                         width: 6
                     },
                     {
-                        value: 0.1,
+                        value: response.data.tableValue.value,
                         width: 2
                     }
                 ])
             })
 
             tables = [...tables, ...data];
-            this.setState({ data: tables });
+            this.setState({data:tables, sumUp : sumUp});
+
         })
     }
 
@@ -146,6 +157,9 @@ class BuyDataView extends Component {
                     </Col>
                     <Col offset={9} span={8}>
                         <DirectoryButtons />
+                    </Col>
+                    <Col offset={1} span={22}>
+                        <Divider></Divider>
                     </Col>
                 </Row>
             </div>

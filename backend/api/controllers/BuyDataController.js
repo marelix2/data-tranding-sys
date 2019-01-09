@@ -7,6 +7,7 @@ const EmailModel = require('./../models/Email');
 const CompanyModel = require('./../models/Company');
 const UserModel = require('./../models/User');
 const CategoryModel = require('./../models/Category');
+const TagValueModel = require('./../models/TagValue');
 
 
 const BuyDataController = () => {
@@ -116,6 +117,7 @@ const BuyDataController = () => {
         try {
             const { userId, categoryId } = req.body;
             let tables = await BoughtDataModel.findAll({ where: { fk_user_id: userId, CategoryId: 1, status: 'progress' } });
+            let tableValue = null;
 
             for (let index = 0; index < tables.length; index++) {
                 let emails = await EmailModel.findAll({
@@ -127,6 +129,15 @@ const BuyDataController = () => {
                         }
                     }]
                 })
+                let tagValueId = await EmailModel.findAll({
+                    include: [{ model: TagModel}],
+                    where: {id: emails[0].id}
+                });
+                tagValueId = tagValueId[0].Tags[0].fk_value;
+
+                 tableValue = await TagValueModel.findById(tagValueId);
+
+
                 emails = filter(emails, (email) => email.BoughtData.length > 0)
                 if (emails.length > 0) {
                     tables[index].dataValues.rows = emails.length;
@@ -135,7 +146,7 @@ const BuyDataController = () => {
                 }
             }
 
-            return res.status(OK).json({ tables });
+            return res.status(OK).json({ tables ,tableValue});
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
         }
@@ -147,6 +158,7 @@ const BuyDataController = () => {
 
             const { userId, categoryId } = req.body;
             let tables = await BoughtDataModel.findAll({ where: { fk_user_id: userId, CategoryId: 2, status: 'progress' } });
+            let tableValue = null;
 
             for (let index = 0; index < tables.length; index++) {
                 let companies = await CompanyModel.findAll({
@@ -158,6 +170,15 @@ const BuyDataController = () => {
                         }
                     }]
                 })
+
+                let tagValueId = await CompanyModel.findAll({
+                    include: [{ model: TagModel}],
+                    where: {id: companies[0].id}
+                });
+                tagValueId = tagValueId[0].Tags[0].fk_value;
+
+                 tableValue = await TagValueModel.findById(tagValueId);
+
                 companies = filter(companies, (companies) => companies.BoughtData.length > 0);
                 if (companies.length > 0) {
                     tables[index].dataValues.rows = companies.length;
@@ -166,7 +187,7 @@ const BuyDataController = () => {
                 }
             }
 
-            return res.status(OK).json({ tables });
+            return res.status(OK).json({ tables, tableValue });
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
         }
