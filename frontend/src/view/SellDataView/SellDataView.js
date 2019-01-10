@@ -24,14 +24,14 @@ class SellDataView extends Component {
                 <Route
                      exact path={`${this.props.match.path}/emails`}
                     render={() => (
-                        <ProvideDataPage category={'Emaile'}/>
+                        <ProvideDataPage category={'emails'}/>
                     )}
                     />
 
                 <Route
                     exact path={`${this.props.match.path}/companies`}
                     render={() => (
-                        <ProvideDataPage  category={'Firmy'}/>
+                        <ProvideDataPage  category={'companies'}/>
                     )}
                 />
                   
