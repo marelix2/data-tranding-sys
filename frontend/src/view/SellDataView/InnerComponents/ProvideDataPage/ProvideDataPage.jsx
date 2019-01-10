@@ -148,9 +148,7 @@ class ProvideDataPage extends Component {
     }
 
     onProvideDataHandler = () => {
-        // axios.put(Api.PUT_BUY_CONFIRMED, { userId: localStorage.getItem('id') }).then((response) => {
-        //     this.setState({ shouldRedirect: true })
-        // })
+        
     }
 
     singleRecordConfirmHandler = () => {

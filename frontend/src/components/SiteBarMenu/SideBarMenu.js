@@ -2,36 +2,58 @@ import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import { logoutHandle } from './../../utils';
 import { Link } from 'react-router-dom';
+import equal from 'fast-deep-equal';
+import {findKey} from 'lodash';
 
 const SubMenu = Menu.SubMenu;
 
-class SideBarMenu extends Component {
+class SideBarMenu extends Component {   
 
+    constructor(props){
+        super(props);
+
+        this.state = {
+            focus : this.props.focus,
+            paths: {
+                bought: '/dashboard/bought',
+                sold:'/dashboard/sold',
+                wallet: '/dashboard/wallet',
+                explore: '/dashboard/explore',
+                buy: '/dashboard/buy',
+                sell: '/dashboard/sell',
+                adminTransactions: '/dashboard/admin/transactions',
+                adminCalculator: '/dashboard/admin/calculator',
+                contact: '/dashboard/contact'
+
+            }
+        }
+    }
+    
     render() {
-
         return (
             <div>
                 <Menu
                     defaultOpenKeys={['storage', 'trade', 'options','admin']}
                     mode="inline"
                     theme="dark"
+                    selectedKeys={[this.props.focus]}
                 >
                     <SubMenu key="storage" title={<span><Icon type="bar-chart" /><span>Zarządzanie</span></span>}>
-                        <Menu.Item key="storage_0"><Link to='/dashboard/bought'>Kupione</Link></Menu.Item>
-                        <Menu.Item key="storage_1"><Link to='/dashboard/sold'>Sprzedane</Link></Menu.Item>
-                        <Menu.Item key="storage_2"><Link to='/dashboard/wallet'>Twoj Portwel</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.bought}><Link to={this.state.paths.bought}>Kupione</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.sold}><Link to={this.state.paths.sold}>Sprzedane</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.wallet}><Link to={this.state.paths.wallet}>Twoj Portwel</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="trade" title={<span><Icon type="appstore" /><span>Sprzedaż</span></span>}>
-                        <Menu.Item key="trade_0"><Link to='/dashboard/explore'>Przeglądaj</Link></Menu.Item>
-                        <Menu.Item key="trade_1"><Link to='/dashboard/buy'>Zakup</Link></Menu.Item>
-                        <Menu.Item key="trade_2"><Link to='/dashboard/sell'>Sprzedaj</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.explore}><Link to={this.state.paths.explore}>Przeglądaj</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.buy}><Link to={this.state.paths.buy}>Zakup</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.sell}><Link to={this.state.paths.sell}>Sprzedaj</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="admin" title={<span><Icon type="paper-clip" /><span> Moderacja </span></span>}>
-                        <Menu.Item key="admin_1"><Link to='/dashboard/admin/transactions'>Transakcje</Link></Menu.Item>
-                        <Menu.Item key="admin_2"><Link to='/dashboard/admin/calculator'>Wartości</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.adminTransactions}><Link to={this.state.paths.adminTransactions}>Transakcje</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.adminCalculator}><Link to={this.state.paths.adminCalculator}>Wartości</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="options" title={<span><Icon type="fullscreen" /><span> Więcej </span></span>}>
-                        <Menu.Item key="options_1"><Link to='/dashboard/contact'>Kontakt</Link></Menu.Item>
+                        <Menu.Item key={this.state.paths.contact}><Link to={this.state.paths.contact}>Kontakt</Link></Menu.Item>
                         <Menu.Item key="options_2" onClick={() => logoutHandle()}><Link to='/'>Wyloguj</Link></Menu.Item>
                     </SubMenu>
                 </Menu>
