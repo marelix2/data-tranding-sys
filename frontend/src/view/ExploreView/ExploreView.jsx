@@ -3,7 +3,7 @@ import TsTitle from './../../components/TsTitle/TsTitle';
 import TsSteps from './InnerComponents/TsSteps/TsSteps';
 import { Row, Col, Divider, notification} from 'antd';
 import classes from "./ExploreView.module.css";
-import BranchChooser from './InnerComponents/BranchChooser/BranchChooser';
+import BranchChooser from './../../components/BranchChooser/BranchChooser';
 import { Route, Redirect } from 'react-router-dom';
 import CategoryChooser from './InnerComponents/CategoryChooser/CategoryChooser';
 import { findIndex, findLastIndex } from 'lodash';
@@ -187,6 +187,15 @@ class ExploreView extends Component {
             return <Redirect to={this.state.path} />;
         }
 
+        const emailCategoryChildren = (<>
+            <h3> {'Emaile'}</h3>
+            <p> {this.state.totalEmails || 0} tagów</p>
+            </>)
+
+        const companyCategoryChildren = (<>
+            <h3> {'Firmy'}</h3>
+            <p> {this.state.totalCompanies || 0} tagów</p>
+        </>)
         return (
 
             <div>
@@ -201,7 +210,12 @@ class ExploreView extends Component {
                         </Col>
                     </Row>
                     <Row className={classes.ContentWrapper}>
-                        <Route exact path={`${this.props.match.path}`} render={() => (<BranchChooser pathUrl={this.props.match.url} totalEmails={this.state.totalEmails} totalCompanies={this.state.totalCompanies} />)} />
+                        <Route exact path={`${this.props.match.path}`} render={() => (<BranchChooser 
+                        pathUrl={this.props.match.url}
+                        emailCategoryChildren={emailCategoryChildren}
+                        companyCategoryChildren = {companyCategoryChildren}
+                         stepTitleText={ {subText:'Wybierz: ', value:'Kategorię', postText: null}}
+                          />)} />
                         <Route
                             exact path={`${this.props.match.path}/emails`}
                             render={() => {

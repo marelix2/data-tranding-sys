@@ -1,23 +1,21 @@
 import React from 'react';
-import TsDisplayer from '../../../../components/TsDisplayer/TsDisplayer';
+import TsDisplayer from './../TsDisplayer/TsDisplayer';
 import classes from './BranchChooser.module.css';
-import StepTitle from '../StepTitle/StepTitle';
+import StepTitle from './../StepTitle/StepTitle';
 
 const BranchChooser = (props) => {
     return (
         <>
             <div className={classes.BranchChooserWrapper}>
                 <div className={classes.Title}>
-                    <StepTitle subText={'Wybierz: '}  value='Kategorię' />
+                    <StepTitle subText={props.stepTitleText.subText} value={props.stepTitleText.value} postText={props.stepTitleText.postText} />
                 </div>
                 <div className={classes.ChooserComponents}>
                     <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.pathUrl}/emails`}>
-                        <h3> {'Emaile'}</h3>
-                        <p> {props.totalEmails || 0} Kategorii</p>
+                         {props.emailCategoryChildren}
                     </TsDisplayer>
                     <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.pathUrl}/companies`}>
-                        <h3> {'Firmy'}</h3>
-                        <p> {props.totalCompanies || 0}  Kategorii</p>
+                        {props.companyCategoryChildren}
                     </TsDisplayer>
                 </div>
             </div>
