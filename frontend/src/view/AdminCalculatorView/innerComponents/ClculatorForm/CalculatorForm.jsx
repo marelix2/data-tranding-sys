@@ -1,13 +1,13 @@
 import React from 'react';
 import { Card } from 'antd';
-import Selector from '../Selector/Selector';
+import TsSelector from './../../../../components/TsSelector/TsSelector';
 import DataValueInput from '../DataValueInput/DataValueInput';
 
 import CardButton from '../../CardButton/CardButton';
 
 const CalculatorForm = (props) => {
 
-  const tagSelector = props.tags.length !== 0 ? (<Selector
+  const tagSelector = props.tags.length !== 0 ? (<TsSelector
     key={'Tag'}
     title={'Tag'}
     handle={props.handleChange.tag}
@@ -23,7 +23,7 @@ const CalculatorForm = (props) => {
       <Card
         title={'Wypełnij Formularz'}
         actions={[<CardButton message='Zapisz' type='check' clicked={props.cardButtonClicked} />]}>
-        <Selector
+        <TsSelector
           key={'Kategoria'}
           title={'Kategoria'}
           handle={props.handleChange.category}

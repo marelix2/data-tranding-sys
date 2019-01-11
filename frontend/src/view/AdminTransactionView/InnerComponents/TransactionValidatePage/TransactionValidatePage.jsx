@@ -72,6 +72,56 @@ class TransactionValidatePage extends Component {
                     break;
 
                 case 'companies':
+                console.log(rows);
+                   const  companies = rows.map((row) => {
+                        return ([
+                            {
+                                value: row.id,
+                                isHidden: true
+                            },
+                            {
+                                value: row.name,
+                                width: '8'
+                            },
+                            {
+                                value: 'Firmy',
+                                width: '8'
+                            },
+                            {
+                                value: row.createdAt,
+                                width: '4'
+                            },
+                            {
+                                value: row.description,
+                                isHidden: true
+                            },
+                            {
+                                value: row.locationCity,
+                                isHidden: true
+                            },
+                            {
+                                value: row.country,
+                                isHidden: true
+                            },
+                            {
+                                value: row.zipCode,
+                                isHidden: true
+                            },
+                            {
+                                value: row.website,
+                                isHidden: true
+                            },
+                            {
+                                value: row.province,
+                                isHidden: true
+                            },
+                            
+                            
+                        ])
+                    })
+
+                    this.setState({ data: companies, category: type });
+
                     break;
 
                 default:

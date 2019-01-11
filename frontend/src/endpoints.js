@@ -11,6 +11,8 @@ const PUT_USER_TRANSACTION = BASE_PUBLIC + '/sold/user/transaction';
 const DELETE_IN_PROGRESS_ROW_DATA = BASE_PUBLIC + '/sold/user/delete/data';
 const DELETE_PROGRESS_TABLE = BASE_PUBLIC + '/sold/user/delete/table';
 const ACCEPT_PROGRESS_TABLE = BASE_PUBLIC + '/sold/user/accept/table';
+const CREATE_PROGRESS_TABLE = BASE_PUBLIC + '/sold/user/table/create';
+
 
 const PUT_ALL_BOUGHT_DATA_EMAIL = BASE_PUBLIC + '/bought/user/emails';
 const PUT_ALL_BOUGHT_DATA_COMPANY = BASE_PUBLIC + '/bought/user/companies';
@@ -52,6 +54,7 @@ export default {
     DELETE_IN_PROGRESS_ROW_DATA,
     DELETE_PROGRESS_TABLE,
     ACCEPT_PROGRESS_TABLE,
+    CREATE_PROGRESS_TABLE,
 
     PUT_ALL_BOUGHT_DATA_EMAIL,
     PUT_ALL_BOUGHT_DATA_COMPANY,

@@ -5,7 +5,7 @@ const Option = Select.Option;
 
 
 
-const Selector = (props) => {
+const TsSelector = (props) => {
   return (
     <>
       <Row gutter={22}>
@@ -27,4 +27,4 @@ const Selector = (props) => {
   );
 };
 
-export default Selector;
+export default TsSelector;

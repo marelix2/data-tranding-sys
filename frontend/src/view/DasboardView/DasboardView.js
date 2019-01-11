@@ -36,6 +36,7 @@ class Dashboard extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <Layout>
                 <Header>
@@ -47,7 +48,7 @@ class Dashboard extends Component {
                         collapsible
                         collapsed={this.state.sideMenuCollapsed} >
                         <div>
-                            <SideBarMenu />
+                            <SideBarMenu focus={this.props.location.pathname} />
                         </div>
                     </Sider>
                     <Content style={{ minHeight: '94vh' }}>

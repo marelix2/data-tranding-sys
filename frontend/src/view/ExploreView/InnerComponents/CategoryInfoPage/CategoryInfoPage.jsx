@@ -7,7 +7,7 @@ import { Col, Row, Divider, Card, Button, Icon } from 'antd';
 import TsTable from './../../../../components/TsTable/TsTable';
 import { upperFirst, filter } from 'lodash';
 import classes from './CategoryInfoPage.module.css';
-import StepTitle from './../StepTitle/StepTitle';
+import StepTitle from './../../../../components/StepTitle/StepTitle';
 
 class CategoryInfoPage extends PureComponent  {
     constructor(props) {

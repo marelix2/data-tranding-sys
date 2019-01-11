@@ -2,7 +2,7 @@ import React from 'react';
 import TsDisplayer from '../../../../components/TsDisplayer/TsDisplayer';
 import classes from './CategoryChooser.module.css';
 import { Button, Icon } from 'antd';
-import StepTitle from '../StepTitle/StepTitle';
+import StepTitle from './../../../../components/StepTitle/StepTitle';
 import {upperFirst} from 'lodash';
 import {Row, Col } from 'antd';
 
