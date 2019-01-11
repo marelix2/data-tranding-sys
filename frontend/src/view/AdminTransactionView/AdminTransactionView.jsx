@@ -8,6 +8,7 @@ import { Route } from 'react-router-dom';
 import TransactionValidatePage from './InnerComponents/TransactionValidatePage/TransactionValidatePage';
 import { Row, Col, Divider } from 'antd';
 import {filter} from 'lodash';
+import moment from 'moment';
 
 class AdminTransactionView extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ class AdminTransactionView extends Component {
                         width: '4'
                     },
                     {
-                        value: row.createdAt,
+                        value: moment(row.createdAt).format("YYYY-DD-MM"),
                         width: '4'
                     }
                 ])

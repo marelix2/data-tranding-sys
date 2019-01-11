@@ -5,6 +5,7 @@ import { Col, Row } from 'antd';
 import TsTable from './../../components/TsTable/TsTable';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
+import moment from 'moment';
 
 class SoldDataDisplayerView extends Component {
     constructor(props) {
@@ -62,7 +63,7 @@ class SoldDataDisplayerView extends Component {
                         width: '4'
                     },
                     {
-                        value: row.createdAt,
+                        value: moment(row.createdAt).format("YYYY-DD-MM"),
                         width: '4'
                     }
                 ])
