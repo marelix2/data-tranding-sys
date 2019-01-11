@@ -3,7 +3,7 @@ import TsTable from '../../../../components/TsTable/TsTable';
 import axios from './../../../../axiosAPI';
 import Api from './../../../../endpoints';
 import ValidationActions from '../ValidationActions/ValidationActions';
-import { Divider, Col, Button, Icon, Popconfirm } from 'antd';
+import { Divider, Col, Button, Icon, Popconfirm, notification } from 'antd';
 import classes from './TransactionValidatePage.module.css';
 import {filter} from 'lodash';
 import {Redirect} from 'react-router-dom';
@@ -12,7 +12,7 @@ class TransactionValidatePage extends Component {
         super(props);
 
         this.state = {
-            header: [
+            emailsHeader: [
                 {
                     name: 'Id',
                     isHidden: true
@@ -30,8 +30,52 @@ class TransactionValidatePage extends Component {
                     width: '4'
                 }
             ],
+            companiesHeader: [
+                {
+                    name: 'Id',
+                    isHidden: true
+                },
+                {
+                    name: 'Wartość',
+                    width: '8'
+                },
+                {
+                    name: 'Kategoria danych',
+                    width: '8'
+                },
+                {
+                    name: 'Data zakupu',
+                    width: '4'
+                },
+                {
+                    name: 'Opis',
+                    isHidden: true
+                },
+                {
+                    name: 'Miasto',
+                    isHidden: true
+                },
+                {
+                    name: 'Kraj',
+                    isHidden: true
+                },
+                {
+                    name: 'Kod pocztowy',
+                    isHidden: true
+                },
+                {
+                    name: 'strona',
+                    isHidden: true
+                },
+                {
+                    name: 'Województwo',
+                    isHidden: true
+                },
+
+            ],
+          
             data: [],
-            category: '',
+            category: 'emails',
             stepBack: false
         }
     }
@@ -43,7 +87,6 @@ class TransactionValidatePage extends Component {
     fetchTransactionData = () => {
         axios.put(Api.PUT_USER_TRANSACTION, { id: this.props.tableId }).then((response) => {
             const { rows, type } = response.data;
-
             switch (type) {
                 case 'emails':
                     const data = rows.map((row) => {
@@ -147,13 +190,22 @@ class TransactionValidatePage extends Component {
         axios.put(Api.ACCEPT_PROGRESS_TABLE, {id: this.props.tableId, category: this.state.category}).then((response) => {
             this.props.updateTable(this.props.tableId);
             this.setState({stepBack: true})
+
+            notification.open({
+                message: 'Tabela Zaakceptowana!',
+                description: `Portwel użytkownika ${localStorage.getItem('username')} zaktualizowany`,
+            });
         })
     }
 
     deleteTableHandler = () => {
         axios.put(Api.DELETE_PROGRESS_TABLE, {id: this.props.tableId, category: this.state.category}).then((response) => {
             this.props.updateTable(this.props.tableId);
-            this.setState({stepBack: true})
+            this.setState({stepBack: true});
+            notification.open({
+                message: 'Unięto tabelę!',
+                description: 'Nastąpiło automatyczne przekierowanie',
+            });
         })
     }
 
@@ -166,7 +218,9 @@ class TransactionValidatePage extends Component {
         const actions = <ValidationActions rowDeleteHandle={this.rowDeleteHandle} category={this.state.category} />
         return (
             <>  <Col>
-                <TsTable header={this.state.header} rows={this.state.data} actions={actions}></TsTable>
+                <TsTable header={this.state.category === 'emails' ? this.state.emailsHeader : this.state.companiesHeader } 
+                rows={this.state.data}
+                 actions={actions}></TsTable>
             </Col>
                 <Col>
                     <Divider></Divider>

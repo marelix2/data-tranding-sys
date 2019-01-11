@@ -7,7 +7,7 @@ const ThankYouView = () => {
     return (
         <div>
             <TsTitle
-                title='Dziękujemy za zakup'
+                title='Dziękujemy.'
                 image={{
                     name: 'check',
                     type: 'png'
