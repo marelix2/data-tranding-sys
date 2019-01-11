@@ -12,7 +12,7 @@ const ProgressEmailModel = require('./../api/models/ProgressEmail');
 const TagValueModel = require('./../api/models/TagValue');
 const { filter, includes } = require('lodash');
 
-const { defaultImg } = require('./images');
+const images = require('./images');
 
 const Sequelize = require('sequelize');
 
@@ -152,62 +152,62 @@ const loadTags = async () => {
             {
                 name: 'games',
                 title: 'gry',
-                img: defaultImg
+                img: images.gamesImg
             },
             {
                 title: 'botanika',
                 name: 'botany',
-                img: defaultImg
+                img: images.natureImg
             },
             {
                 title: 'geografia',
                 name: 'geography',
-                img: defaultImg
+                img: images.defaultImg
             },
             {
                 title: 'vege',
                 name: 'vege',
-                img: defaultImg
+                img: images.defaultImg
             },
             {
                 title: 'religia',
                 name: 'religion',
-                img: defaultImg
+                img: images.religionImg
             },
             {
                 title: 'moda',
                 name: 'fashion',
-                img: defaultImg
+                img: images.fashionImg
             },
             {
                 title: 'obuwie',
                 name: 'boots',
-                img: defaultImg
+                img: images.bootsImg
             },
             {
                 title: 'zwierzeta',
                 name: 'animals',
-                img: defaultImg
+                img: images.animalsImg
             },
             {
                 title: 'filmy',
                 name: 'films',
-                img: defaultImg
+                img: images.filmsImg
             },
             {
                 title: 'programowanie',
                 name: 'dev',
-                img: defaultImg
+                img: images.defaultImg
             },
             {
                 title: 'wyprzedaze',
                 name: 'sales',
-                img: defaultImg
+                img: images.defaultImg
             },
             {
                 title: 'samorozwoj',
                 name: 'selfDev',
-                img: defaultImg
+                img: images.defaultImg
             }
         ]);
 
@@ -228,17 +228,17 @@ const loadTags = async () => {
             {
                 name: 'c_dev',
                 title: 'oprogramowanie komputerowe',
-                img: defaultImg
+                img: images.programingCopmanyImg
             },
             {
                 title: 'spółdzienie mieszkaniowe',
                 name: 'c_housing_association',
-                img: defaultImg
+                img: images.houseImg
             },
             {
                 title: 'gastronomia',
                 name: 'c_gastronomy',
-                img: defaultImg
+                img: images.defaultImg
             }
         ]);
 
