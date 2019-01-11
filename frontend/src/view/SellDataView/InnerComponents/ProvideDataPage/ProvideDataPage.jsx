@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Row, Col, Divider, message, Select, Popconfirm, Button, Icon } from 'antd';
+import { Row, Col, Divider, message, Select, Popconfirm, Button, Icon, notification } from 'antd';
 import ValidationActions from './../ValidationActions/ValidationActions';
 import TsTable from './../../../../components/TsTable/TsTable';
 import FileUploader from '../FileUploader/FileUploader';
-import { filter, findIndex, debounce } from 'lodash';
+import { filter, findIndex } from 'lodash';
 import equal from 'fast-deep-equal';
 import TsSelector from './../../../../components/TsSelector/TsSelector';
 import axios from './../../../../axiosAPI';
 import Api from './../../../../endpoints';
 import SingleRecordForm from '../SingleRecordForm/SingleRecordForm';
 import clasess from './ProvideDataPage.module.css';
+import { Redirect} from 'react-router-dom';
 
 const Option = Select.Option;
 
@@ -84,7 +85,7 @@ class ProvideDataPage extends Component {
             chosenTags: [],
             tag: null,
             singleRecord: [],
-            clearForm: false
+            shouldShowThanksPage: false
         }
     }
 
@@ -278,13 +279,21 @@ class ProvideDataPage extends Component {
             category: this.props.category,
             data: this.state.data,
             tag: this.state.tag}).then((response) => {
-        
-                
+                notification.open({
+                    message: 'Dostarczono dane!',
+                    description: 'Poczekaj na weryfikację.',
+                });
+
+                this.setState({shouldShowThanksPage: true});
+
+
         })
     }
 
 
     render() {
+        if (this.state.shouldShowThanksPage) return (<Redirect to='/dashboard/thanks'/>)
+
         const actions = <ValidationActions rowDeleteHandle={this.rowDeleteHandle} />
         const page = this.state.tag ? (
             <>
@@ -298,7 +307,7 @@ class ProvideDataPage extends Component {
                         onChange={this.onInputChange}
                         cardButtonClicked={this.singleRecordConfirmHandler}
                         category={this.props.category}
-                        clearForm={this.state.clearForm} />
+                        />
                 </Col>
                 <Col offset={1} span={22}>
                     <Divider>Dodaj kilka rekordów</Divider>

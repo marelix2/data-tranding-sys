@@ -7,6 +7,9 @@ const ProgressEmailModel = require('./../models/ProgressEmail');
 const ProgressCompanyModel = require('./../models/ProgressCompany');
 const UserModel = require('./../models/User');
 const TagModel = require('./../models/Tag');
+const uniqid = require('uniqid');
+const WalletModel = require('./../models/Wallet');
+const TagValueModel = require('./../models/TagValue');
 
 const SoldDataController = () => {
 
@@ -166,19 +169,79 @@ const SoldDataController = () => {
   const AcceptTable = async (req, res) => {
     try {
       const { id, category } = req.body;
+      const table = await SoldDataModel.findById(id);
+      let tagId;
+      let tags;
+      let wallet;
+      let tagValue;
+      let walletState;
 
       switch (category) {
-
         case 'emails':
-          ;
+
+          let emailsData;
+          await ProgressEmailModel.findAll({ where: { fk_st_progress_email_id: id }, include: [{ model: TagModel }] }).then((response) => {
+            tagId = response[0].Tags[0].id;
+            emailsData = response.map((res) => { return { name: res.name } })
+            response.map((res) => res.destroy())
+          })
+
+          await table.update({ status: 'completed' }, { fields: ['status'] });
+
+          const emails = await EmailModel.bulkCreate(emailsData);
+
+          tags = await TagModel.findById(tagId);
+          emails.map(async (email) => {
+            await email.addTags(tags);
+            await table.addEmail(email);
+          })
+
+          wallet = await WalletModel.findOne({ where: { UserId: table.fk_user_id } });
+          tagValue = await TagValueModel.findById(tags.fk_value);
+          walletState = wallet.currentState;
+
+          await wallet.update({ currentState: walletState + tagValue.value * emails.length }, { fields: ['currentState'] });
+
           break;
 
         case 'companies':
+          let companyData;
+          await ProgressCompanyModel.findAll({ where: { fk_st_progress_company_id: id }, include: [{ model: TagModel }] }).then((response) => {
+            tagId = response[0].Tags[0].id;
+            companyData = response.map((res) => {
+              return {
+                name: res.name,
+                description: res.description,
+                contactNumber: res.contactNumber,
+                locationCity: res.locationCity,
+                address: res.address,
+                zipCode: res.zipCode,
+                country: res.country,
+                website: res.website,
+                province: res.province
+              }
+            })
+            response.map((res) => res.destroy())
+          })
+
+          await table.update({ status: 'completed' }, { fields: ['status'] });
+
+          const companies = await CompanyModel.bulkCreate(companyData);
+
+          tags = await TagModel.findById(tagId);
+          companies.map(async (company) => {
+            await company.addTags(tags);
+            await table.addCompany(company);
+          });
+
+          wallet = await WalletModel.findOne({ where: { UserId: table.fk_user_id } });
+          tagValue = await TagValueModel.findById(tags.fk_value);
+          walletState = wallet.currentState;
+
+          await wallet.update({ currentState: walletState + tagValue.value * emails.length }, { fields: ['currentState'] });
 
           break;
       }
-
-      const table = await SoldDataModel.findById(id);
 
       return res.status(OK).json({ table });
 
@@ -201,7 +264,7 @@ const SoldDataController = () => {
           });
 
           await SoldDataModel.create({
-            name: `sold${userId}_${tag}_${category}`,
+            name: `${uniqid()}`,
             status: 'progress'
           }).then(async (soldData) => {
             await user.addSoldData(soldData);
@@ -210,13 +273,13 @@ const SoldDataController = () => {
             const tags = await TagModel.findOne({ where: { fk_category: 1, title: tag } });
             emails.map(async (email) => {
               await email.addTags(tags);
-              await soldData.addProgressEmail(email);
+              await soldData.setProgressEmail(email);
             })
           })
           break;
 
         case 'companies':
-          companiesData = data.map( (rows) => {
+          companiesData = data.map((rows) => {
             return {
               name: rows[1].value,
               description: rows[3].value,
@@ -231,7 +294,7 @@ const SoldDataController = () => {
           })
 
           await SoldDataModel.create({
-            name: `sold${userId}_${tag}_${category}`,
+            name: `${uniqid()}`,
             status: 'progress'
           }).then(async (soldData) => {
             await user.addSoldData(soldData);
@@ -240,7 +303,7 @@ const SoldDataController = () => {
             const tags = await TagModel.findOne({ where: { fk_category: 2, title: tag } });
             companies.map(async (company) => {
               await company.addTags(tags);
-              await soldData.addProgressCompany(company);
+              await soldData.setProgressCompany(company);
             })
           })
 

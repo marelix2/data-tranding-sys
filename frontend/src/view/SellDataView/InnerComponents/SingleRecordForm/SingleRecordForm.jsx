@@ -22,6 +22,7 @@ const SingleRecordForm = (props) => {
                 <Card
                     size="small"
                     title={'Wypełnij formularz'}
+                    bodyStyle={{ background: 'rgb(236, 236, 236)' }}
                     actions={[<CardButton message='Zapisz' type='check' clicked={props.cardButtonClicked} />]}>
                     {fields}
                 </Card>
