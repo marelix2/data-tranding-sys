@@ -3,12 +3,13 @@ import { Row, Col, Divider, message, Select, Popconfirm, Button, Icon } from 'an
 import ValidationActions from './../ValidationActions/ValidationActions';
 import TsTable from './../../../../components/TsTable/TsTable';
 import FileUploader from '../FileUploader/FileUploader';
-import { filter, defaults } from 'lodash';
+import { filter, findIndex, debounce } from 'lodash';
 import equal from 'fast-deep-equal';
 import TsSelector from './../../../../components/TsSelector/TsSelector';
 import axios from './../../../../axiosAPI';
 import Api from './../../../../endpoints';
 import SingleRecordForm from '../SingleRecordForm/SingleRecordForm';
+import clasess from './ProvideDataPage.module.css';
 
 const Option = Select.Option;
 
@@ -81,16 +82,15 @@ class ProvideDataPage extends Component {
             data: [],
             csvData: [],
             chosenTags: [],
-            tag: null
+            tag: null,
+            singleRecord: [],
+            clearForm: false
         }
     }
 
     componentDidMount() {
-        this.fetchTags(this.props.category)
-    }
-
-    rowDeleteHandle = (id) => {
-        console.log('wywal', id)
+        this.fetchTags(this.props.category);
+        this.setSingleRecord();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -106,12 +106,45 @@ class ProvideDataPage extends Component {
                         return { 'value': value, 'isHidden': true };
                     }
                 });
-                row.splice(0, 0, { 'value': index, 'width': '4' });
+                row.splice(0, 0, { 'value': convertedValues.length + 1, 'width': '4' });
                 row.splice(2, 0, { 'value': this.props.category, 'width': '8' });
                 convertedValues = [...convertedValues, row];
             }
             this.setState({ data: convertedValues });
         }
+    }
+
+    setSingleRecord = () => {
+        let record;
+        switch (this.props.category) {
+            case 'emails':
+                record = [
+                    { colName: 'Wartość', value: null }
+                ]
+                break;
+            case 'companies':
+                record = [
+                    { colName: 'Wartość', value: null },
+                    { colName: 'Opis', value: null },
+                    { colName: 'Numer Kontaktowy', value: null },
+                    { colName: 'Lokalizacja', value: null },
+                    { colName: 'Ulica', value: null },
+                    { colName: 'Kod pocztowy', value: null },
+                    { colName: 'Kraj', value: null },
+                    { colName: 'strona internetowa', value: null },
+                    { colName: 'Województwo', value: null }
+                ]
+                break;
+            default:
+                break;
+        }
+
+        this.setState({ singleRecord: record });
+    }
+
+    rowDeleteHandle = (id) => {
+        let rows = filter(this.state.data, (row) => row[0].value !== id);
+        this.setState({ data: rows });
     }
 
     onUploadChange = (info) => {
@@ -132,7 +165,6 @@ class ProvideDataPage extends Component {
     }
 
     fetchTags = (category) => {
-
         axios.put(Api.GET_TAGS, { category: category }).then((response) => {
             const tags = response.data.tags.map((tag) => {
                 const { title } = tag;
@@ -143,31 +175,130 @@ class ProvideDataPage extends Component {
     }
 
     onTagChooseHandler = (value) => {
-        if (value === undefined) this.setState({ tag: null });
+        if (value === undefined) this.setState({ tag: null, data: [], csvData: [] });
         this.setState({ tag: value });
     }
 
-    onProvideDataHandler = () => {
-        
+    onInputChange = (e, field) => {
+        let record = [...this.state.singleRecord];
+        let index = findIndex(record, (rec) => rec.colName === field);
+        record[index] = { colName: field, value: e.target.value };
+        this.setState({ singleRecord: record });
+
     }
 
     singleRecordConfirmHandler = () => {
 
+        let record = [...this.state.singleRecord];
+        const data = [...this.state.data];
+
+        switch (this.props.category) {
+            case 'emails':
+                let row = [
+                    {
+                        value: this.state.data.length + 1,
+                        width: '4'
+                    },
+                    {
+                        value: record[0].value,
+                        width: '8'
+                    },
+                    {
+                        value: this.props.category,
+                        width: '8'
+                    }
+                ]
+
+                data.splice(data.length, 0, row);
+                break;
+
+            case 'companies':
+                row = [
+                    {
+                        value: this.state.data.length + 1,
+                        width: '4'
+                    },
+                    {
+                        value: record[0].value,
+                        width: '8'
+                    },
+                    {
+                        value: this.props.category,
+                        width: '8'
+                    },
+                    {
+                        value: record[1].value,
+                        isHidden: true
+                    },
+                    {
+                        value: record[2].value,
+                        isHidden: true
+                    },
+                    {
+                        value: record[3].value,
+                        isHidden: true
+                    },
+                    {
+                        value: record[4].value,
+                        isHidden: true
+                    },
+                    {
+                        value: record[5].value,
+                        isHidden: true
+                    },
+                    {
+                        value: record[6].value,
+                        isHidden: true
+                    },
+                    {
+                        value: record[7].value,
+                        isHidden: true
+                    },
+                    {
+                        value: record[8].value,
+                        isHidden: true
+                    }
+
+                ]
+
+                data.splice(data.length, 0, row);
+                break;
+            default:
+                break;
+        }
+
+        this.setState({ data: data });
+        this.setSingleRecord();
+
+    }
+
+    onProvideDataHandler = () => {
+        axios.put(Api.CREATE_PROGRESS_TABLE, {
+            userId: localStorage.getItem('id'),
+            category: this.props.category,
+            data: this.state.data,
+            tag: this.state.tag}).then((response) => {
+        
+                
+        })
     }
 
 
     render() {
         const actions = <ValidationActions rowDeleteHandle={this.rowDeleteHandle} />
-
         const page = this.state.tag ? (
             <>
                 <Col offset={1} span={22}>
                     <Divider>Dodaj pojedyńczy rekord</Divider>
                 </Col>
                 <Col offset={1} span={22}>
-                    <SingleRecordForm  
-                    onConfirm={this.singleRecordConfirmHandler} 
-                    fields={this.props.category === 'emails' ? this.state.emailHeader : this.state.companyHeader}/>
+                    <SingleRecordForm
+                        onConfirm={this.singleRecordConfirmHandler}
+                        fields={this.state.singleRecord}
+                        onChange={this.onInputChange}
+                        cardButtonClicked={this.singleRecordConfirmHandler}
+                        category={this.props.category}
+                        clearForm={this.state.clearForm} />
                 </Col>
                 <Col offset={1} span={22}>
                     <Divider>Dodaj kilka rekordów</Divider>
@@ -197,7 +328,7 @@ class ProvideDataPage extends Component {
                 <Col offset={1} span={22}>
                     <Divider></Divider>
                 </Col>
-            </>) : null
+            </>) : <Col offset={1} span={22} className={clasess.TagInfo}> <h3>Wybierz tag aby kontynuować</h3></Col>
 
         return (
             <div>
@@ -208,7 +339,7 @@ class ProvideDataPage extends Component {
                             title={'Wybierz Tag'}
                             handle={this.onTagChooseHandler}
                             options={this.state.chosenTags}
-                            allowClear={true}/>
+                            allowClear={true} />
                     </Col>
                     {page}
                 </Row>

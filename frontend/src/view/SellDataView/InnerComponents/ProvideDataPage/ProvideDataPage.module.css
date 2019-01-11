@@ -1,0 +1,11 @@
+.TagInfo{ 
+    margin-top: 2em;
+    display: flex;
+    color: #ccc;
+    justify-content: center;
+    align-items: center;
+}
+
+.TagInfo > * {
+    color: #ccc;
+}
