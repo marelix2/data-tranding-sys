@@ -36,6 +36,8 @@ const publicRoutes = {
     'PUT /buy/user/table/companies': 'BuyDataController.getAllInProgressCompanies', 
     'PUT /buy/user/table/clear' : 'BuyDataController.deleteInProgressTables',
     'PUT /buy/user/table/confirmed': 'BuyDataController.transactionTableConfirmed',
+
+    'GET /ex/file': 'CsvController.getFile',
     
 };
 module.exports = publicRoutes;

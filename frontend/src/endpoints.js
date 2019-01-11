@@ -41,6 +41,8 @@ const GET_COMPANY_TABLES = BASE_PUBLIC + '/buy/user/table/companies';
 const PUT_CLEAR_CART = BASE_PUBLIC + '/buy/user/table/clear';
 const PUT_BUY_CONFIRMED = BASE_PUBLIC + '/buy/user/table/confirmed';
 
+const GET_FILE = BASE_PUBLIC + '/ex/file';
+
 
 
 export default {
@@ -79,5 +81,6 @@ export default {
     GET_EMAIL_TABLES,
     GET_COMPANY_TABLES,
     PUT_CLEAR_CART,
-    PUT_BUY_CONFIRMED
+    PUT_BUY_CONFIRMED,
+    GET_FILE
 };
