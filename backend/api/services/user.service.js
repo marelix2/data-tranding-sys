@@ -41,8 +41,6 @@ const loadUserRoles = async () => {
             { name: 'Admin' }
         ])
     }
-
-
 }
 
 module.exports = {

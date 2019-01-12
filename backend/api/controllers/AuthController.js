@@ -35,7 +35,7 @@ const AuthController = () => {
         try {
             let user;
             const userRegistered = await CheckUserRegistered(auth,code);
-            
+            console.log(userRegistered);
             if (!userRegistered){
                 user = await registerUser(auth,code);
             }else {

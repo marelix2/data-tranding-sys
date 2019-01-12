@@ -75,6 +75,10 @@ const checkIsUserRegistered = async (previousAuth, code) => {
         let user = await User.findOne({ where: { username: userGoogleName } });
 
         if (user === null) {
+            user = await User.findOne({ where: { username: userGoogleEmail } });  
+        }
+
+        if (user === null) {
             const username = userGoogleName !== "" ? userGoogleName : userGoogleEmail;
             user = await User.create({
                 username: username,
@@ -88,17 +92,17 @@ const checkIsUserRegistered = async (previousAuth, code) => {
                 }).then(async (res) => {
                     await res.setUser(user);
                 });
-                
+
                 const roles = await Role.findAll();
                 await user.addRole(roles[0]);
-               
+
             });
         }
 
         return user;
 
     } catch (err) {
-        return { error: new GoogleErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to GoogleApi: ' + err) };
+        return { error: new GoogleErrorDTO(INTERNAL_SERVER_ERROR, 'Error while connecting to GoogleApi: 111 ' + err) };
     }
 }
 
