@@ -101,7 +101,8 @@ class WalletView extends Component {
                     <Col offset={1} span={22} className={classes.ColWrapper}>
                         <TsTable
                             header={this.state.header}
-                            rows={this.state.data} />
+                            rows={this.state.data}
+                            disableDownload={true}/>
                     </Col>
                 </Row>
 

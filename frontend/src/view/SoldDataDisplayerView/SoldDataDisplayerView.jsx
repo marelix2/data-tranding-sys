@@ -6,6 +6,7 @@ import TsTable from './../../components/TsTable/TsTable';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
 import moment from 'moment';
+import {saveAs} from 'file-saver';
 
 class SoldDataDisplayerView extends Component {
     constructor(props) {
@@ -73,6 +74,16 @@ class SoldDataDisplayerView extends Component {
         })
     }
 
+    downloadHandler = (tableName) => {
+        console.log('pobieranie', tableName);
+        axios.get(Api.DOWNLOAD_SOLD_TABLE, { params: { tableName: tableName } }).then((response) => {
+            const filename = `${tableName}_data.csv`;
+            const file = new Blob([response.data], { type: 'text/csv' });
+            saveAs(file, filename, { autoBOM: true });
+        })
+
+    }
+
     render() {
         return (
             <div>
@@ -85,9 +96,10 @@ class SoldDataDisplayerView extends Component {
 
                 <Row>
                     <Col offset={1} span={22} className={classes.ContentWrapper}>
-                    <TsTable
-                header={this.state.header}
-                rows={this.state.data} />
+                        <TsTable
+                            header={this.state.header}
+                            rows={this.state.data}
+                            downloadHandler={this.downloadHandler} />
                     </Col>
                 </Row>
             </div>

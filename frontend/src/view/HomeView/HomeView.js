@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import classes from './HomeView.module.css';
 import CurrentValue from './innerComponents/WalletCurrentValue/CurrentValue';
 import RecentlyViewedCategories from './innerComponents/RecentlyViewedCategories/RecentlyViewedCategories';
-import { Col, Row } from 'antd';
+import { Col, Row, Button } from 'antd';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
 import moment from 'moment';
+import { saveAs } from 'file-saver';
+
 
 class HomeView extends Component {
     constructor(props) {

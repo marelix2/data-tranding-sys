@@ -10,6 +10,9 @@ const TagModel = require('./../models/Tag');
 const uniqid = require('uniqid');
 const WalletModel = require('./../models/Wallet');
 const TagValueModel = require('./../models/TagValue');
+const {filter} = require('lodash');
+
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const SoldDataController = () => {
 
@@ -319,6 +322,112 @@ const SoldDataController = () => {
   }
 
 
+  downloadTable = async (req, res) => {
+    try {
+      const { tableName } = req.query;
+      const filePath = 'db/files/soldDatafile.csv';
+      const table = await SoldDataModel.findOne({ where: { name: tableName } });
+
+     
+        const tmp = await EmailModel.findAll({ where: { fk_st_email_id: table.id } });
+      const category = tmp.length ? 1 : 2;
+
+      let csvWriter;
+      let tag;
+      let dataToWrite;
+      switch (category) {
+
+        case 1:
+          csvWriter = createCsvWriter({
+            path: filePath,
+            header: [
+              { id: 'name', title: 'name' },
+              { id: 'tag', title: 'tag' }
+            ]
+          });
+
+          let emails = await EmailModel.findAll({
+            where: {fk_st_email_id: table.id}
+          })
+          
+          let ee = await await EmailModel.findAll({
+            include: [{
+              model: TagModel
+            }]
+          })
+          ee = filter(ee, (e) => e.id === emails[0].id);
+          tag = await TagModel.findById(ee[0].Tags[0].id);
+
+          dataToWrite = emails.map((email) => {
+            return { name: email.name, tag: tag.title }
+          })
+
+          await csvWriter.writeRecords(dataToWrite);
+
+          res.setHeader("Content-Type", "text/csv");
+          return res.status(OK).download(filePath, 'file.csv');
+          break;
+
+        case 2:
+
+          csvWriter = createCsvWriter({
+            path: filePath,
+            header: [
+              { id: 'name', title: 'name' },
+              { id: 'description', title: 'description' },
+              { id: 'contactNumber', title: 'contactNumber' },
+              { id: 'locationCity', title: 'locationCity' },
+              { id: 'address', title: 'address' },
+              { id: 'zipCode', title: 'zipCode' },
+              { id: 'country', title: 'country' },
+              { id: 'website', title: 'website' },
+              { id: 'province', title: 'province' },
+              { id: 'tag', title: 'tag' }
+            ]
+          });
+
+          let companies = await CompanyModel.findAll({
+            where: { fk_st_company_id: table.id }
+          })
+          let cc = await await CompanyModel.findAll({
+            include: [{
+              model: TagModel
+            }]
+          })
+          cc = filter(cc, (c) => c.id === companies[0].id);
+          tag = await TagModel.findById(cc[0].Tags[0].id);
+
+          dataToWrite = companies.map((company) => {
+            return {
+              name: company.name,
+              description: company.description,
+              contactNumber: company.contactNumber,
+              locationCity: company.locationCity,
+              address: company.address,
+              zipCode: company.zipCode,
+              country: company.country,
+              website: company.website,
+              province: company.province,
+              tag: tag.title
+            }
+          })
+
+          await csvWriter.writeRecords(dataToWrite);
+
+          res.setHeader("Content-Type", "text/csv");
+          return res.status(OK).download(filePath, 'file.csv');
+
+          break;
+      }
+
+
+      return res.status(OK).json({});
+    } catch (error) {
+      return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));
+    }
+  }
+
+
   return {
     getAllForDisplay,
     getInProgressForDisplay,
@@ -327,7 +436,8 @@ const SoldDataController = () => {
     DeleteRecord,
     DeleteTable,
     AcceptTable,
-    CreateInProgressTable
+    CreateInProgressTable,
+    downloadTable
   }
 }
 

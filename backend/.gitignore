@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/node
 
 ### Node ###
@@ -81,7 +80,7 @@ typings/
 
 # Sqlite database
 db/database.sqlite
-
+db/files/
 
 #Project files
 logs/

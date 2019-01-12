@@ -12,11 +12,13 @@ const DELETE_IN_PROGRESS_ROW_DATA = BASE_PUBLIC + '/sold/user/delete/data';
 const DELETE_PROGRESS_TABLE = BASE_PUBLIC + '/sold/user/delete/table';
 const ACCEPT_PROGRESS_TABLE = BASE_PUBLIC + '/sold/user/accept/table';
 const CREATE_PROGRESS_TABLE = BASE_PUBLIC + '/sold/user/table/create';
+const DOWNLOAD_SOLD_TABLE = BASE_PUBLIC + '/sold/user/table/download';
 
 
 const PUT_ALL_BOUGHT_DATA_EMAIL = BASE_PUBLIC + '/bought/user/emails';
 const PUT_ALL_BOUGHT_DATA_COMPANY = BASE_PUBLIC + '/bought/user/companies';
 const PUT_TABLES_NUMBER = BASE_PUBLIC + '/bought/user/number';
+const DOWNLOAD_BOUGHT_TABLE = BASE_PUBLIC + '/bought/user/table/download';
 
 
 const GET_CURRENT_VALUE = BASE_PUBLIC + '/wallet/user/current';
@@ -41,6 +43,8 @@ const GET_COMPANY_TABLES = BASE_PUBLIC + '/buy/user/table/companies';
 const PUT_CLEAR_CART = BASE_PUBLIC + '/buy/user/table/clear';
 const PUT_BUY_CONFIRMED = BASE_PUBLIC + '/buy/user/table/confirmed';
 
+const GET_FILE = BASE_PUBLIC + '/ex/file';
+
 
 
 export default {
@@ -55,10 +59,12 @@ export default {
     DELETE_PROGRESS_TABLE,
     ACCEPT_PROGRESS_TABLE,
     CREATE_PROGRESS_TABLE,
+    DOWNLOAD_SOLD_TABLE,
 
     PUT_ALL_BOUGHT_DATA_EMAIL,
     PUT_ALL_BOUGHT_DATA_COMPANY,
     PUT_TABLES_NUMBER,
+    DOWNLOAD_BOUGHT_TABLE,
 
     GET_CURRENT_VALUE,
 
@@ -79,5 +85,6 @@ export default {
     GET_EMAIL_TABLES,
     GET_COMPANY_TABLES,
     PUT_CLEAR_CART,
-    PUT_BUY_CONFIRMED
+    PUT_BUY_CONFIRMED,
+    GET_FILE
 };
