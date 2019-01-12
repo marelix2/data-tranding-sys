@@ -6,6 +6,7 @@
     "antd": "^3.10.2",
     "axios": "^0.18.0",
     "email-validator": "^2.0.4",
+    "file-saver": "^2.0.0",
     "leaflet": "^1.4.0",
     "moment": "^2.23.0",
     "numeral": "^2.0.6",

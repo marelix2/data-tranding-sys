@@ -70,6 +70,7 @@ class TsTable extends Component {
            data={row}
             disableDownload={this.props.disableDownload}
             showActions={true}
+            downloadHandler={this.props.downloadHandler}
             >{this.props.actions}</TsRow>
         : null))
     }else {

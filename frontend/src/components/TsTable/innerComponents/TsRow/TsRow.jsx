@@ -47,7 +47,12 @@ class TsRow extends Component {
       </Col>)
     } else {
       actions = (<Col span={4} className={classes.ActionRow}>
-        <DeafultActions expand={this.state.expandRow} expandRowClicked={this.rowExpandHandler} disableDownload={this.props.disableDownload}/>
+        <DeafultActions 
+        expand={this.state.expandRow}
+         expandRowClicked={this.rowExpandHandler} 
+         disableDownload={this.props.disableDownload} 
+         id={this.props.data[0].value}
+         downloadHandler={this.props.downloadHandler}/>
       </Col>)
     }
 

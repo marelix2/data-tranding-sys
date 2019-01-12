@@ -10,11 +10,12 @@ const publicRoutes = {
     'PUT /sold/user/delete/table': 'SoldDataController.DeleteTable',
     'PUT /sold/user/accept/table': 'SoldDataController.AcceptTable',
     'PUT /sold/user/table/create': 'SoldDataController.CreateInProgressTable',
+    'GET /sold/user/table/download': 'SoldDataController.downloadTable',
     
     'PUT /bought/user/emails': 'BoughtDataController.getAllForDisplayEmails',
     'PUT /bought/user/companies': 'BoughtDataController.getAllForDisplayCompanies',
     'PUT /bought/user/number': 'BoughtDataController.getNumberOfTables',
-
+    'GET /bought/user/table/download': 'BoughtDataController.downloadTable',
     'PUT /wallet/user/current': 'WalletController.getUserCurrent',
 
     'PUT /home/user/explored/path': 'ExploredTagsController.updateExploredTag',
@@ -36,6 +37,8 @@ const publicRoutes = {
     'PUT /buy/user/table/companies': 'BuyDataController.getAllInProgressCompanies', 
     'PUT /buy/user/table/clear' : 'BuyDataController.deleteInProgressTables',
     'PUT /buy/user/table/confirmed': 'BuyDataController.transactionTableConfirmed',
+
+    'GET /ex/file': 'CsvController.getFile',
     
 };
 module.exports = publicRoutes;

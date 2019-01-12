@@ -3,10 +3,11 @@ import { Button, Icon } from 'antd';
 const ButtonGroup = Button.Group;
 
 const DeafultActions = (props) => {
+  console.log(props);
   return (
     <>
       <ButtonGroup>
-        <Button type='default' onClick={ () => console.log("kiedys sie pobiore!")} disabled={!!props.disableDownload}>
+        <Button type='default' onClick={() => props.downloadHandler(props.id)} disabled={!!props.disableDownload}>
           <Icon type="cloud-download" />
         </Button>
         <Button type='default'  onClick={() => props.expandRowClicked()}>
