@@ -9,6 +9,9 @@ import slider3 from './../../assets/slider/slider3.png';
 import CommentSection from './innerComonents/CommentSection/CommentSection';
 import Newsletter from './innerComonents/Newsletter/Newsletter';
 import StatisticsSection from './innerComonents/StatisticsSection/StatisticsSection.js';
+import axios from '../../axiosAPI';
+import Api from './../../endpoints';
+import { stat } from 'fs';
 
 const { Header, Content } = Layout;
 class MainPageView extends Component {
@@ -30,29 +33,73 @@ class MainPageView extends Component {
                 }
             ],
             commentsData: [
-                {
-                    avatarShape: 'square',
-                    avatarSize: 64,
-                    avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                    userNickname: 'DylanK',
-                    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
-                },
-                {
-                    avatarShape: 'square',
-                    avatarSize: 64,
-                    avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                    userNickname: 'DylanK',
-                    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
-                },
-                {
-                    avatarShape: 'square',
-                    avatarSize: 64,
-                    avatarSrc: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                    userNickname: 'DylanK',
-                    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nunc et mauris mattis varius. Vestibulum porta pretium ultrices. In sollicitudin lectus sapien, ut venenatis eros pretium dignissim. Pellentesque quis lorem ligula. Praesent interdum mi eget nisi ultrices facilisis. Nullam convallis nisl mi, ac scelerisque erat commodo non.'
-                },
-            ]
+            ],
+            statisticsData: []
         }
+    }
+
+    componentDidMount() {
+        this.fetchComments();
+        this.fetchStatistics();
+    }
+
+    fetchComments = () => {
+        axios.put(Api.GET_COMMENTS).then((response) => {
+            console.log(response);
+            const comments = response.data.comments.map((comment) => {
+                return {
+                    avatarShape: 'square',
+                    avatarSize: 64,
+                    avatarSrc: comment.user.avatar,
+                    userNickname: comment.user.username,
+                    comment: comment.description
+                }
+            })
+            
+            this.setState({ commentsData: comments});
+        })
+    }
+
+    fetchStatistics = () => {
+        axios.put(Api.GET_STATISTICS).then((response) => {
+            console.log(response);
+
+            const {statistics} = response.data;
+
+            const statisticsData = [
+                {
+                    icon: 'smile',
+                    iconColor: '#E38627',
+                    title: 'Użytkowincy',
+                    numbers: statistics.users,
+                    comment: 'liczba zarejestrowanych użytkowników'
+                },
+                {
+                    icon: 'pushpin',
+                    iconColor: '#C13C37',
+                    title: 'Liczba rekordów',
+                    numbers: statistics.records,
+                    comment: 'dostępne dane'
+                },
+                {
+                    icon: 'tags',
+                    iconColor: '#6A2135',
+                    title: 'Subkategorie',
+                    numbers: statistics.tags,
+                    comment: 'dostępne'
+                },
+                {
+                    icon: 'star',
+                    iconColor: '#123455',
+                    title: 'Kupione',
+                    numbers: statistics.boughtTables,
+                    comment: 'bazy dostarczone uzytkownikom'
+                }
+            ]
+
+            this.setState({ statisticsData: statisticsData})
+           
+        })
     }
 
     render() {
@@ -66,8 +113,7 @@ class MainPageView extends Component {
                         <Content style={{ minHeight: '94vh' }}>
                             <TsSlider displayableContent={this.state.sliderData} autopaly='true' />
                             <CommentSection comments={this.state.commentsData} />
-                            <StatisticsSection />
-                            <Newsletter />
+                            <StatisticsSection statistics={this.state.statisticsData} />
                         </Content>
                     </Layout >
                     <TsFooter />

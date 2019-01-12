@@ -10,13 +10,21 @@ const TsDisplayer = (props) => {
     imgSrc = require(`./../../assets/displayer/${props.image.name}.${props.image.type || 'png'}`);
   }
 
+  const colors = [
+    { color: '#F2BE54'},
+    { color: '#F0D9CF' },
+    { color: '#87AEB4' },
+    { color: '#159D5C'}
+  ]
+  
+
   return (
     <>
      
       <div className={classes.DisplayerBox} >
       <Link to={props.path || 'home'}>
-        <div className={classes.InnerWrapper}>
-            <img className={classes.InnerWrapperImage} src={imgSrc} alt=""/>
+          <div className={classes.InnerWrapper}  >
+            <img className={classes.InnerWrapperImage} src={imgSrc} style={{ background: colors[Math.floor(Math.random() * (+colors.length))].color }}alt=""/>
             <div className={classes.childComponent}>
               {props.children}
             </div>

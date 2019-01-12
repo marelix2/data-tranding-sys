@@ -56,6 +56,7 @@ require('./api/models/Tag');
 require('./api/models/Role');
 require('./api/models/User');
 require('./api/models/Wallet');
+require('./api/models/Feedback');
 require('./api/models/BoughtData');
 require('./api/models/SoldData');
 require('./api/models/ProgressEmail');

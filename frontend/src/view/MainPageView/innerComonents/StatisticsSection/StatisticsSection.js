@@ -1,103 +1,66 @@
-import React, { Component } from 'react';
+
 import TsHeaderTitle from '../../../../components/TsHeaderTitle/TsHeaderTitle';
-import { Row, Col } from 'antd';
-import classes from './StatisticsSection.module.css';
+import { Row, Col, Divider } from 'antd';
 import chart from './../../../../assets/chart/chart_mockup.png';
 import TsInfoCard from './../../../../components/TsInfoCard/TsInfoCard';
+import PieChart from 'react-minimal-pie-chart';
 
-class StatisticsSection extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            statisticsData: [
-                {
-                    icon: 'stop',
-                    iconColor: '#eb2f96',
-                    title: 'Super title',
-                    numbers: 12345678,
-                    comment: 'some data'
-                },
-                {
-                    icon: 'smile',
-                    iconColor: '#eb2f96',
-                    title: 'Super long long long title',
-                    numbers: 12345678,
-                    comment: 'some data'
-                },
-                {
-                    icon: 'shopping',
-                    iconColor: '#eb2f96',
-                    title: 'Super title',
-                    numbers: 12345678,
-                    comment: 'some data'
-                },
-                {
-                    icon: 'shop',
-                    iconColor: '#eb2f96',
-                    title: 'Super title',
-                    numbers: 12345678,
-                    comment: 'some data'
-                },
-                {
-                    icon: 'gift',
-                    iconColor: '#eb2f96',
-                    title: 'Super title',
-                    numbers: 12345678,
-                    comment: 'some data'
-                }
-            ]
-        }
-    }
 
-    onStatisticInfoCardRender = () => {
-        return this.state.statisticsData.map((statistic, index) => {
-            return (
-                <div 
-                className={classes.statisticsSectionCard}
-                key={index}>
-                    <TsInfoCard 
-                        infoCardIcon={statistic.icon}
-                        infoCardIconColor={statistic.iconColor}
-                        infoCardTitle={statistic.title}
-                        infoCardNumbers={statistic.numbers}
-                        infoCardComment={statistic.comment} />
-                </div>
-            )
-        }
-        )
+import React from 'react';
 
-    }
+const StatisticsSection = (props) => {
 
-    render() {
+    const statistics = props.statistics.map((statistic, index) => {
         return (
-            <div className={classes.statisticSectionBackground}>
-                <Row>
-                    <Col span={12}>
-                        <Row
-                            type='flex'
-                            align='middle'
-                            className={classes.statisticSectionTitle}>
-                            <TsHeaderTitle message={'Statystyki naszych użytkowników'} textSize={72} /></Row>
-                    </Col>
-                    <Col span={6}>
-                        <Row type='flex'
-                            align='middle'
-                            className={classes.statisticSectionTitle}>
-                            <Col offset={6}>
-                                <img src={chart} alt="mockup of future donut chart"></img>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-                <Row type='flex'
-                align='middle'
-                justify='space-around'
-                >
-                    {this.onStatisticInfoCardRender()}
-                </Row>
-            </div>
-        );
-    }
-}
+            <Col offset={1} span={5}
+                key={index}>
+                <TsInfoCard
+                    infoCardIcon={statistic.icon}
+                    infoCardIconColor={statistic.iconColor}
+                    infoCardTitle={statistic.title}
+                    infoCardNumbers={statistic.numbers}
+                    infoCardComment={statistic.comment} />
+            </Col>
+        )})
+
+   
+    const stats = props.statistics.map( stats => stats.numbers);
+    console.log(stats);
+    return (
+        <div>
+            <Row>
+                <Col><Divider></Divider></Col>
+                <Col  offset={2} span={10}>
+                        <TsHeaderTitle message={'Statystyki strony'} textSize={96} />
+                        <TsHeaderTitle message={'Prezentacja danych'} textSize={36} /> 
+                </Col>
+                
+                <Col offset={2}span={6}>
+                    <Row >
+                        <Col offset={6}>
+                            <PieChart
+                                data={[
+                                    { title: 'One', value: stats[0], color: '#E38627' },
+                                    { title: 'Two', value: stats[1], color: '#C13C37' },
+                                    { title: 'Three', value: stats[2], color: '#6A2135' },
+                                    { title: 'Three', value: stats[3], color: '#123455' },
+                                ]}
+                            />
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+            <Col>
+                <Divider></Divider>
+            </Col>
+            <Row gutter={18}>
+                {statistics}
+            </Row>
+            <Col>
+                <Divider></Divider>
+            </Col>
+        </div>
+    );
+};
 
 export default StatisticsSection;

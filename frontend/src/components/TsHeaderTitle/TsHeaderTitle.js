@@ -13,7 +13,7 @@ constructor(props){
 
     render() {
         return (
-            <div>
+            <div className={classes.Wrapper}>
                 <p className={classes.headerMessage} style={{fontSize:this.state.textSize}}>{this.state.message}</p>
             </div>
         );
