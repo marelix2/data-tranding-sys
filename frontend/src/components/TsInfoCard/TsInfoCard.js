@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Row, Col, Icon } from 'antd';
-import clasess from './TsInfoCard.module.css';
-
 class TsInfoCard extends Component {
 
     constructor(props) {
@@ -18,19 +16,41 @@ class TsInfoCard extends Component {
 
     render() {
         return (
-            <div>
-                <Row
-                type="flex"
-                justify='center'
-                align='center'
-                className={clasess.infoCardWrapper}>
-                    <Col >
-                    <div className={clasess.infoCardTitle}>{this.state.title}</div>
-                    <div className={clasess.infoCardNumbers}> <Icon type={this.state.icon} theme='twoTone' twoToneColor={this.state.iconColor}/> {this.state.numbers} </div>
-                    <div className={clasess.infoCardComment}>{this.state.comment}</div>
+            <Row>
+                <Col offset={4}span={16}>
+                <Row gutter={16}>
+                    <Col offset={1}
+                        span={10}>
+                        <Icon type={this.state.icon}
+                            theme='twoTone'
+                            twoToneColor={this.state.iconColor}
+                            style={{ fontSize: '4em' }} />
+                    </Col>
+                    <Col span={10}
+                        style={{
+                            fontSize: '3.5em',
+                            lineHeight: '1.2em',
+                        }}>
+                        {this.state.numbers}
                     </Col>
                 </Row>
-            </div>
+                <Row gutter={16}>
+                    <Col
+                     offset={3}
+                     span={18}
+                     style={{
+                         marginTop: '0.5em'
+                     }}>
+                        <h2>{this.state.title}</h2>
+                    </Col>
+                        <Col offset={3}
+                            span={12}
+                            style={{textAlign: 'center'}}>
+                        {this.state.comment}
+                    </Col>
+                </Row>
+            </Col>
+            </Row>
         );
     }
 }

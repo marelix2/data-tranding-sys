@@ -10,7 +10,8 @@ const SoldDataModel = require('./../api/models/SoldData');
 const BoughtDataModel = require('./../api/models/BoughtData');
 const ProgressEmailModel = require('./../api/models/ProgressEmail');
 const TagValueModel = require('./../api/models/TagValue');
-const { filter, includes } = require('lodash');
+const FeedbackModel = require('./../api/models/Feedback');
+const { filter } = require('lodash');
 
 const Mocks = require('./mocks');
 const images = require('./images');
@@ -23,6 +24,7 @@ const initData = async () => {
         await insertUser();
         const users = await UserModel.findAll();
         await loadWallet(users);
+        await loadComments(users);
         await loadCategories();
         await loadDescriptions();
         await loadTags();
@@ -82,6 +84,28 @@ const loadRoles = async () => {
         { name: 'User' },
         { name: 'Admin' }
     ])
+}
+
+const loadComments = async (user) => {
+    const users = await UserModel.findAll();
+    console.log(user[0]);
+    await FeedbackModel.create({
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus varius, odio nec convallis dignissim, nulla leo hendrerit est, molestie pulvinar magna nulla non urna. Nulla suscipit ornare nisi vel laoreet. Morbi ut venenatis risus. Integer faucibus laoreet iaculis. '
+    }).then(async (res) => {
+        await user[0].addFeedback(res);
+    })
+
+    await FeedbackModel.create({
+        description: 'Integer volutpat sem sapien, vel molestie nulla venenatis et. Integer vitae lobortis nibh, et lacinia eros. Phasellus molestie eros quis congue sagittis.'
+    }).then(async (res) => {
+        await user[0].addFeedback(res);
+    })
+
+    await FeedbackModel.create({
+        description: 'Maecenas est erat, ultricies a fermentum ut, lacinia et est. Etiam at finibus purus, consectetur lacinia dui. Nullam vel placerat metus.'
+    }).then(async (res) => {
+        await user[0].addFeedback(res);
+    })
 }
 
 const loadCategories = async () => {
