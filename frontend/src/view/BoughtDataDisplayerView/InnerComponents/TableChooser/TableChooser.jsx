@@ -11,7 +11,7 @@ const TableChooser = (props) => {
           <p> {props.emailRows || 0} wykupionych</p>
         </TsDisplayer>
         <h1> Której kategorii szukasz? </h1>
-        <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.path}/companies`}>
+        <TsDisplayer image={{ name: 'company', type: 'png' }} path={`${props.path}/companies`}>
           <h3> {'Firmy'}</h3>
           <p> {props.companyRows || 0} wykupionych</p>
         </TsDisplayer>
