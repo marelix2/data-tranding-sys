@@ -31,12 +31,10 @@ const CsvController = () => {
                 await csvWriter.writeRecords(data);
                    
             });
-
+            
             const filePath = 'db/files/file.csv';
             res.setHeader("Content-Type","text/csv");
-            //res.setHeader("Content-Disposition", "attachment; filename=file.csv");
-            console.log(__dirname)
-            res.download(filePath,'file.csv' );
+            res.download(filePath,'file.csv');
             
         } catch (error) {
             return res.status(BAD_REQUEST).json(new ErrorDTO(BAD_REQUEST, `something went wrong: ${error}`));

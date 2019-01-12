@@ -5,6 +5,7 @@ import RecentlyViewedCategories from './innerComponents/RecentlyViewedCategories
 import { Col, Row, Button } from 'antd';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
+import { saveAs } from 'file-saver';
 
 class HomeView extends Component {
     constructor(props) {
@@ -44,12 +45,6 @@ class HomeView extends Component {
         })
     }
 
-    handleClick = () => {
-        axios.get(Api.GET_FILE).then((response) => {
-            window.open(`http://localhost:6969/api${Api.GET_FILE}`);
-        })
-    }
-
     render() {
         return (
             <div className={classes.HomeViewWrapper}>
@@ -59,10 +54,6 @@ class HomeView extends Component {
                     </Col>
                     <Col span={8}>
                         <CurrentValue value={this.state.walletValue}/>
-                    </Col>
-
-                    <Col offset={12} span={12}>
-                        <Button onClick={this.handleClick} >Kliknij mnie </Button>
                     </Col>
                 </Row>
                 

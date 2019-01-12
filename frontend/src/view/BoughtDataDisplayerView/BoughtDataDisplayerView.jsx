@@ -9,6 +9,7 @@ import axios from './../../axiosAPI';
 import Api from './../../endpoints';
 import { getPathFromUrl } from './../../utils';
 import {filter} from 'lodash';
+import { saveAs} from 'file-saver';
 class BoughtDataDisplayerView extends Component {
     constructor(props) {
         super(props);
@@ -93,6 +94,15 @@ class BoughtDataDisplayerView extends Component {
         })
     }
 
+    downloadHandler = (tableName) => {
+        axios.get(Api.DOWNLOAD_BOUGHT_TABLE, { params: { tableName: tableName}}).then((response) => {
+            const filename = `${tableName}_data.csv`;
+            const file = new Blob([response.data], { type: 'text/csv' });
+
+            saveAs(file, filename, { autoBOM: true });
+        })
+    }
+
     render() {
         return (
             <>
@@ -109,7 +119,9 @@ class BoughtDataDisplayerView extends Component {
                             <Col offset={1} span={22} className={classes.ContentWrapper}>
                                 <TsTable
                                     header={this.state.header}
-                                    rows={this.state.data} />
+                                    rows={this.state.data}
+                                    downloadHandler={this.downloadHandler}
+                                     />
                             </Col>)
                     }
                     } />
