@@ -14,7 +14,7 @@ const BranchChooser = (props) => {
                     <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.pathUrl}/emails`}>
                          {props.emailCategoryChildren}
                     </TsDisplayer>
-                    <TsDisplayer image={{ name: 'letter', type: 'png' }} path={`${props.pathUrl}/companies`}>
+                    <TsDisplayer image={{ name: 'company', type: 'png' }} path={`${props.pathUrl}/companies`}>
                         {props.companyCategoryChildren}
                     </TsDisplayer>
                 </div>

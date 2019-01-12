@@ -6,6 +6,7 @@ import { Row, Col, Divider } from 'antd';
 import classes from './WalletView.module.css';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
+import moment from 'moment';
 class WalletView extends Component {
 
     constructor(props) {
@@ -70,7 +71,7 @@ class WalletView extends Component {
                         width: '4'
                     },
                     {
-                        value: row.createdAt,
+                        value: moment(row.createdAt).format("YYYY-DD-MM"),
                         width: '4'
                     }
                 ])

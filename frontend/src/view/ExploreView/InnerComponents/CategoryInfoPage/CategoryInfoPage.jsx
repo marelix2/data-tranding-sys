@@ -8,7 +8,7 @@ import TsTable from './../../../../components/TsTable/TsTable';
 import { upperFirst, filter } from 'lodash';
 import classes from './CategoryInfoPage.module.css';
 import StepTitle from './../../../../components/StepTitle/StepTitle';
-
+import moment from 'moment';
 class CategoryInfoPage extends PureComponent  {
     constructor(props) {
         super(props);
@@ -118,7 +118,7 @@ class CategoryInfoPage extends PureComponent  {
                             width: '7'
                         },
                         {
-                            value: row.createdAt,
+                            value: moment(row.createdAt).format("YYYY-DD-MM"),
                             width: '4'
                         }]
                 })
@@ -136,7 +136,7 @@ class CategoryInfoPage extends PureComponent  {
                             width: '7'
                         },
                         {
-                            value: row.createdAt,
+                            value: moment(row.createdAt).format("YYYY-DD-MM"),
                             width: '4'
                         },
                         {

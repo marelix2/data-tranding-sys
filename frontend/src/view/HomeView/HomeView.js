@@ -5,7 +5,9 @@ import RecentlyViewedCategories from './innerComponents/RecentlyViewedCategories
 import { Col, Row, Button } from 'antd';
 import axios from './../../axiosAPI';
 import Api from './../../endpoints';
+import moment from 'moment';
 import { saveAs } from 'file-saver';
+
 
 class HomeView extends Component {
     constructor(props) {
@@ -35,7 +37,7 @@ class HomeView extends Component {
                 return ({
                     categoryName: tag.name,
                     dataToDisplay: {
-                        date: tag.updatedAt
+                        date: moment(tag.createdAt).format("YYYY-DD-MM")
                     },
                     path: tag.path
                 })

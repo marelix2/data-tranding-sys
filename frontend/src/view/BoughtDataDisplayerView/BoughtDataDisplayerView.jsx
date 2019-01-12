@@ -9,7 +9,9 @@ import axios from './../../axiosAPI';
 import Api from './../../endpoints';
 import { getPathFromUrl } from './../../utils';
 import {filter} from 'lodash';
+import moment from 'moment'
 import { saveAs} from 'file-saver';
+
 class BoughtDataDisplayerView extends Component {
     constructor(props) {
         super(props);
@@ -54,7 +56,7 @@ class BoughtDataDisplayerView extends Component {
                             width: '7'
                         },
                         {
-                            value: row.createdAt,
+                            value: moment(row.createdAt).format("YYYY-DD-MM"),
                             width: '4'
                         }
                     ])
@@ -75,7 +77,7 @@ class BoughtDataDisplayerView extends Component {
                             width: '7'
                         },
                         {
-                            value: row.createdAt,
+                            value: moment(row.createdAt).format("YYYY-DD-MM"),
                             width: '4'
                         }
                     ])
